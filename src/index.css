@@ -5,4 +5,14 @@
 @theme {
     --font-inter: "Inter", sans-serif;
     --font-sansation: "Sansation", sans-serif;
+    --color-bg-dark: #000; /*#2c2738*/
+    --color-accent: #6f55b5;
+    --color-primary: #fcfdff;
+    --color-secondary: #888794;
+    --color-card: #1f2028; /*#3e3a4d*/
+    --color-field: #323743;
+}
+
+body {
+    font-family: "Inter", sans-serif;
 }

@@ -1,14 +1,11 @@
 import React from "react"
 import { Link } from "react-router-dom"
+import Logo from "../components/Logo"
 
 const Dashboard = () => {
     return (
         <div className=''>
-            <h1 className='text-8xl font-black text-center'>Elvox</h1>
-            <Link to='/login'>Login</Link>
-            <br />
-            <br />
-            <Link to='/signup'>Sign Up</Link>
+            <Logo />
         </div>
     )
 }
