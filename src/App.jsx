@@ -12,7 +12,7 @@ const App = () => {
 
     return (
         <BrowserRouter>
-            <Suspense fallback={<FullScreenLoader />}>
+            <Suspense fallback={<FullScreenLoader suspense />}>
                 <Routes>
                     <Route
                         path='/login'

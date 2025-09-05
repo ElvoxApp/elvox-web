@@ -1,8 +1,12 @@
 import Loader from "./Loader"
 
-const FullScreenLoader = () => {
+const FullScreenLoader = ({ suspense }) => {
     return (
-        <div className='flex justify-center items-center z-50 inset-0 bg-bg-dark/70 fixed'>
+        <div
+            className={`flex justify-center items-center z-50 inset-0 ${
+                suspense ? "bg-bg-dark" : "bg-bg-dark/70"
+            } fixed`}
+        >
             <Loader />
         </div>
     )
