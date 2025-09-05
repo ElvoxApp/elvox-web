@@ -5,7 +5,7 @@ const Loader = () => {
             <img
                 src={logo}
                 alt='logo'
-                width={80}
+                width={60}
                 className='rotate-center'
             />
         </div>

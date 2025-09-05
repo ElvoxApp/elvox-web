@@ -45,3 +45,9 @@ body {
         transform: rotate(360deg);
     }
 }
+
+input:-webkit-autofill {
+    -webkit-box-shadow: 0 0 0px 1000px var(--color-bg-field) inset;
+    -webkit-text-fill-color: var(--color-primary);
+    transition: background-color 5000s ease-in-out;
+}
