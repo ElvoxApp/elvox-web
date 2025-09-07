@@ -2,6 +2,7 @@ import { Link, useNavigate } from "react-router-dom"
 import { useForm } from "react-hook-form"
 import Button from "../components/Button"
 import axios from "axios"
+import Input from "./Input"
 
 const API_URL = import.meta.env.VITE_API_URL
 
@@ -47,7 +48,7 @@ const LoginForm = ({ setIsLoading }) => {
     return (
         <form
             onSubmit={handleSubmit(onSubmit)}
-            className='flex flex-col gap-6 w-full text-sm my-auto mb-20'
+            className='flex flex-col gap-6 w-full text-sm'
         >
             <div className='flex flex-col gap-2'>
                 <label
@@ -56,17 +57,15 @@ const LoginForm = ({ setIsLoading }) => {
                 >
                     Email or Phone
                 </label>
-                <input
+                <Input
                     type='text'
                     id='eop'
-                    defaultValue='johndoe@example.com'
-                    className={`outline-none border-none bg-field rounded-md w-full h-11 p-3 text-primary placeholder:text-secondary active:bg-field ${
-                        !errors.eop
-                            ? "focus:border-accent focus:ring-2 focus:ring-accent"
-                            : ""
-                    } ${errors.eop ? "ring-2 ring-red-400" : ""}`}
                     placeholder='Enter your email or phone'
-                    {...register("eop", { validate: validateEmailOrPhone })}
+                    defaultValue='johndoe@example.com'
+                    register={register}
+                    errors={errors}
+                    rules={validateEmailOrPhone}
+                    key='eop'
                 />
                 {errors.eop && (
                     <p className='text-xs text-red-500 mt-1 font-medium'>
@@ -76,29 +75,28 @@ const LoginForm = ({ setIsLoading }) => {
             </div>
             <div className='flex flex-col gap-2'>
                 <label
-                    htmlFor='pass'
+                    htmlFor='password'
                     className='text-primary'
                 >
                     Password
                 </label>
-                <input
+                <Input
                     type='password'
                     id='password'
                     defaultValue='password'
-                    className={`outline-none border-none bg-field rounded-md w-full h-11 p-3 text-primary placeholder:text-secondary ${
-                        !errors.password
-                            ? "focus:border-accent focus:ring-2 focus:ring-accent"
-                            : ""
-                    } ${errors.password ? "ring-2 ring-red-400" : ""}`}
                     placeholder='Enter your password'
-                    {...register("password", {
+                    register={register}
+                    errors={errors}
+                    rules={{
                         required: "Password is required",
                         minLength: {
                             value: 8,
                             message: "At least 8 characters"
                         }
-                    })}
+                    }}
+                    key='password'
                 />
+
                 {errors.password && (
                     <p className='text-xs text-red-500 mt-1 font-medium'>
                         {errors.password.message}
@@ -108,7 +106,7 @@ const LoginForm = ({ setIsLoading }) => {
             <div className='pt-2'>
                 <Button
                     text='Login'
-                    className='w-full h-11 text-sm'
+                    className='w-full h-11 text-sm bg-accent hover:bg-button-hover'
                     type='submit'
                 />
             </div>
