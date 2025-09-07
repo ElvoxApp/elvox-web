@@ -1,4 +1,3 @@
-// ReusableInput.jsx
 const Input = ({
     type = "text",
     id,
@@ -29,4 +28,3 @@ const Input = ({
     )
 }
 export default Input
-//{...register("eop", { validate: validateEmailOrPhone })}
