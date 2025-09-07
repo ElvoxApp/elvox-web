@@ -5,13 +5,15 @@
 @theme {
     --font-inter: "Inter", sans-serif;
     --font-sansation: "Sansation", sans-serif;
-    --color-bg-dark: #000; /*#2c2738*/
+    --color-bg-dark: #000000;
     --color-accent: #6f55b5;
     --color-primary: #fcfdff;
     --color-secondary: #888794;
-    --color-card: #1f2028; /*#3e3a4d*/
+    --color-card: #1f2028;
     --color-field: #323743;
+    --color-secondary-button: #323743;
     --color-button-hover: #5e46a0;
+    --color-secondary-button-hover: #2b303b;
     --color-link: #6950ab;
     --color-link-hover: #7c59c9;
 }
@@ -50,4 +52,16 @@ input:-webkit-autofill {
     -webkit-box-shadow: 0 0 0px 1000px var(--color-bg-field) inset;
     -webkit-text-fill-color: var(--color-primary);
     transition: background-color 5000s ease-in-out;
+}
+
+@layer utilities {
+    input[type="number"]::-webkit-inner-spin-button,
+    input[type="number"]::-webkit-outer-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
+    }
+
+    input[type="number"] {
+        -moz-appearance: textfield;
+    }
 }
