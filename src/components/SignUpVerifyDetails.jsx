@@ -1,13 +1,13 @@
 import axios from "axios"
 import { useEffect, useState } from "react"
-import { set, useFormContext } from "react-hook-form"
+import { useFormContext } from "react-hook-form"
 import Loader from "./Loader"
 import Button from "./Button"
 
 const API_URL = import.meta.env.VITE_API_URL
 
 const SignUpVerifyDetails = ({ setStep }) => {
-    const { getValues } = useFormContext()
+    const { setValue, getValues } = useFormContext()
     const [isLoading, setIsLoading] = useState(false)
     const [userData, setUserData] = useState({})
 
@@ -28,6 +28,7 @@ const SignUpVerifyDetails = ({ setStep }) => {
                 const id = role === "student" ? admno : teacherid
                 const res = await axios.get(`${API_URL}/users/${id}`)
                 setUserData(res.data)
+                setValue("user", res.data)
             } catch (error) {
                 console.error("Error fetching data:", error)
             } finally {
@@ -36,7 +37,8 @@ const SignUpVerifyDetails = ({ setStep }) => {
         }
 
         fetchData()
-    }, [setIsLoading])
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [])
 
     const labels = {
         name: "Full Name",
@@ -82,7 +84,7 @@ const SignUpVerifyDetails = ({ setStep }) => {
                     </p>
                 </div>
             )}
-            {Object.keys(userData).length === 0 && (
+            {Object.keys(userData).length === 0 && !isLoading && (
                 <p className='text-xs text-red-500 mt-1 font-medium text-center'>
                     No user found with the provided details. Please check and
                     try again.

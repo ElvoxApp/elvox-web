@@ -9,6 +9,7 @@ import {
 const SelectRole = () => {
     const {
         control,
+        clearErrors,
         formState: { errors }
     } = useFormContext()
 
@@ -23,12 +24,14 @@ const SelectRole = () => {
             <Controller
                 name='role'
                 control={control}
-                defaultValue='student' // MUST CHANGE BACK TO EMPTY STRING FOR PRODUCTION
                 rules={{ required: "Role is required" }}
                 render={({ field }) => (
                     <Select.Root
                         value={field.value}
-                        onValueChange={field.onChange}
+                        onValueChange={(val) => {
+                            field.onChange(val)
+                            clearErrors("role")
+                        }}
                     >
                         <Select.Trigger
                             id='role'
