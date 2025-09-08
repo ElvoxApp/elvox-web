@@ -3,7 +3,7 @@ import { EyeOpenIcon, EyeNoneIcon } from "@radix-ui/react-icons"
 import Button from "./Button"
 import Input from "./Input"
 import { useState } from "react"
-import ChooseOTPMethod from "./ChooseOTPMEthod"
+import ChooseOTPMethod from "./ChooseOTPMethod"
 
 const passwordRegex =
     /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/
