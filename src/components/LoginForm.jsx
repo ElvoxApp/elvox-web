@@ -17,7 +17,7 @@ const LoginForm = ({ setIsLoading }) => {
 
     const validateEmailOrPhone = (value) => {
         const emailRegex = /^\S+@\S+\.\S+$/
-        const phoneRegex = /^[0-9]{10}$/ // adjust if needed
+        const phoneRegex = /^[0-9]{10}$/
         if (!value) return "Email or phone is required"
         if (!emailRegex.test(value) && !phoneRegex.test(value)) {
             return "Enter a valid email or phone number"
@@ -61,7 +61,6 @@ const LoginForm = ({ setIsLoading }) => {
                     type='text'
                     id='eop'
                     placeholder='Enter your email or phone'
-                    defaultValue='johndoe@example.com'
                     register={register}
                     errors={errors}
                     rules={validateEmailOrPhone}
@@ -83,7 +82,6 @@ const LoginForm = ({ setIsLoading }) => {
                 <Input
                     type='password'
                     id='password'
-                    defaultValue='password'
                     placeholder='Enter your password'
                     register={register}
                     errors={errors}

@@ -1,4 +1,3 @@
-// ReusableInput.jsx
 const Input = ({
     type = "text",
     id,
@@ -6,14 +5,15 @@ const Input = ({
     defaultValue,
     register,
     errors,
-    rules
+    rules,
+    className
 }) => {
     return (
         <input
             type={type}
             id={id}
             defaultValue={defaultValue}
-            className={`outline-none border-none bg-field rounded-md w-full h-11 p-3 text-primary placeholder:text-secondary active:bg-field ${
+            className={`outline-none border-none bg-field rounded-md w-full h-11 p-3 text-primary placeholder:text-secondary active:bg-field ${className} ${
                 type === "number" ? "appearance-none" : ""
             } ${
                 !errors?.[id]
@@ -29,4 +29,3 @@ const Input = ({
     )
 }
 export default Input
-//{...register("eop", { validate: validateEmailOrPhone })}

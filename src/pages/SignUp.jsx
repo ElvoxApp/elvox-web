@@ -6,15 +6,14 @@ import FullScreenLoader from "../components/FullScreenLoader"
 import SignUpForm from "../components/SignUpForm"
 import SignUpRoleStep from "../components/SignUpRoleStep"
 import SignUpVerifyDetails from "../components/SignUpVerifyDetails"
+import SignUpEnterPassword from "../components/SignUpEnterPassword"
+import SignUpEnterOTP from "../components/SignUpEnterOTP"
 
 const SignUp = () => {
     const [isLoading, setIsLoading] = useState(false)
     const [step, setStep] = useState(1)
 
-    const methods = useForm({
-        mode: "onChange",
-        reValidateMode: "onChange"
-    })
+    const methods = useForm()
 
     const widths = {
         1: "w-1/4",
@@ -56,6 +55,12 @@ const SignUp = () => {
                                 )}
                                 {step === 2 && (
                                     <SignUpVerifyDetails setStep={setStep} />
+                                )}
+                                {step === 3 && (
+                                    <SignUpEnterPassword setStep={setStep} />
+                                )}
+                                {step === 4 && (
+                                    <SignUpEnterOTP setStep={setStep} />
                                 )}
                             </>
                         </SignUpForm>

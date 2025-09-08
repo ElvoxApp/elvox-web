@@ -11,7 +11,9 @@ const SignUpForm = ({ setIsLoading, children }) => {
     const navigate = useNavigate()
 
     // ONLY FOR DEMO PURPOSES, MUST CHANGE FOR PRODUCTION
-    const onSubmit = () => {}
+    const onSubmit = () => {
+        console.log("sign up")
+    }
     // -----------------------------------------------------------
 
     return (

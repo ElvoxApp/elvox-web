@@ -8,11 +8,11 @@ const SignUpRoleStep = ({ setStep }) => {
     const {
         register,
         trigger,
-        getValues,
+        watch,
         formState: { errors }
     } = useFormContext()
 
-    const role = getValues("role")
+    const role = watch("role")
 
     const handleNext = async () => {
         const valid = await trigger([
@@ -23,12 +23,12 @@ const SignUpRoleStep = ({ setStep }) => {
     }
 
     return (
-        <>
+        <div className='flex flex-col gap-6 w-full text-sm'>
             <SelectRole />
             {role && (
                 <div className='flex flex-col gap-2'>
                     <label
-                        htmlFor='pass'
+                        htmlFor={role === "student" ? "admno" : "teacherid"}
                         className='text-primary'
                     >
                         {role === "student" ? "Admission Number" : "Teacher ID"}
@@ -36,7 +36,6 @@ const SignUpRoleStep = ({ setStep }) => {
                     <Input
                         type='number'
                         id={role === "student" ? "admno" : "teacherid"}
-                        defaultValue='12345' // MUST CHANGE BACK TO EMPTY STRING FOR PRODUCTION
                         placeholder={
                             role === "student"
                                 ? "Enter your admission number"
@@ -79,7 +78,7 @@ const SignUpRoleStep = ({ setStep }) => {
                     Already have an account? Login
                 </Link>
             </div>
-        </>
+        </div>
     )
 }
 
