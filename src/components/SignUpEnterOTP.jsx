@@ -1,21 +1,19 @@
-import { useFormContext } from "react-hook-form"
-import Button from "./Button"
-import OTPInput from "./OTPInput"
+import { useFormContext } from 'react-hook-form'
+import Button from './Button'
+import OTPInput from './OTPInput'
 
 const SignUpEnterOTP = ({ setStep }) => {
-    const { getValues, watch } = useFormContext()
+    const { getValues, watch, clearErrors, resetField } = useFormContext()
 
-    const user = getValues("user")
-    const method = getValues("otpMethod")
-    const otp = watch("otp")
-    
-const handlePrev = () => {
-        
+    const user = getValues('user')
+    const method = getValues('otpMethod')
+    const otp = watch('otp')
+
+    const handlePrev = () => {
         clearErrors(['otp'])
-       resetField('otp')
+        resetField('otp')
         setStep((prev) => prev - 1)
     }
-    
 
     return (
         <div className='flex flex-col gap-6 w-full text-sm'>
