@@ -22,11 +22,7 @@ body {
     font-family: "Inter", sans-serif;
 }
 
-.rotate-center {
-    -webkit-animation: rotate-center 0.6s ease-in-out infinite both;
-    animation: rotate-center 0.6s ease-in-out infinite both;
-}
-
+/* LOADER SPINNING ANIMATION */
 @-webkit-keyframes rotate-center {
     0% {
         -webkit-transform: rotate(0);
@@ -48,11 +44,72 @@ body {
     }
 }
 
+.rotate-center {
+    -webkit-animation: rotate-center 0.6s ease-in-out infinite both;
+    animation: rotate-center 0.6s ease-in-out infinite both;
+}
+
+/* SHAKE ANIMATION FOR INPUT BOX, WHEN THERE IS ERROR */
+
+@-webkit-keyframes shake {
+    0% {
+        -webkit-transform: translateX(0);
+        transform: translateX(0);
+    }
+    25% {
+        -webkit-transform: translateX(-5px);
+        transform: translateX(-5px);
+    }
+    50% {
+        -webkit-transform: translateX(5px);
+        transform: translateX(5px);
+    }
+    75% {
+        -webkit-transform: translateX(-5px);
+        transform: translateX(-5px);
+    }
+    100% {
+        -webkit-transform: translateX(0);
+        transform: translateX(0);
+    }
+}
+@keyframes shake {
+    0% {
+        -webkit-transform: translateX(0);
+        transform: translateX(0);
+    }
+    25% {
+        -webkit-transform: translateX(-5px);
+        transform: translateX(-5px);
+    }
+    50% {
+        -webkit-transform: translateX(5px);
+        transform: translateX(5px);
+    }
+    75% {
+        -webkit-transform: translateX(-5px);
+        transform: translateX(-5px);
+    }
+    100% {
+        -webkit-transform: translateX(0);
+        transform: translateX(0);
+    }
+}
+
+.shake {
+    -webkit-animation: shake 0.5s ease-in-out;
+    animation: shake 0.5s ease-in-out;
+}
+
+/* FORCE CUSTOM BACKGROUND AND TEXT COLOR ON AUTOFILLED INPUTS */
+
 input:-webkit-autofill {
     -webkit-box-shadow: 0 0 0px 1000px var(--color-bg-field) inset;
     -webkit-text-fill-color: var(--color-primary);
     transition: background-color 5000s ease-in-out;
 }
+
+/* REMOVE NUMBER INPUT ARROWS/SPINNERS FOR CLEANER LOOK */
 
 @layer utilities {
     input[type="number"]::-webkit-inner-spin-button,
@@ -63,5 +120,6 @@ input:-webkit-autofill {
 
     input[type="number"] {
         -moz-appearance: textfield;
+        appearance: textfield;
     }
 }

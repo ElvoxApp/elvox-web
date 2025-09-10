@@ -20,12 +20,12 @@ const SignUpVerifyDetails = ({ setStep }) => {
 
     useEffect(() => {
         const fetchData = async () => {
-            const { role, admno, teacherid } = getValues()
-            if (!role || (!admno && !teacherid)) return
+            const { role, admno, empcode } = getValues()
+            if (!role || (!admno && !empcode)) return
 
             try {
                 setIsLoading(true)
-                const id = role === "student" ? admno : teacherid
+                const id = role === "student" ? admno : empcode
                 const res = await axios.get(`${API_URL}/users/${id}`)
                 setUserData(res.data)
                 setValue("user", res.data)
@@ -42,7 +42,10 @@ const SignUpVerifyDetails = ({ setStep }) => {
 
     const labels = {
         name: "Full Name",
-        id: getValues("role") === "student" ? "Admission Number" : "Teacher ID",
+        id:
+            getValues("role") === "student"
+                ? "Admission Number"
+                : "Employee Code",
         dept: "Department",
         sem: "Semester",
         batch: "Batch",

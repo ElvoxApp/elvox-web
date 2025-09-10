@@ -15,6 +15,8 @@ const SignUpEnterPassword = ({ setStep }) => {
         register,
         trigger,
         getValues,
+        clearErrors,
+        resetField,
         formState: { errors }
     } = useFormContext()
 
@@ -31,8 +33,10 @@ const SignUpEnterPassword = ({ setStep }) => {
             setStep((prev) => prev + 1)
         }
     }
-
     const handlePrev = () => {
+        const fields = ["password", "confirmPassword", "otpMethod"]
+        clearErrors(fields)
+        fields.forEach((field) => resetField(field))
         setStep((prev) => prev - 1)
     }
 

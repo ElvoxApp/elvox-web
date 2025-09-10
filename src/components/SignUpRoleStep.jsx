@@ -17,7 +17,7 @@ const SignUpRoleStep = ({ setStep }) => {
     const handleNext = async () => {
         const valid = await trigger([
             "role",
-            role === "student" ? "admno" : "teacherid"
+            role === "student" ? "admno" : "empcode"
         ])
         if (valid) return setStep((prev) => prev + 1)
     }
@@ -28,18 +28,20 @@ const SignUpRoleStep = ({ setStep }) => {
             {role && (
                 <div className='flex flex-col gap-2'>
                     <label
-                        htmlFor={role === "student" ? "admno" : "teacherid"}
+                        htmlFor={role === "student" ? "admno" : "empcode"}
                         className='text-primary'
                     >
-                        {role === "student" ? "Admission Number" : "Teacher ID"}
+                        {role === "student"
+                            ? "Admission Number"
+                            : "Employee Code"}
                     </label>
                     <Input
-                        type='number'
-                        id={role === "student" ? "admno" : "teacherid"}
+                        type='text'
+                        id={role === "student" ? "admno" : "empcode"}
                         placeholder={
                             role === "student"
                                 ? "Enter your admission number"
-                                : "Enter your teacher ID"
+                                : "Enter your employee code"
                         }
                         register={register}
                         errors={errors}
@@ -47,16 +49,14 @@ const SignUpRoleStep = ({ setStep }) => {
                             required:
                                 role === "student"
                                     ? "Admission number is required"
-                                    : "Teacher ID is required"
+                                    : "Employee code is required"
                         }}
-                        key='password'
                     />
-                    {errors[role === "student" ? "admno" : "teacherid"] && (
+                    {errors[role === "student" ? "admno" : "empcode"] && (
                         <p className='text-xs text-red-500 mt-1 font-medium'>
                             {
-                                errors[
-                                    role === "student" ? "admno" : "teacherid"
-                                ].message
+                                errors[role === "student" ? "admno" : "empcode"]
+                                    .message
                             }
                         </p>
                     )}

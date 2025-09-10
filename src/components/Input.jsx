@@ -16,10 +16,10 @@ const Input = ({
             className={`outline-none border-none bg-field rounded-md w-full h-11 p-3 text-primary placeholder:text-secondary active:bg-field ${className} ${
                 type === "number" ? "appearance-none" : ""
             } ${
-                !errors?.[id]
-                    ? "focus:border-accent focus:ring-2 focus:ring-accent"
-                    : ""
-            } ${errors?.[id] ? "ring-2 ring-red-400" : ""}`}
+                errors?.[id]
+                    ? "ring-2 shake ring-red-400"
+                    : "focus:border-accent focus:ring-2 focus:ring-accent"
+            }`}
             placeholder={placeholder}
             {...register(
                 id,

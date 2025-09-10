@@ -64,7 +64,6 @@ const LoginForm = ({ setIsLoading }) => {
                     register={register}
                     errors={errors}
                     rules={validateEmailOrPhone}
-                    key='eop'
                 />
                 {errors.eop && (
                     <p className='text-xs text-red-500 mt-1 font-medium'>
@@ -92,7 +91,6 @@ const LoginForm = ({ setIsLoading }) => {
                             message: "At least 8 characters"
                         }
                     }}
-                    key='password'
                 />
 
                 {errors.password && (

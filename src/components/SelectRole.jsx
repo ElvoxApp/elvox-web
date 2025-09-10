@@ -10,8 +10,21 @@ const SelectRole = () => {
     const {
         control,
         clearErrors,
+        resetField,
         formState: { errors }
     } = useFormContext()
+
+    const handleChange = (val, field) => {
+        field.onChange(val)
+        clearErrors(["role", "admno", "empcode"])
+        if (val === "student") {
+            resetField("admno")
+            resetField("empcode", { defaultValue: "" })
+        } else {
+            resetField("empcode")
+            resetField("admno", { defaultValue: "" })
+        }
+    }
 
     return (
         <div className='flex flex-col gap-2'>
@@ -28,10 +41,7 @@ const SelectRole = () => {
                 render={({ field }) => (
                     <Select.Root
                         value={field.value}
-                        onValueChange={(val) => {
-                            field.onChange(val)
-                            clearErrors("role")
-                        }}
+                        onValueChange={(val) => handleChange(val, field)}
                     >
                         <Select.Trigger
                             id='role'
