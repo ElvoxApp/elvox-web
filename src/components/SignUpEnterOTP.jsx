@@ -8,10 +8,14 @@ const SignUpEnterOTP = ({ setStep }) => {
     const user = getValues("user")
     const method = getValues("otpMethod")
     const otp = watch("otp")
-
-    const handlePrev = () => {
+    
+const handlePrev = () => {
+        
+        clearErrors(['otp'])
+       resetField('otp')
         setStep((prev) => prev - 1)
     }
+    
 
     return (
         <div className='flex flex-col gap-6 w-full text-sm'>
