@@ -4,7 +4,7 @@ import Logo from "../components/Logo"
 import Title from "../components/Title"
 import FullScreenLoader from "../components/FullScreenLoader"
 import SignUpForm from "../components/SignUpForm"
-import SignUpRoleStep from "../components/SignUpRoleStep"
+import SignUpSelectRole from "../components/SignUpSelectRole"
 import SignUpVerifyDetails from "../components/SignUpVerifyDetails"
 import SignUpEnterPassword from "../components/SignUpEnterPassword"
 import SignUpEnterOTP from "../components/SignUpEnterOTP"
@@ -51,7 +51,7 @@ const SignUp = () => {
                         <SignUpForm setIsLoading={setIsLoading}>
                             <>
                                 {step === 1 && (
-                                    <SignUpRoleStep setStep={setStep} />
+                                    <SignUpSelectRole setStep={setStep} />
                                 )}
                                 {step === 2 && (
                                     <SignUpVerifyDetails setStep={setStep} />
