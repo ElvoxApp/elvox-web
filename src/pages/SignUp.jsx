@@ -24,7 +24,7 @@ const SignUp = () => {
 
     return (
         <>
-            <div className='flex flex-col justify-center gap-10 items-center min-h-dvh w-full relative bg-bg-dark py-3'>
+            <div className='flex flex-col justify-center gap-10 items-center min-h-dvh w-full relative bg-bg-light dark:bg-bg-dark py-3'>
                 <title>Sign Up</title>
                 <div className=''>
                     <Logo
