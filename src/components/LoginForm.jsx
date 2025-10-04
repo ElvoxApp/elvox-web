@@ -3,6 +3,7 @@ import { useForm } from "react-hook-form"
 import Button from "../components/Button"
 import axios from "axios"
 import Input from "./Input"
+import { useAuthStore } from "../stores"
 
 const API_URL = import.meta.env.VITE_API_URL
 
@@ -14,6 +15,8 @@ const LoginForm = ({ setIsLoading }) => {
     } = useForm()
 
     const navigate = useNavigate()
+
+    const { login } = useAuthStore()
 
     const validateEmailOrPhone = (value) => {
         const emailRegex = /^\S+@\S+\.\S+$/
@@ -36,7 +39,10 @@ const LoginForm = ({ setIsLoading }) => {
                     (u.email === data.eop || u.phone === data.eop) &&
                     u.password === data.password
             )
-            if (user) navigate("/")
+            if (user) {
+                login(user, "demo-token")
+                navigate("/")
+            }
         } catch (error) {
             console.error("Error fetching users: ", error)
         } finally {
