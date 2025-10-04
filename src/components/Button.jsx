@@ -1,6 +1,13 @@
 import React from "react"
 
-const Button = ({ type, text, className, onClick, disabled }) => {
+const Button = ({
+    type = "button",
+    text,
+    className,
+    onClick,
+    disabled,
+    children
+}) => {
     className = disabled
         ? className.replace(/\bhover:[^\s]+|focus:[^\s]+|active:[^\s]+/g, "")
         : className
@@ -16,7 +23,7 @@ const Button = ({ type, text, className, onClick, disabled }) => {
             onClick={onClick}
             disabled={disabled}
         >
-            {text}
+            {text} {children}
         </button>
     )
 }

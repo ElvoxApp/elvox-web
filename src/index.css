@@ -2,12 +2,16 @@
 @import "@fontsource/sansation";
 @import "tailwindcss";
 
+@custom-variant dark (&:where(.dark, .dark *));
+
 @theme {
     --font-inter: "Inter", sans-serif;
     --font-sansation: "Sansation", sans-serif;
     --color-bg-dark: #000000;
+    --color-bg-light: #ede7f6;
     --color-accent: #6f55b5;
     --color-primary: #fcfdff;
+    --color-primary-light: #fcfdff;
     --color-secondary: #888794;
     --color-card: #1f2028;
     --color-field: #323743;
