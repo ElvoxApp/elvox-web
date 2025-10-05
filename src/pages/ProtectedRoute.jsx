@@ -16,7 +16,7 @@ const ProtectedRoute = () => {
         )
 
     return (
-        <div className='min-h-dvh w-full bg-bg-light dark:bg-bg-dark py-3'>
+        <div className='min-h-dvh w-full bg-bg-light dark:bg-bg-dark py-3 transition-all duration-100'>
             <Outlet />
         </div>
     )

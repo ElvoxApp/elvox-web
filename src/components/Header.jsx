@@ -19,23 +19,23 @@ const Header = ({ title }) => {
                     className='cursor-pointer'
                     onClick={() => navigate("/")}
                 />
-                <h1 className='text-lg font-semibold sm:hidden text-primary'>
+                <h1 className='text-xl font-semibold sm:hidden text-primary-light dark:text-primary-dark '>
                     {title}
                 </h1>
             </div>
             <div className='flex items-center gap-6'>
                 {theme === "dark" ? (
                     <IoSunnyOutline
-                        className='text-secondary text-xl cursor-pointer'
+                        className='text-primary-light dark:text-primary-dark text-xl cursor-pointer'
                         onClick={toggleTheme}
                     />
                 ) : (
                     <IoMoonOutline
-                        className='text-secondary text-xl cursor-pointer'
+                        className='text-primary-light dark:text-primary-dark text-xl cursor-pointer'
                         onClick={toggleTheme}
                     />
                 )}
-                <HiOutlineBell className='text-secondary text-xl cursor-pointer' />
+                <HiOutlineBell className='text-primary-light dark:text-primary-dark text-xl cursor-pointer' />
                 <img
                     src={user?.avatar}
                     width={40}

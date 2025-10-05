@@ -30,7 +30,7 @@ const SelectRole = () => {
         <div className='flex flex-col gap-2'>
             <label
                 htmlFor='role'
-                className='text-primary'
+                className='text-primary-light dark:text-secondary-dark'
             >
                 Role
             </label>
@@ -45,7 +45,7 @@ const SelectRole = () => {
                     >
                         <Select.Trigger
                             id='role'
-                            className={`flex items-center justify-between w-full h-11 rounded-md px-3 text-sm outline-none bg-field text-primary border-none focus:ring-2 focus:ring-accent cursor-pointer x ${
+                            className={`flex items-center justify-between w-full h-11 rounded-md px-3 text-sm outline-none bg-field-light dark:bg-field-dark  text-primary-light dark:text-primary-dark border-none focus:ring-2 focus:ring-accent cursor-pointer x ${
                                 errors.role ? "ring-2 ring-red-400" : ""
                             }`}
                         >
@@ -56,7 +56,7 @@ const SelectRole = () => {
                         </Select.Trigger>
 
                         <Select.Portal>
-                            <Select.Content className='rounded-md bg-field text-primary shadow-md border overflow-hidden'>
+                            <Select.Content className='rounded-md bg-field-light dark:bg-field-dark  text-primary-light dark:text-primary-dark shadow-md border overflow-hidden'>
                                 <Select.ScrollUpButton className='flex items-center justify-center p-1'>
                                     <ChevronUpIcon />
                                 </Select.ScrollUpButton>
@@ -64,7 +64,7 @@ const SelectRole = () => {
                                 <Select.Viewport className='p-2'>
                                     <Select.Item
                                         value='student'
-                                        className='cursor-pointer px-2 py-1 rounded flex items-center justify-between hover:bg-accent outline-none'
+                                        className='cursor-pointer px-2 py-1 rounded flex items-center justify-between hover:bg-accent hover:text-primary-dark outline-none'
                                     >
                                         <Select.ItemText>
                                             Student
@@ -75,7 +75,7 @@ const SelectRole = () => {
                                     </Select.Item>
                                     <Select.Item
                                         value='teacher'
-                                        className='cursor-pointer px-2 py-1 flex justify-between items-center rounded hover:bg-accent outline-none'
+                                        className='cursor-pointer px-2 py-1 flex justify-between items-center rounded hover:bg-accent hover:text-primary-dark outline-none'
                                     >
                                         <Select.ItemText>
                                             Teacher

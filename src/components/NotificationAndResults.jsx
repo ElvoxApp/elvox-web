@@ -35,7 +35,7 @@ const NotificationAndResults = () => {
     /* ------------------------------------ */
 
     return (
-        <div className='flex flex-col w-full gap-3 px-3 py-4 rounded-md bg-card min-h-52'>
+        <div className='flex flex-col w-full gap-3 px-3 py-4 rounded-md bg-card-light dark:bg-card-dark min-h-52 shadow-lg transition-all duration-100'>
             <div className='flex items-center gap-2'>
                 <Button
                     className={`p-2 flex-1 ${
@@ -69,7 +69,7 @@ const NotificationAndResults = () => {
                 </div>
             ) : (
                 activeTab === "notifications" && (
-                    <div className='flex items-center justify-center text-primary text-base py-10'>
+                    <div className='flex items-center justify-center text-primary-light dark:text-primary-dark text-base py-10'>
                         <p>No notifications to show!</p>
                     </div>
                 )
@@ -85,7 +85,7 @@ const NotificationAndResults = () => {
                 </div>
             ) : (
                 activeTab === "results" && (
-                    <div className='flex items-center justify-center text-primary text-base py-10'>
+                    <div className='flex items-center justify-center text-primary-light dark:text-primary-dark text-base py-10'>
                         <p>No results to show!</p>
                     </div>
                 )

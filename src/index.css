@@ -10,14 +10,18 @@
     --color-bg-dark: #000000;
     --color-bg-light: #ede7f6;
     --color-accent: #6f55b5;
-    --color-primary: #fcfdff;
-    --color-primary-light: #fcfdff;
-    --color-secondary: #888794;
-    --color-card: #1f2028;
-    --color-field: #323743;
-    --color-secondary-button: #323743;
+    --color-primary-dark: #fcfdff;
+    --color-primary-light: #000000;
+    --color-secondary-dark: #888794;
+    --color-secondary-light: #6b6b7b;
+    --color-card-dark: #1f2028;
+    --color-card-light: #ffffff;
+    --color-field-dark: #323743;
+    --color-field-light: #d1d1d6;
     --color-button-hover: #5e46a0;
+    --color-secondary-button: #323743;
     --color-secondary-button-hover: #2b303b;
+    --color-secondary-button-hover-light: #bbbbc3;
     --color-link: #6950ab;
     --color-link-hover: #7c59c9;
 }
@@ -105,13 +109,31 @@ body {
     animation: shake 0.5s ease-in-out;
 }
 
-/* FORCE CUSTOM BACKGROUND AND TEXT COLOR ON AUTOFILLED INPUTS */
+/* CURSOR COLOR */
+input,
+textarea {
+    caret-color: #000;
+}
 
+.dark input,
+.dark textarea {
+    caret-color: #fff;
+}
+/* ------------------------------- */
+
+/* FORCE CUSTOM BACKGROUND AND TEXT COLOR ON AUTOFILLED INPUTS */
 input:-webkit-autofill {
-    -webkit-box-shadow: 0 0 0px 1000px var(--color-bg-field) inset;
-    -webkit-text-fill-color: var(--color-primary);
+    -webkit-box-shadow: 0 0 0px 1000px var(--color-field-light) inset;
+    -webkit-text-fill-color: var(--color-primary-light);
     transition: background-color 5000s ease-in-out;
 }
+
+.dark input:-webkit-autofill {
+    -webkit-box-shadow: 0 0 0px 1000px var(--color-field-dark) inset;
+    -webkit-text-fill-color: var(--color-primary-dark);
+    transition: background-color 5000s ease-in-out;
+}
+/* --------------------------------- */
 
 /* REMOVE NUMBER INPUT ARROWS/SPINNERS FOR CLEANER LOOK */
 

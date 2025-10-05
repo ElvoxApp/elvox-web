@@ -15,8 +15,8 @@ const Notification = ({ notification }) => {
         <div
             className={`flex items-center gap-3 p-3 rounded-md ${
                 notification?.id % 2 === 0
-                    ? "bg-[#16171d]"
-                    : "dark:bg-bg-dark bg-bg-light"
+                    ? "dark:bg-[#16171d] bg-[#c4c9d4] text-primary-light dark:text-primary-dark"
+                    : "dark:bg-bg-dark bg-bg-light text-primary-light dark:text-primary-dark"
             }`}
         >
             <div>
@@ -30,7 +30,7 @@ const Notification = ({ notification }) => {
                     <IoMdCheckmarkCircleOutline className='text-green-500 text-xl' />
                 )}
             </div>
-            <div className='flex flex-col gap-0.5 text-primary'>
+            <div className='flex flex-col gap-0.5'>
                 <p>{notification?.message}</p>
                 <p className='text-xs text-secondary'>
                     {timeAgo(notification?.createdAt)}
