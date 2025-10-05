@@ -29,7 +29,7 @@ const SignUpRoleStep = ({ setStep }) => {
                 <div className='flex flex-col gap-2'>
                     <label
                         htmlFor={role === "student" ? "admno" : "empcode"}
-                        className='text-primary'
+                        className='text-primary-light dark:text-primary-dark'
                     >
                         {role === "student"
                             ? "Admission Number"

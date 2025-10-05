@@ -59,7 +59,7 @@ const LoginForm = ({ setIsLoading }) => {
             <div className='flex flex-col gap-2'>
                 <label
                     htmlFor='eop'
-                    className='text-primary'
+                    className='text-primary-light dark:text-primary-dark'
                 >
                     Email or Phone
                 </label>
@@ -80,7 +80,7 @@ const LoginForm = ({ setIsLoading }) => {
             <div className='flex flex-col gap-2'>
                 <label
                     htmlFor='password'
-                    className='text-primary'
+                    className='text-primary-light dark:text-primary-dark'
                 >
                     Password
                 </label>

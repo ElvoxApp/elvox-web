@@ -39,6 +39,13 @@ const OTPInput = () => {
         }
     }
 
+    const handleBlockFocus = (e, i) => {
+        if (i > 0 && !otp[i - 1]) {
+            e.preventDefault()
+            inputsRef.current.find((_, index) => otp[index] === "")?.focus()
+        }
+    }
+
     useEffect(() => {
         const finalOtp = otp.join("")
         setValue("otp", finalOtp)
@@ -57,8 +64,10 @@ const OTPInput = () => {
                     onChange={(e) => handleChange(e, i)}
                     onKeyDown={(e) => handleKeyDown(e, i)}
                     onPaste={(e) => handlePaste(e, i)}
+                    onMouseDown={(e) => handleBlockFocus(e, i)}
+                    onTouchStart={(e) => handleBlockFocus(e, i)}
                     ref={(el) => (inputsRef.current[i] = el)}
-                    className={`outline-none border-secondary border-2 bg-field rounded-md w-1/6 h-11 p-3 text-xl text-primary text-center active:bg-field ${
+                    className={`outline-none border-secondary border-2 bg-field-light dark:bg-field-dark rounded-md w-1/6 h-11 p-3 text-xl text-primary-light dark:text-primary-dark text-center active:bg-field-light dark:active:bg-field-dark  ${
                         !errors?.["id"]
                             ? "focus:border-accent focus:ring-2 focus:ring-accent"
                             : ""

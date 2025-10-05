@@ -17,12 +17,12 @@ const ElectionDetails = () => {
     }
     /* ----------------------------------------- */
     return (
-        <div className='flex flex-col w-full gap-2 px-4 py-4 rounded-md bg-card'>
-            <h2 className='text-lg font-bold text-left text-primary'>
+        <div className='flex flex-col w-full gap-2 px-4 py-4 rounded-md dark:bg-card-dark bg-card-light shadow-lg transition-all duration-100'>
+            <h2 className='text-lg font-bold text-left text-primary-light dark:text-primary-dark'>
                 {electionDetails.title}
             </h2>
-            <p className='flex items-center gap-3 text-secondary'>
-                <LuActivity className='text-secondary' />
+            <p className='flex items-center gap-1 text-secondary-light dark:text-secondary-dark'>
+                <LuActivity className='text-secondary-light dark:text-secondary-dark' />
                 <span>
                     Status:{" "}
                     <span className='text-accent'>
@@ -30,7 +30,7 @@ const ElectionDetails = () => {
                     </span>
                 </span>
             </p>
-            <div className='grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-y-5 md:gap-x-5 lg:gap-x-10 py-3 text-primary'>
+            <div className='grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-5 lg:gap-x-10 py-3 text-primary-light dark:text-primary-dark'>
                 <div className='flex flex-col gap-0.5'>
                     <p>Start Date</p>
                     <p className='flex items-center gap-2'>

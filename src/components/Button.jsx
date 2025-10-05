@@ -15,7 +15,7 @@ const Button = ({
     return (
         <button
             type={type}
-            className={`text-primary rounded-md ${className} ${
+            className={`text-primary-dark rounded-md ${className} ${
                 disabled
                     ? "opacity-50 cursor-not-allowed"
                     : "cursor-pointer active:scale-95 transition-all duration-200"

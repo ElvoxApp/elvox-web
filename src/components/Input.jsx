@@ -13,7 +13,7 @@ const Input = ({
             type={type}
             id={id}
             defaultValue={defaultValue}
-            className={`outline-none border-none bg-field rounded-md w-full h-11 p-3 text-primary placeholder:text-secondary active:bg-field ${className} ${
+            className={`outline-none border-none bg-field-light dark:bg-field-dark  rounded-md w-full h-11 p-3 text-primary-light dark:text-primary-dark placeholder:text-secondary-light dark:placeholder:text-secondary-dark active:bg-field-light dark:active:bg-field-dark  ${className} ${
                 type === "number" ? "appearance-none" : ""
             } ${
                 errors?.[id]

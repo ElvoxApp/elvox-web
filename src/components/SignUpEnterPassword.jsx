@@ -45,7 +45,7 @@ const SignUpEnterPassword = ({ setStep }) => {
             <div className='flex flex-col gap-2'>
                 <label
                     htmlFor='password'
-                    className='text-primary'
+                    className='text-primary-light dark:text-primary-dark'
                 >
                     Password
                 </label>
@@ -68,12 +68,12 @@ const SignUpEnterPassword = ({ setStep }) => {
                     />
                     {showPassword ? (
                         <EyeNoneIcon
-                            className='absolute right-3 top-1/2 -translate-y-1/2 text-primary cursor-pointer'
+                            className='absolute right-3 top-1/2 -translate-y-1/2 text-primary-light dark:text-primary-dark cursor-pointer'
                             onClick={() => setShowPassword(false)}
                         />
                     ) : (
                         <EyeOpenIcon
-                            className='absolute right-3 top-1/2 -translate-y-1/2 text-primary cursor-pointer'
+                            className='absolute right-3 top-1/2 -translate-y-1/2 text-primary-light dark:text-primary-dark cursor-pointer'
                             onClick={() => setShowPassword(true)}
                         />
                     )}
@@ -87,7 +87,7 @@ const SignUpEnterPassword = ({ setStep }) => {
             <div className='flex flex-col gap-2'>
                 <label
                     htmlFor='password-confirm'
-                    className='text-primary'
+                    className='text-primary-light dark:text-primary-dark'
                 >
                     Confirm Password
                 </label>
@@ -108,12 +108,12 @@ const SignUpEnterPassword = ({ setStep }) => {
                     />
                     {showConfirmPassword ? (
                         <EyeNoneIcon
-                            className='absolute right-3 top-1/2 -translate-y-1/2 text-primary cursor-pointer'
+                            className='absolute right-3 top-1/2 -translate-y-1/2 text-primary-light dark:text-primary-dark cursor-pointer'
                             onClick={() => setShowConfirmPassword(false)}
                         />
                     ) : (
                         <EyeOpenIcon
-                            className='absolute right-3 top-1/2 -translate-y-1/2 text-primary cursor-pointer'
+                            className='absolute right-3 top-1/2 -translate-y-1/2 text-primary-light dark:text-primary-dark cursor-pointer'
                             onClick={() => setShowConfirmPassword(true)}
                         />
                     )}

@@ -70,10 +70,10 @@ const SignUpVerifyDetails = ({ setStep }) => {
                             key={field}
                             className='flex w-full'
                         >
-                            <p className='text-secondary w-1/2'>
+                            <p className='text-secondary-light dark:text-secondary-dark w-1/2'>
                                 {labels[field]}
                             </p>
-                            <p className='text-primary w-1/2'>
+                            <p className='text-primary-light dark:text-primary-dark w-1/2'>
                                 {userData[field]}
                             </p>
                         </div>
@@ -81,7 +81,7 @@ const SignUpVerifyDetails = ({ setStep }) => {
             </div>
             {Object.keys(userData).length > 0 && (
                 <div className='flex justify-center w-full'>
-                    <p className='text-secondary text-xs text-center'>
+                    <p className='text-secondary-light dark:text-secondary-dark text-xs text-center'>
                         If these details are incorrect, please contact the
                         authorities
                     </p>
