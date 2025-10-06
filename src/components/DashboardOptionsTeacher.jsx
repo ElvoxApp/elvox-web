@@ -5,13 +5,13 @@ import { LuScroll, LuUsers } from "react-icons/lu"
 import { IoFlagOutline } from "react-icons/io5"
 import { Link } from "react-router-dom"
 
-const DashboardOptionsStudent = () => {
+const DashboardOptionsTeacher = () => {
     return (
         <div className='grid grid-cols-2 lg:grid-cols-3 gap-x-3 lg:gap-x-3 gap-y-4 lg:gap-y-2 w-full'>
             <Link to='#'>
                 <Button className='flex flex-col justify-center items-center py-5 px-2 lg:p-7 gap-1 bg-accent hover:bg-button-hover w-full'>
                     <FaRegFileAlt className='text-primary-dark text-base lg:text-lg' />
-                    <span className=''>Submit Application</span>
+                    <span className=''>Approve Applications</span>
                 </Button>
             </Link>
             <Link to='#'>
@@ -59,4 +59,4 @@ const DashboardOptionsStudent = () => {
     )
 }
 
-export default DashboardOptionsStudent
+export default DashboardOptionsTeacher

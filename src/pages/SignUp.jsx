@@ -1,4 +1,4 @@
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { FormProvider, useForm } from "react-hook-form"
 import Logo from "../components/Logo"
 import Title from "../components/Title"
@@ -8,19 +8,25 @@ import SignUpSelectRole from "../components/SignUpSelectRole"
 import SignUpVerifyDetails from "../components/SignUpVerifyDetails"
 import SignUpEnterPassword from "../components/SignUpEnterPassword"
 import SignUpEnterOTP from "../components/SignUpEnterOTP"
+import { useNavigate } from "react-router-dom"
+import { useAuthStore } from "../stores"
 
 const SignUp = () => {
     const [isLoading, setIsLoading] = useState(false)
     const [step, setStep] = useState(1)
-
+    const { isAuthenticated } = useAuthStore()
     const methods = useForm()
-
+    const navigate = useNavigate()
     const widths = {
         1: "w-1/4",
         2: "w-2/4",
         3: "w-3/4",
         4: "w-full"
     }
+
+    useEffect(() => {
+        if (isAuthenticated) navigate("/")
+    }, [isAuthenticated, navigate])
 
     return (
         <>

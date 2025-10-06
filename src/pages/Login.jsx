@@ -1,11 +1,19 @@
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import Logo from "../components/Logo"
 import Title from "../components/Title"
 import LoginForm from "../components/LoginForm"
 import FullScreenLoader from "../components/FullScreenLoader"
+import { useAuthStore } from "../stores"
+import { useNavigate } from "react-router-dom"
 
 const Login = () => {
     const [isLoading, setIsLoading] = useState(false)
+    const { isAuthenticated } = useAuthStore()
+    const navigate = useNavigate()
+
+    useEffect(() => {
+        if (isAuthenticated) navigate("/")
+    }, [isAuthenticated, navigate])
 
     return (
         <>

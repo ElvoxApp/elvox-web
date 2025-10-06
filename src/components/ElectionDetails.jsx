@@ -1,21 +1,11 @@
-import { LuActivity } from "react-icons/lu"
+import { LuActivity, LuUsers } from "react-icons/lu"
 import { FaRegCalendar } from "react-icons/fa"
-import { MdPeopleOutline } from "react-icons/md"
 import { IoMdCheckmarkCircleOutline } from "react-icons/io"
 import { LiaVoteYeaSolid } from "react-icons/lia"
+import { useElectionStore } from "../stores"
 
 const ElectionDetails = () => {
-    /* MUST CHANGE THE DETAILS OF THE ELECTION TO DATA FETCHED FROM THE DB */
-    const electionDetails = {
-        title: "College Union Election 2025",
-        status: "Voting Day (Active)",
-        start: "November 8, 2025",
-        end: "November 20, 2025",
-        totalCandidates: 45,
-        verifiedCandidates: 42,
-        eligibleVoters: 3000
-    }
-    /* ----------------------------------------- */
+    const { electionDetails } = useElectionStore()
     return (
         <div className='flex flex-col w-full gap-2 px-4 py-4 rounded-md dark:bg-card-dark bg-card-light shadow-lg transition-all duration-100'>
             <h2 className='text-lg font-bold text-left text-primary-light dark:text-primary-dark'>
@@ -52,7 +42,7 @@ const ElectionDetails = () => {
                 <div className='flex flex-col gap-0.5'>
                     <p>Total Candidates</p>
                     <p className='flex items-center gap-2'>
-                        <MdPeopleOutline className='text-accent text-base' />
+                        <LuUsers className='text-accent text-base' />
                         <span className='font-semibold'>
                             {electionDetails.totalCandidates}
                         </span>
