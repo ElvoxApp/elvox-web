@@ -32,7 +32,7 @@ const Notification = ({ notification }) => {
             </div>
             <div className='flex flex-col gap-0.5'>
                 <p>{notification?.message}</p>
-                <p className='text-xs text-secondary'>
+                <p className='text-xs text-secondary-light dark:text-secondary-dark'>
                     {timeAgo(notification?.createdAt)}
                 </p>
             </div>
