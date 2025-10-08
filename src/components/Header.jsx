@@ -6,12 +6,33 @@ import {
 import Logo from "./Logo"
 import { Link, useNavigate } from "react-router-dom"
 import { useAuthStore, useThemeStore } from "../stores"
+import ProfileMenu from "./ProfileMenu"
+import { useEffect, useRef, useState } from "react"
 
 const Header = ({ title }) => {
+    const [showProfileMenu, setShowProfileMenu] = useState(false)
+    const profileMenuRef = useRef(null)
     const navigate = useNavigate()
 
     const { user } = useAuthStore()
     const { theme, toggleTheme } = useThemeStore()
+
+    useEffect(() => {
+        const handleClickOutside = (e) => {
+            if (
+                profileMenuRef.current &&
+                !profileMenuRef.current.contains(e.target)
+            ) {
+                setShowProfileMenu(false)
+            }
+        }
+
+        window.addEventListener("pointerdown", handleClickOutside)
+
+        return () => {
+            window.removeEventListener("pointerdown", handleClickOutside)
+        }
+    }, [])
 
     return (
         <div className='flex w-full justify-between items-center'>
@@ -43,11 +64,17 @@ const Header = ({ title }) => {
                 <Link to='#'>
                     <IoNotificationsOutline className='text-primary-light dark:text-primary-dark text-xl cursor-pointer' />
                 </Link>
-                <img
-                    src={user?.avatar}
-                    width={40}
-                    className='rounded-full cursor-pointer select-none'
-                />
+                <div className='flex flex-col relative'>
+                    <img
+                        src={user?.avatar}
+                        width={40}
+                        className='rounded-full cursor-pointer select-none'
+                        onClick={() => setShowProfileMenu((prev) => !prev)}
+                    />
+                    {showProfileMenu && (
+                        <ProfileMenu profileMenuRef={profileMenuRef} />
+                    )}
+                </div>
             </div>
         </div>
     )
