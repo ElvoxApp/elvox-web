@@ -22,7 +22,7 @@ const Header = ({ title }) => {
         const handleClickOutside = (e) => {
             if (
                 profileMenuRef.current &&
-                !profileMenuRef.current.contains(e.target)
+                !profileMenuRef.current.contains(e.target) &&
                 profileRef.current &&
                 !profileRef.current.contains(e.target)
             ) {
