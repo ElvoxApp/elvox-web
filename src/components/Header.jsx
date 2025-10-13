@@ -12,6 +12,7 @@ import { useEffect, useRef, useState } from "react"
 const Header = ({ title }) => {
     const [showProfileMenu, setShowProfileMenu] = useState(false)
     const profileMenuRef = useRef(null)
+    const profileRef = useRef(null)
     const navigate = useNavigate()
 
     const { user } = useAuthStore()
@@ -22,6 +23,8 @@ const Header = ({ title }) => {
             if (
                 profileMenuRef.current &&
                 !profileMenuRef.current.contains(e.target)
+                profileRef.current &&
+                !profileRef.current.contains(e.target)
             ) {
                 setShowProfileMenu(false)
             }
@@ -70,6 +73,7 @@ const Header = ({ title }) => {
                         width={40}
                         className='rounded-full cursor-pointer select-none'
                         onClick={() => setShowProfileMenu((prev) => !prev)}
+                        ref={profileRef}
                     />
                     {showProfileMenu && (
                         <ProfileMenu profileMenuRef={profileMenuRef} />
