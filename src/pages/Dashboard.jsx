@@ -1,6 +1,3 @@
-import React from "react"
-import { Link } from "react-router-dom"
-import Header from "../components/Header"
 import ElectionDetails from "../components/ElectionDetails"
 import DashboardOptionsStudent from "../components/DashboardOptionsStudent"
 import DashboardOptionsTeacher from "../components/DashboardOptionsTeacher"
@@ -29,24 +26,21 @@ const Dashboard = () => {
     const isElectionSheduled = Object.keys(electionDetails).length > 0
 
     return (
-        <div className='flex flex-col py-3 px-4'>
+        <div className='flex flex-col px-3 py-5 sm:px-6 sm:py-6 justify-center '>
             <title>Dashboard</title>
-            <Header title='Dashboard' />
-            <div className='flex flex-col px-3 py-5 sm:px-6 sm:py-6 justify-center '>
-                <h1 className='text-2xl font-semibold max-sm:hidden text-left text-primary-light dark:text-primary-dark'>
-                    Dashboard
-                </h1>
-                <div className='flex flex-col gap-6 sm:py-4 sm:px-7 text-sm'>
-                    {isElectionSheduled ? (
-                        <>
-                            <ElectionDetails />
-                            <DashboardOptions />
-                        </>
-                    ) : (
-                        <NoActiveElection />
-                    )}
-                    <NotificationAndResults />
-                </div>
+            <h1 className='text-2xl font-semibold max-sm:hidden text-left text-primary-light dark:text-primary-dark'>
+                Dashboard
+            </h1>
+            <div className='flex flex-col gap-6 sm:py-4 sm:px-7 text-sm'>
+                {isElectionSheduled ? (
+                    <>
+                        <ElectionDetails />
+                        <DashboardOptions />
+                    </>
+                ) : (
+                    <NoActiveElection />
+                )}
+                <NotificationAndResults />
             </div>
         </div>
     )
