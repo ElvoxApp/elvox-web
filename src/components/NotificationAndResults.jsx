@@ -38,7 +38,7 @@ const NotificationAndResults = () => {
         <div className='flex flex-col w-full gap-3 px-3 py-4 rounded-md bg-card-light dark:bg-card-dark min-h-52 shadow-lg transition-all duration-100'>
             <div className='flex items-center gap-2'>
                 <Button
-                    className={`p-2 flex-1 ${
+                    className={`px-2 py-2 lg:py-3 flex-1 ${
                         activeTab === "notifications"
                             ? "bg-accent hover:bg-button-hover"
                             : "bg-secondary-button hover:bg-secondary-button-hover"
@@ -48,7 +48,7 @@ const NotificationAndResults = () => {
                     Notifications
                 </Button>
                 <Button
-                    className={`p-2 flex-1 ${
+                    className={`px-2 py-2 lg:py-3 flex-1 ${
                         activeTab === "results"
                             ? "bg-accent hover:bg-button-hover"
                             : "bg-secondary-button hover:bg-secondary-button-hover"

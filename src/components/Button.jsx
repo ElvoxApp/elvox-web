@@ -5,7 +5,7 @@ const Button = ({
     text,
     className,
     onClick,
-    disabled,
+    disabled = false,
     children
 }) => {
     className = disabled
@@ -18,7 +18,7 @@ const Button = ({
             className={`text-primary-dark rounded-md ${className} ${
                 disabled
                     ? "opacity-50 cursor-not-allowed"
-                    : "cursor-pointer active:scale-95 transition-all duration-200"
+                    : "cursor-pointer active:scale-90 transition-all duration-200"
             }`}
             onClick={onClick}
             disabled={disabled}

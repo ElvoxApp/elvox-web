@@ -26,12 +26,16 @@ const Dashboard = () => {
     const isElectionSheduled = Object.keys(electionDetails).length > 0
 
     return (
-        <div className='flex flex-col px-3 py-5 sm:px-6 sm:py-6 justify-center '>
+        <div className='flex flex-col px-3 py-5 sm:px-6 sm:py-6 flex-1'>
             <title>Dashboard</title>
             <h1 className='text-2xl font-semibold max-sm:hidden text-left text-primary-light dark:text-primary-dark'>
                 Dashboard
             </h1>
-            <div className='flex flex-col gap-6 sm:py-4 sm:px-7 text-sm'>
+            <div
+                className={`flex flex-col sm:py-4 sm:px-7 text-sm justify-evenly flex-1 ${
+                    isElectionSheduled ? "gap-6" : "gap-10"
+                }`}
+            >
                 {isElectionSheduled ? (
                     <>
                         <ElectionDetails />

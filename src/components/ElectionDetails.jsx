@@ -9,14 +9,14 @@ const ElectionDetails = () => {
     return (
         <div className='flex flex-col w-full gap-2 px-4 py-4 rounded-md dark:bg-card-dark bg-card-light shadow-lg transition-all duration-100'>
             <h2 className='text-lg font-bold text-left text-primary-light dark:text-primary-dark'>
-                {electionDetails.title}
+                {electionDetails?.title}
             </h2>
             <p className='flex items-center gap-1 text-secondary-light dark:text-secondary-dark'>
                 <LuActivity className='text-secondary-light dark:text-secondary-dark' />
                 <span>
                     Status:{" "}
                     <span className='text-accent'>
-                        {electionDetails.status}
+                        {electionDetails?.status}
                     </span>
                 </span>
             </p>
@@ -26,7 +26,7 @@ const ElectionDetails = () => {
                     <p className='flex items-center gap-2'>
                         <FaRegCalendar className='text-accent' />
                         <span className='font-semibold'>
-                            {electionDetails.start}
+                            {electionDetails?.start}
                         </span>
                     </p>
                 </div>
@@ -35,7 +35,7 @@ const ElectionDetails = () => {
                     <p className='flex items-center gap-2'>
                         <FaRegCalendar className='text-accent' />
                         <span className='font-semibold'>
-                            {electionDetails.end}
+                            {electionDetails?.end}
                         </span>
                     </p>
                 </div>
@@ -44,7 +44,7 @@ const ElectionDetails = () => {
                     <p className='flex items-center gap-2'>
                         <LuUsers className='text-accent text-base' />
                         <span className='font-semibold'>
-                            {electionDetails.totalCandidates}
+                            {electionDetails?.totalCandidates}
                         </span>
                     </p>
                 </div>
@@ -53,7 +53,7 @@ const ElectionDetails = () => {
                     <p className='flex items-center gap-2'>
                         <IoMdCheckmarkCircleOutline className='text-accent text-base' />
                         <span className='font-semibold'>
-                            {electionDetails.verifiedCandidates}
+                            {electionDetails?.verifiedCandidates}
                         </span>
                     </p>
                 </div>
@@ -62,7 +62,7 @@ const ElectionDetails = () => {
                     <p className='flex items-center gap-2'>
                         <LiaVoteYeaSolid className='text-accent text-base' />
                         <span className='font-semibold'>
-                            {electionDetails.eligibleVoters}
+                            {electionDetails?.eligibleVoters}
                         </span>
                     </p>
                 </div>
