@@ -21,8 +21,8 @@ const Nominee = ({
     /* MUST CHANGE FOR PROD USING ACTUAL API AND DB, CHECK CLASS AND EXISTING NOMINEE */
     const fetchData = async () => {
         if (!admno) return
-        if (admno === otherNomineeAdmNo) {
-            // MUST IMPLEMENT TOAST NOTIFICATION, MSG: "Nominees cannot be the same person"
+        if (admno === otherNomineeAdmNo || admno === user.id) {
+            // MUST IMPLEMENT TOAST NOTIFICATION, MSG: "Nominees cannot be the same person" AND "Candidate cannot be their own nominee"
             return
         }
 
