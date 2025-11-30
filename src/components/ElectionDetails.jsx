@@ -1,6 +1,5 @@
 import { LuActivity, LuUsers } from "react-icons/lu"
 import { FaRegCalendar } from "react-icons/fa"
-import { IoMdCheckmarkCircleOutline } from "react-icons/io"
 import { LiaVoteYeaSolid } from "react-icons/lia"
 import { useElectionStore } from "../stores"
 
@@ -20,7 +19,7 @@ const ElectionDetails = () => {
                     </span>
                 </span>
             </p>
-            <div className='grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-5 lg:gap-x-10 py-3 text-primary-light dark:text-primary-dark'>
+            <div className='grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5 lg:gap-x-10 py-3 text-primary-light dark:text-primary-dark'>
                 <div className='flex flex-col gap-0.5'>
                     <p>Start Date</p>
                     <p className='flex items-center gap-2'>
@@ -45,15 +44,6 @@ const ElectionDetails = () => {
                         <LuUsers className='text-accent text-base' />
                         <span className='font-semibold'>
                             {electionDetails?.totalCandidates}
-                        </span>
-                    </p>
-                </div>
-                <div className='flex flex-col gap-0.5'>
-                    <p>Verified Candidates</p>
-                    <p className='flex items-center gap-2'>
-                        <IoMdCheckmarkCircleOutline className='text-accent text-base' />
-                        <span className='font-semibold'>
-                            {electionDetails?.verifiedCandidates}
                         </span>
                     </p>
                 </div>

@@ -70,6 +70,7 @@ const Header = ({ title }) => {
                 <div className='flex flex-col relative'>
                     <img
                         src={user?.avatar}
+                        alt={user?.name}
                         width={40}
                         className='rounded-full cursor-pointer select-none'
                         onClick={() => setShowProfileMenu((prev) => !prev)}

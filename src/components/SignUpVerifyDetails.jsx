@@ -11,6 +11,8 @@ const SignUpVerifyDetails = ({ setStep }) => {
     const [isLoading, setIsLoading] = useState(false)
     const [userData, setUserData] = useState({})
 
+    const role = getValues("role")
+
     const handleNext = async () => {
         setStep((prev) => prev + 1)
     }
@@ -18,9 +20,11 @@ const SignUpVerifyDetails = ({ setStep }) => {
         setStep((prev) => prev - 1)
     }
 
+    /* MUST CHANGE FOR PROD USING ACTUAL API AND DB FOR BOTH STUDENTS AND FACULTY */
+
     useEffect(() => {
         const fetchData = async () => {
-            const { role, admno, empcode } = getValues()
+            const { admno, empcode } = getValues()
             if (!role || (!admno && !empcode)) return
 
             try {
@@ -40,20 +44,23 @@ const SignUpVerifyDetails = ({ setStep }) => {
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
+    /* ---------------------------------------------- */
+
     const labels = {
         name: "Full Name",
-        id:
-            getValues("role") === "student"
-                ? "Admission Number"
-                : "Employee Code",
+        id: role === "student" ? "Admission Number" : "Employee Code",
         dept: "Department",
+        class: "Class",
         sem: "Semester",
         batch: "Batch",
         email: "Email",
         phone: "Phone"
     }
 
-    const fields = ["name", "id", "dept", "sem", "batch", "email", "phone"]
+    const fields =
+        role === "student"
+            ? ["name", "id", "dept", "class", "sem", "batch", "email", "phone"]
+            : ["name", "id", "dept", "email", "phone"]
 
     if (isLoading)
         return (
@@ -74,7 +81,9 @@ const SignUpVerifyDetails = ({ setStep }) => {
                                 {labels[field]}
                             </p>
                             <p className='text-primary-light dark:text-primary-dark w-1/2'>
-                                {userData[field]}
+                                {field === "phone"
+                                    ? `+91 ${userData[field]}`
+                                    : userData[field]}
                             </p>
                         </div>
                     ))}
