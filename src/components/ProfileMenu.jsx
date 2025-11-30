@@ -13,6 +13,7 @@ const ProfileMenu = ({ profileMenuRef }) => {
             <div className='flex items-center gap-3 border-b pb-3'>
                 <img
                     src={user?.avatar}
+                    alt={user?.name}
                     width={64}
                     className='rounded-full select-none'
                 />

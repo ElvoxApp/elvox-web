@@ -8,7 +8,6 @@ const useElectionStore = create(
             start: "November 8, 2025",
             end: "November 20, 2025",
             totalCandidates: 45,
-            verifiedCandidates: 42,
             eligibleVoters: 3000
         }
     }),
