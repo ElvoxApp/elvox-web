@@ -1,10 +1,11 @@
 import { Link, useNavigate } from "react-router-dom"
 import { useForm } from "react-hook-form"
-import Button from "../components/Button"
+import Button from "./Button"
 import axios from "axios"
 import Input from "./Input"
 import { useAuthStore } from "../stores"
 import toast from "react-hot-toast"
+import validateEmailOrPhone from "../utils/validateEmailOrPhone"
 
 const API_URL = import.meta.env.VITE_API_URL
 
@@ -18,16 +19,6 @@ const LoginForm = ({ setIsLoading }) => {
     const navigate = useNavigate()
 
     const { login } = useAuthStore()
-
-    const validateEmailOrPhone = (value) => {
-        const emailRegex = /^\S+@\S+\.\S+$/
-        const phoneRegex = /^[0-9]{10}$/
-        if (!value) return "Email or phone is required"
-        if (!emailRegex.test(value) && !phoneRegex.test(value)) {
-            return "Enter a valid email or phone number"
-        }
-        return true
-    }
 
     // ONLY FOR DEMO PURPOSES, MUST CHANGE FOR PRODUCTION
     const onSubmit = async (data) => {
@@ -44,9 +35,13 @@ const LoginForm = ({ setIsLoading }) => {
                 login(user, "demo-token")
                 navigate("/")
                 toast.success("Welcome back!")
+            } else {
+                throw new Error({ status: 501, msg: "Invalid credentials" })
             }
         } catch (error) {
-            console.error("Error fetching users: ", error)
+            if (error) {
+                toast.error("Invalid credentials")
+            }
         } finally {
             setIsLoading(false)
         }
@@ -124,7 +119,7 @@ const LoginForm = ({ setIsLoading }) => {
                     Sign Up
                 </Link>
                 <Link
-                    to='#'
+                    to='/forgot-password'
                     className='hover:text-link-hover'
                 >
                     Forgot
