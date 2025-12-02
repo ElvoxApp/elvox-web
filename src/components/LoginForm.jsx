@@ -4,6 +4,7 @@ import Button from "../components/Button"
 import axios from "axios"
 import Input from "./Input"
 import { useAuthStore } from "../stores"
+import toast from "react-hot-toast"
 
 const API_URL = import.meta.env.VITE_API_URL
 
@@ -42,6 +43,7 @@ const LoginForm = ({ setIsLoading }) => {
             if (user) {
                 login(user, "demo-token")
                 navigate("/")
+                toast.success("Welcome back!")
             }
         } catch (error) {
             console.error("Error fetching users: ", error)

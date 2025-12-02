@@ -4,6 +4,7 @@ import FullScreenLoader from "./components/FullScreenLoader"
 import useBlockImageAndLinkActions from "./hooks/useBlockImageAndLinkActions"
 import ProtectedRoute from "./pages/ProtectedRoute"
 import { useThemeStore } from "./stores"
+import { Toaster } from "react-hot-toast"
 
 const SignUp = lazy(() => import("./pages/SignUp"))
 const Login = lazy(() => import("./pages/Login"))
@@ -29,6 +30,18 @@ const App = () => {
     return (
         <BrowserRouter>
             <ThemeToggle>
+                <Toaster
+                    position='top-center'
+                    toastOptions={{
+                        className:
+                            "text-center !bg-card-light dark:!bg-card-dark !text-primary-light dark:!text-primary-dark !shadow-xl !border !border-black/10 dark:!border-white/10",
+                        duration: 3000,
+                        removeDelay: 1000,
+                        success: {
+                            duration: 2000
+                        }
+                    }}
+                />
                 <Suspense fallback={<FullScreenLoader suspense />}>
                     <Routes>
                         <Route

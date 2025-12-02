@@ -1,18 +1,20 @@
-import { Link, useNavigate } from "react-router-dom"
+import { useNavigate } from "react-router-dom"
 import { useFormContext } from "react-hook-form"
 import Button from "../components/Button"
 import axios from "axios"
-import Input from "./Input"
+import toast from "react-hot-toast"
 
 const API_URL = import.meta.env.VITE_API_URL
 
 const SignUpForm = ({ setIsLoading, children }) => {
-    const { handleSubmit } = useFormContext()
+    const { handleSubmit, getValues } = useFormContext()
     const navigate = useNavigate()
+
+    const user = getValues("user")
 
     // ONLY FOR DEMO PURPOSES, MUST CHANGE FOR PRODUCTION
     const onSubmit = () => {
-        console.log("sign up")
+        toast.success(`Welcome ${user.name}!`)
     }
     // -----------------------------------------------------------
 

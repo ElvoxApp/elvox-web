@@ -7,7 +7,7 @@ const ProfileMenu = ({ profileMenuRef }) => {
 
     return (
         <div
-            className='flex flex-col absolute right-0 top-full bg-card-light dark:bg-card-dark text-primary-light dark:text-primary-dark shadow-lg dark:shadow-bg-dark rounded-md w-52 mt-2 px-3 py-4 text-sm'
+            className='flex flex-col absolute right-0 top-full bg-card-light dark:bg-card-dark text-primary-light dark:text-primary-dark shadow-lg dark:shadow-bg-dark rounded-md w-56 mt-2 px-3 py-4 text-sm'
             ref={profileMenuRef}
         >
             <div className='flex items-center gap-3 border-b pb-3'>

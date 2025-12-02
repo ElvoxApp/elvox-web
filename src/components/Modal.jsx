@@ -1,12 +1,26 @@
 import { Dialog, DialogPanel } from "@headlessui/react"
+import { useEffect } from "react"
 import { IoMdClose } from "react-icons/io"
 
 const Modal = ({ open, onClose, children }) => {
+    useEffect(() => {
+        if (open) {
+            window.history.pushState({ modal: true }, "")
+        }
+
+        const handler = () => {
+            if (open) onClose()
+        }
+
+        window.addEventListener("popstate", handler)
+        return () => window.removeEventListener("popstate", handler)
+    }, [open, onClose])
+
     return (
         <Dialog
             open={open}
             onClose={onClose}
-            className='fixed inset-0 z-40 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm'
+            className='fixed inset-0 z-40 flex sm:items-center justify-center p-4 bg-black/60 backdrop-blur-sm'
         >
             <DialogPanel
                 className='

@@ -4,6 +4,7 @@ import { MdDelete } from "react-icons/md"
 import Button from "./Button"
 import { useAuthStore } from "../stores"
 import SignatureInput from "./SignatureInput"
+import toast from "react-hot-toast"
 
 const API_URL = import.meta.env.VITE_API_URL
 
@@ -21,8 +22,15 @@ const Nominee = ({
     /* MUST CHANGE FOR PROD USING ACTUAL API AND DB, CHECK CLASS AND EXISTING NOMINEE */
     const fetchData = async () => {
         if (!admno) return
-        if (admno === otherNomineeAdmNo || admno === user.id) {
-            // MUST IMPLEMENT TOAST NOTIFICATION, MSG: "Nominees cannot be the same person" AND "Candidate cannot be their own nominee"
+        if (admno === otherNomineeAdmNo) {
+            toast.error("Nominees cannot be the same person")
+            setAdmno("")
+            return
+        }
+
+        if (admno === user.id) {
+            toast.error("You cannot select yourself as a nominee")
+            setAdmno("")
             return
         }
 
@@ -35,13 +43,17 @@ const Nominee = ({
                 res.data.sem !== user.sem ||
                 res.data.batch !== user.batch
             ) {
-                // MUST IMPLEMENT TOAST NOTIFICATION, MSG: "Nominee must be of same class and batch"
+                toast.error("Nominee must be from the same class")
+                setAdmno("")
                 return
             }
             setNomineeData(res.data)
             setNomineeInfo(res.data)
         } catch (error) {
-            console.error("Error fetching data:", error)
+            if (error.response && error.response.status === 404) {
+                toast.error("No student found with this admission number")
+            }
+            setAdmno("")
         } finally {
             setIsLoading(false)
         }
@@ -71,11 +83,16 @@ const Nominee = ({
                             className='outline-none border-none bg-field-light dark:bg-field-dark rounded-md w-full h-11 p-3 text-primary-light dark:text-primary-dark placeholder:text-secondary-light dark:placeholder:text-secondary-dark active:bg-field-light dark:active:bg-field-dark  appearance-none'
                             placeholder='Enter admission number'
                             onChange={(e) => setAdmno(e.target.value)}
+                            value={admno}
                             onWheel={(e) => e.target.blur()}
+                            onKeyDown={(e) => {
+                                if (e.key === "Enter") fetchData()
+                            }}
                         />
                         <Button
                             className='bg-accent hover:bg-button-hover text-xs py-2 px-4'
                             onClick={fetchData}
+                            disabled={!admno}
                         >
                             Add
                         </Button>

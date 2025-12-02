@@ -1,8 +1,9 @@
 import axios from "axios"
-import { useEffect, useState } from "react"
+import { useEffect, useRef, useState } from "react"
 import { useFormContext } from "react-hook-form"
 import Loader from "./Loader"
 import Button from "./Button"
+import toast from "react-hot-toast"
 
 const API_URL = import.meta.env.VITE_API_URL
 
@@ -10,6 +11,8 @@ const SignUpVerifyDetails = ({ setStep }) => {
     const { setValue, getValues } = useFormContext()
     const [isLoading, setIsLoading] = useState(false)
     const [userData, setUserData] = useState({})
+
+    const toastShown = useRef(false)
 
     const role = getValues("role")
 
@@ -34,7 +37,14 @@ const SignUpVerifyDetails = ({ setStep }) => {
                 setUserData(res.data)
                 setValue("user", res.data)
             } catch (error) {
-                console.error("Error fetching data:", error)
+                if (
+                    error.response &&
+                    error.response.status === 404 &&
+                    !toastShown.current
+                ) {
+                    toast.error("No user found with the provided details")
+                    toastShown.current = true
+                }
             } finally {
                 setIsLoading(false)
             }
