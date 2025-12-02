@@ -5,6 +5,7 @@ import useBlockImageAndLinkActions from "./hooks/useBlockImageAndLinkActions"
 import ProtectedRoute from "./pages/ProtectedRoute"
 import { useThemeStore } from "./stores"
 import { Toaster } from "react-hot-toast"
+import CandidateApplication from "./pages/CandidateApplication"
 
 const SignUp = lazy(() => import("./pages/SignUp"))
 const Login = lazy(() => import("./pages/Login"))
@@ -56,6 +57,10 @@ const App = () => {
                             <Route
                                 path='/'
                                 element={<Dashboard />}
+                            />
+                            <Route
+                                path='/candidate-application'
+                                element={<CandidateApplication />}
                             />
                         </Route>
                     </Routes>

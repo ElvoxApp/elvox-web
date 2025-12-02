@@ -6,18 +6,11 @@ import DashboardOptionsSupervisor from "../components/DashboardOptionsSupervisor
 import DashboardOptionsAdmin from "../components/DashboardOptionsAdmin"
 import { useAuthStore, useElectionStore } from "../stores"
 import NoActiveElection from "../components/NoActiveElection"
-import CandidateApplication from "../components/CandidateApplication"
-import { useState } from "react"
-import CancelConfirm from "../components/CancelConfirm"
 
 const Dashboard = () => {
     const {
         user: { role }
     } = useAuthStore()
-
-    const [isCandidateApplicationOpen, setIsCandidateApplicationOpen] =
-        useState(false)
-    const [isCancelConfirmOpen, setIsCancelConfirmOpen] = useState(false)
 
     const dashboardOptions = {
         student: DashboardOptionsStudent,
@@ -46,24 +39,13 @@ const Dashboard = () => {
                 {isElectionSheduled ? (
                     <>
                         <ElectionDetails />
-                        <DashboardOptions
-                            setIsOpen={setIsCandidateApplicationOpen}
-                        />
+                        <DashboardOptions />
                     </>
                 ) : (
                     <NoActiveElection />
                 )}
                 <NotificationAndResults />
             </div>
-            <CandidateApplication
-                isOpen={isCandidateApplicationOpen}
-                setIsCancelConfirmOpen={setIsCancelConfirmOpen}
-            />
-            <CancelConfirm
-                isOpen={isCancelConfirmOpen}
-                setIsOpen={setIsCancelConfirmOpen}
-                setIsCandidateApplicationOpen={setIsCandidateApplicationOpen}
-            />
         </div>
     )
 }

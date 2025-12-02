@@ -6,7 +6,7 @@ import FullScreenLoader from "./FullScreenLoader"
 import { useAuthStore } from "../stores"
 import CandidateFormContent from "./CandidateFormContent"
 
-const CandidateApplication = ({ isOpen, setIsCancelConfirmOpen }) => {
+const CandidateApplicationForm = ({ isOpen, setIsCancelConfirmOpen }) => {
     const [isLoading, setIsLoading] = useState(false)
     const [position, setPosition] = useState("General")
     const [nomineeOneData, setNomineeOneData] = useState(null)
@@ -70,4 +70,4 @@ const CandidateApplication = ({ isOpen, setIsCancelConfirmOpen }) => {
     )
 }
 
-export default CandidateApplication
+export default CandidateApplicationForm
