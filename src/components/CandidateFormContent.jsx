@@ -1,4 +1,3 @@
-import Button from "./Button"
 import CandidatePosition from "./CandidatePosition"
 import Nominee from "./Nominee"
 import SignatureInput from "./SignatureInput"
@@ -14,15 +13,12 @@ const CandidateFormContent = ({
     nomineeTwoAdmNo,
     setNomineeTwoData,
     setNomineeOneSignature,
-    setNomineeTwoSignature,
-    onClose,
-    handleSubmit,
-    disabled
+    setNomineeTwoSignature
 }) => {
     const { user } = useAuthStore()
 
     return (
-        <div className='flex flex-col gap-3 w-full text-sm'>
+        <div className='flex flex-col flex-1 min-h-0 gap-3 w-full text-sm overflow-y-auto custom-scrollbar'>
             <div className='flex flex-col gap-2'>
                 <p>Position</p>
                 <CandidatePosition
@@ -56,21 +52,6 @@ const CandidateFormContent = ({
                     setNomineeData={setNomineeTwoData}
                     setNomineeSignature={setNomineeTwoSignature}
                     otherNomineeAdmNo={nomineeOneAdmNo}
-                />
-            </div>
-            <div className='flex justify-center gap-3 mt-5 w-full'>
-                <Button
-                    text='Cancel'
-                    className='w-1/2 h-11 text-sm bg-secondary-button hover:bg-secondary-button-hover'
-                    type='button'
-                    onClick={onClose}
-                />
-                <Button
-                    text='Submit'
-                    className='w-1/2 h-11 text-sm bg-accent hover:bg-button-hover'
-                    type='button'
-                    onClick={handleSubmit}
-                    disabled={disabled}
                 />
             </div>
         </div>

@@ -1,10 +1,10 @@
 import Modal from "./Modal"
 import { useState } from "react"
 import CandidateDetails from "./CandidateDetails"
-import CandidateForm from "./CandidateForm"
 import FullScreenLoader from "./FullScreenLoader"
 import { useAuthStore } from "../stores"
 import CandidateFormContent from "./CandidateFormContent"
+import Button from "./Button"
 
 const CandidateApplicationForm = ({ isOpen, setIsCancelConfirmOpen }) => {
     const [isLoading, setIsLoading] = useState(false)
@@ -41,9 +41,9 @@ const CandidateApplicationForm = ({ isOpen, setIsCancelConfirmOpen }) => {
             open={isOpen}
             onClose={() => setIsCancelConfirmOpen(true)}
         >
-            <div className='flex max-sm:flex-col flex-1 py-6 gap-6 w-full h-full min-h-0 max-sm:overflow-y-auto'>
+            <div className='flex max-sm:flex-col flex-1 py-6 gap-6 w-full h-full max-sm:overflow-y-auto custom-scrollbar min-h-0'>
                 <CandidateDetails />
-                <CandidateForm>
+                <div className='flex flex-col justify-between sm:flex-2 flex-1 w-full'>
                     <CandidateFormContent
                         position={position}
                         setPosition={setPosition}
@@ -55,11 +55,23 @@ const CandidateApplicationForm = ({ isOpen, setIsCancelConfirmOpen }) => {
                         setNomineeTwoData={setNomineeTwoData}
                         setNomineeOneSignature={setNomineeOneSignature}
                         setNomineeTwoSignature={setNomineeTwoSignature}
-                        onClose={() => setIsCancelConfirmOpen(true)}
-                        handleSubmit={handleSubmit}
-                        disabled={disabled}
                     />
-                </CandidateForm>
+                    <div className='flex justify-center gap-3 mt-5 w-full'>
+                        <Button
+                            text='Cancel'
+                            className='w-1/2 h-11 text-sm bg-secondary-button hover:bg-secondary-button-hover'
+                            type='button'
+                            onClick={() => setIsCancelConfirmOpen(true)}
+                        />
+                        <Button
+                            text='Submit'
+                            className='w-1/2 h-11 text-sm bg-accent hover:bg-button-hover'
+                            type='button'
+                            onClick={handleSubmit}
+                            disabled={disabled}
+                        />
+                    </div>
+                </div>
             </div>
             {isLoading && (
                 <div className='flex justify-between items-center'>

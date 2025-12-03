@@ -15,7 +15,7 @@ const Nominee = ({
     setNomineeSignature,
     otherNomineeAdmNo
 }) => {
-    const [admno, setAdmno] = useState(null)
+    const [admno, setAdmno] = useState("")
     const [nomineeInfo, setNomineeInfo] = useState(null)
     const { user } = useAuthStore()
 

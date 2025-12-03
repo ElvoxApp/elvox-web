@@ -15,9 +15,8 @@ const labels = {
 
 const CandidateDetails = () => {
     const { user } = useAuthStore()
-
     return (
-        <div className='flex justify-center flex-1 border rounded-md border-gray-500 px-3 py-[18px] h-full'>
+        <div className='flex justify-center sm:flex-1 border rounded-md border-gray-500 px-3 py-[18px]'>
             <div className='flex flex-col divide-y divide-gray-500 w-full'>
                 <div className='flex flex-col justify-center items-center gap-2 py-2'>
                     <img
