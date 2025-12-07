@@ -42,17 +42,16 @@ const Header = ({ title }) => {
             <div className='flex items-center gap-5'>
                 <Link to='/'>
                     <Logo
-                        width={40}
                         textless={true}
-                        className='cursor-pointer'
+                        className='w-10 lg:w-12 cursor-pointer'
                         onClick={() => navigate("/")}
                     />
                 </Link>
-                <h1 className='text-xl font-semibold sm:hidden text-primary-light dark:text-primary-dark '>
+                <h1 className='text-base sm:text-xl lg:text-2xl font-semibold text-primary-light dark:text-primary-dark'>
                     {title}
                 </h1>
             </div>
-            <div className='flex items-center gap-6'>
+            <div className='flex items-center lg:gap-8 sm:gap-6 gap-3'>
                 {theme === "dark" ? (
                     <IoSunnyOutline
                         className='text-primary-light dark:text-primary-dark text-xl cursor-pointer'

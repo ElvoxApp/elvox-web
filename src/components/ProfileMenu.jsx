@@ -1,4 +1,4 @@
-import { LuUserRound, LuLogOut } from "react-icons/lu"
+import { LuUserRound, LuLogOut, LuLock } from "react-icons/lu"
 import { useAuthStore } from "../stores"
 import { Link } from "react-router-dom"
 
@@ -23,9 +23,16 @@ const ProfileMenu = ({ profileMenuRef }) => {
                 <Link to='#'>
                     <button className='flex items-center gap-2 cursor-pointer'>
                         <LuUserRound className='text-base' />
-                        <p>Account Settings</p>
+                        <p>Profile</p>
                     </button>
                 </Link>
+                <button
+                    className='flex items-center gap-2 cursor-pointer'
+                    onClick={() => {}}
+                >
+                    <LuLock className='text-base' />
+                    <p>Change Password</p>
+                </button>
                 <button
                     className='flex items-center gap-2 cursor-pointer'
                     onClick={logout}

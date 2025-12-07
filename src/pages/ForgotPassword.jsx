@@ -93,6 +93,7 @@ const ForgotPassword = () => {
             // ------------------
             if (showChangePassword) {
                 const data = getValues()
+                console.log(data)
             }
         }
     }
