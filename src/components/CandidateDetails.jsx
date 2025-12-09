@@ -1,7 +1,6 @@
 import { useAuthStore } from "../stores"
 
 const fields = [
-    "name",
     "admno",
     "department",
     "class",
@@ -12,7 +11,6 @@ const fields = [
 ]
 
 const labels = {
-    name: "Full Name",
     admno: "Admission Number",
     department: "Department",
     class: "Class",
@@ -25,9 +23,9 @@ const labels = {
 const CandidateDetails = () => {
     const { user } = useAuthStore()
     return (
-        <div className='flex justify-center sm:flex-1 border rounded-md border-gray-500 px-3 py-[18px] sm:overflow-y-scroll custom-scrollbar'>
-            <div className='flex flex-col divide-y divide-gray-500 w-full'>
-                <div className='flex flex-col justify-center items-center gap-2 py-2'>
+        <div className='flex justify-center sm:flex-1 border rounded-md border-gray-500 px-3 py-[18px] sm:overflow-y-scroll custom-scrollbar w-full'>
+            <div className='flex flex-col gap-2 divide-y divide-gray-500 w-full break-words'>
+                <div className='flex flex-col justify-center items-center gap-2 pb-2'>
                     <img
                         src={user?.profile_pic}
                         alt={user?.name}
@@ -36,7 +34,7 @@ const CandidateDetails = () => {
                     />
                     <p className='text-center'>{user?.name}</p>
                 </div>
-                <div className='flex flex-col justify-center gap-2 pt-3'>
+                <div className='flex flex-col justify-center gap-2'>
                     {fields.map((field) => (
                         <div
                             className='flex flex-col gap-1'

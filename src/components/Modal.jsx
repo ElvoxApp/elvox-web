@@ -44,7 +44,7 @@ const Modal = ({ open, onClose, children }) => {
                 className='
           dark:bg-card-dark bg-card-light 
           dark:text-primary-dark text-primary-light 
-          relative shadow-xl w-full max-w-2xl p-6 rounded-lg
+          relative shadow-xl w-full max-w-[49rem] p-6 rounded-lg
           max-h-[95vh] min-h-0 flex flex-col overflow-hidden
         '
             >
