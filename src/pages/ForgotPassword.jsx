@@ -8,11 +8,9 @@ import { useAuthStore } from "../stores"
 import { useNavigate } from "react-router-dom"
 import { useForm } from "react-hook-form"
 import Button from "../components/Button"
-import axios from "axios"
 import Input from "../components/Input"
 import validateEmailOrPhone from "../utils/validateEmailOrPhone"
 
-const API_URL = import.meta.env.VITE_API_URL
 const passwordRegex =
     /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/
 

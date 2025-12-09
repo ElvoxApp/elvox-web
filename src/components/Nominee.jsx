@@ -1,12 +1,10 @@
-import axios from "axios"
 import { useState } from "react"
 import { MdDelete } from "react-icons/md"
 import Button from "./Button"
 import { useAuthStore } from "../stores"
 import SignatureInput from "./SignatureInput"
 import toast from "react-hot-toast"
-
-const API_URL = import.meta.env.VITE_API_URL
+import api from "../api/api"
 
 const Nominee = ({
     number,
@@ -19,7 +17,6 @@ const Nominee = ({
     const [nomineeInfo, setNomineeInfo] = useState(null)
     const { user } = useAuthStore()
 
-    /* MUST CHANGE FOR PROD USING ACTUAL API AND DB, CHECK CLASS AND EXISTING NOMINEE */
     const fetchData = async () => {
         if (!admno) return
         if (admno === otherNomineeAdmNo) {
@@ -36,7 +33,7 @@ const Nominee = ({
 
         try {
             setIsLoading(true)
-            const res = await axios.get(`${API_URL}/users/${admno}`)
+            const res = await api.get(`/student/${admno}`)
             if (
                 res.data.dept !== user.dept ||
                 res.data.class !== user.class ||
@@ -49,16 +46,13 @@ const Nominee = ({
             }
             setNomineeData(res.data)
             setNomineeInfo(res.data)
-        } catch (error) {
-            if (error.response && error.response.status === 404) {
-                toast.error("No student found with this admission number")
-            }
+        } catch (err) {
+            toast.error(err.response.data.error)
             setAdmno("")
         } finally {
             setIsLoading(false)
         }
     }
-    /* ---------------------------------------------- */
 
     const deleteNominee = () => {
         setNomineeInfo(null)

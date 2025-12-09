@@ -40,6 +40,7 @@ const SelectRole = () => {
                 rules={{ required: "Role is required" }}
                 render={({ field }) => (
                     <Select.Root
+                        id='select-role'
                         value={field.value}
                         onValueChange={(val) => handleChange(val, field)}
                     >

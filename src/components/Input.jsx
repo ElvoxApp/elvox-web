@@ -6,7 +6,8 @@ const Input = ({
     register,
     errors,
     rules,
-    className
+    className,
+    onKeyDown
 }) => {
     return (
         <input
@@ -21,6 +22,7 @@ const Input = ({
                     : "focus:border-accent focus:ring-2 focus:ring-accent"
             }`}
             placeholder={placeholder}
+            onKeyDown={onKeyDown}
             {...register(
                 id,
                 typeof rules === "function" ? { validate: rules } : rules
