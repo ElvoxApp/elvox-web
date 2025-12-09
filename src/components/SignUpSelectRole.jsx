@@ -51,6 +51,9 @@ const SignUpRoleStep = ({ setStep }) => {
                                     ? "Admission number is required"
                                     : "Employee code is required"
                         }}
+                        onKeyDown={(e) => {
+                            if (e.key === "Enter") handleNext()
+                        }}
                     />
                     {errors[role === "student" ? "admno" : "empcode"] && (
                         <p className='text-xs text-red-500 mt-1 font-medium'>

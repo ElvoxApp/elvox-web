@@ -3,14 +3,14 @@ import { BrowserRouter, Routes, Route } from "react-router-dom"
 import FullScreenLoader from "./components/FullScreenLoader"
 import useBlockImageAndLinkActions from "./hooks/useBlockImageAndLinkActions"
 import ProtectedRoute from "./pages/ProtectedRoute"
-import { useThemeStore } from "./stores"
+import { useThemeStore, useAuthStore } from "./stores"
 import { Toaster } from "react-hot-toast"
-import CandidateApplication from "./pages/CandidateApplication"
-import ForgotPassword from "./pages/ForgotPassword"
 
 const SignUp = lazy(() => import("./pages/SignUp"))
 const Login = lazy(() => import("./pages/Login"))
 const Dashboard = lazy(() => import("./pages/Dashboard"))
+const CandidateApplication = lazy(() => import("./pages/CandidateApplication"))
+const ForgotPassword = lazy(() => import("./pages/ForgotPassword"))
 
 const ThemeToggle = ({ children }) => {
     const { theme } = useThemeStore()
@@ -27,7 +27,13 @@ const ThemeToggle = ({ children }) => {
 }
 
 const App = () => {
+    const { fetchMe } = useAuthStore()
+
     useBlockImageAndLinkActions() // Prevent image drag and link right-click
+
+    useEffect(() => {
+        fetchMe()
+    }, [fetchMe])
 
     return (
         <BrowserRouter>

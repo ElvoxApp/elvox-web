@@ -63,7 +63,10 @@ const SignUp = () => {
                                     <SignUpVerifyDetails setStep={setStep} />
                                 )}
                                 {step === 3 && (
-                                    <SignUpEnterPassword setStep={setStep} />
+                                    <SignUpEnterPassword
+                                        setStep={setStep}
+                                        setIsLoading={setIsLoading}
+                                    />
                                 )}
                                 {step === 4 && (
                                     <SignUpEnterOTP setStep={setStep} />

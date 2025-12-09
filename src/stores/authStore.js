@@ -1,32 +1,34 @@
 import { create } from "zustand"
-import { persist } from "zustand/middleware"
+import api from "../api/api"
 
-const useAuthStore = create(
-    persist(
-        (set) => ({
-            isAuthenticated: false,
-            user: null,
-            token: null,
-            hasHydrated: false,
-            login: (user, token) =>
-                set({ user: user, token: token, isAuthenticated: true }),
-            logout: () =>
-                set({ user: null, token: null, isAuthenticated: false }),
-            setHasHydrated: (state) => set({ hasHydrated: state })
-        }),
-        {
-            name: "auth-storage",
-            onRehydrateStorage: () => {
-                return (state, error) => {
-                    if (error) {
-                        state.setHasHydrated(true)
-                    } else {
-                        state.setHasHydrated(true)
-                    }
-                }
-            }
+const useAuthStore = create((set) => ({
+    isAuthenticated: false,
+    user: null,
+    isUserLoaded: false,
+
+    login: (user) => set({ user, isAuthenticated: true, isUserLoaded: true }),
+    logout: async () => {
+        await api.post("/auth/logout")
+        set({ user: null, isAuthenticated: false, isUserLoaded: true })
+    },
+    fetchMe: async () => {
+        try {
+            const res = await api.get("/auth/me")
+            const user = res.data
+
+            set({
+                user,
+                isAuthenticated: true,
+                isUserLoaded: true
+            })
+        } catch {
+            set({
+                user: null,
+                isAuthenticated: false,
+                isUserLoaded: true
+            })
         }
-    )
-)
+    }
+}))
 
 export default useAuthStore

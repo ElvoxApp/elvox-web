@@ -1,13 +1,22 @@
 import { useAuthStore } from "../stores"
 
-const fields = ["name", "id", "dept", "class", "sem", "batch", "email", "phone"]
+const fields = [
+    "name",
+    "admno",
+    "department",
+    "class",
+    "semester",
+    "batch",
+    "email",
+    "phone"
+]
 
 const labels = {
     name: "Full Name",
-    id: "Admission Number",
-    dept: "Department",
+    admno: "Admission Number",
+    department: "Department",
     class: "Class",
-    sem: "Semester",
+    semester: "Semester",
     batch: "Batch",
     email: "Email",
     phone: "Phone"
@@ -20,7 +29,7 @@ const CandidateDetails = () => {
             <div className='flex flex-col divide-y divide-gray-500 w-full'>
                 <div className='flex flex-col justify-center items-center gap-2 py-2'>
                     <img
-                        src={user?.avatar}
+                        src={user?.profile_pic}
                         alt={user?.name}
                         className='rounded-full'
                         width={80}

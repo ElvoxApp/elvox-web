@@ -4,10 +4,10 @@ import { useAuthStore } from "../stores"
 import Header from "../components/Header"
 
 const ProtectedRoute = () => {
-    const { isAuthenticated, hasHydrated } = useAuthStore()
+    const { isAuthenticated, isUserLoaded } = useAuthStore()
     const { pathname } = useLocation()
 
-    if (!hasHydrated) return <FullScreenLoader />
+    if (!isUserLoaded ) return <FullScreenLoader />
 
     if (!isAuthenticated)
         return (

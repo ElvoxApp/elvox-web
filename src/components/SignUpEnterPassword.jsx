@@ -4,13 +4,17 @@ import Button from "./Button"
 import Input from "./Input"
 import { useState } from "react"
 import ChooseOTPMethod from "./ChooseOTPMethod"
+import api from "../api/api"
+import FullScreenLoader from "./FullScreenLoader"
+import toast from "react-hot-toast"
 
 const passwordRegex =
     /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/
 
-const SignUpEnterPassword = ({ setStep }) => {
+const SignUpEnterPassword = ({ setIsLoading, setStep }) => {
     const [showPassword, setShowPassword] = useState(false)
     const [showConfirmPassword, setShowConfirmPassword] = useState(false)
+
     const {
         register,
         trigger,
@@ -27,10 +31,20 @@ const SignUpEnterPassword = ({ setStep }) => {
             "otpMethod"
         ])
         if (valid) {
-            // Call API to send OTP
-
-            // --------------------
-            setStep((prev) => prev + 1)
+            try {
+                setIsLoading(true)
+                const [otpMethod, user] = getValues(["otpMethod", "user"])
+                const res = await api.post("/auth/otp", {
+                    otpMethod,
+                    [otpMethod]: user[otpMethod]
+                })
+                if (res.status === 200) toast.success(res.data.message)
+                setStep((prev) => prev + 1)
+            } catch (err) {
+                toast.error(err.response.data.error)
+            } finally {
+                setIsLoading(false)
+            }
         }
     }
     const handlePrev = () => {

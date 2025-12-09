@@ -1,13 +1,11 @@
 import { Link, useNavigate } from "react-router-dom"
 import { useForm } from "react-hook-form"
 import Button from "./Button"
-import axios from "axios"
+import api from "../api/api"
 import Input from "./Input"
 import { useAuthStore } from "../stores"
 import toast from "react-hot-toast"
 import validateEmailOrPhone from "../utils/validateEmailOrPhone"
-
-const API_URL = import.meta.env.VITE_API_URL
 
 const LoginForm = ({ setIsLoading }) => {
     const {
@@ -20,38 +18,28 @@ const LoginForm = ({ setIsLoading }) => {
 
     const { login } = useAuthStore()
 
-    // ONLY FOR DEMO PURPOSES, MUST CHANGE FOR PRODUCTION
     const onSubmit = async (data) => {
         try {
             setIsLoading(true)
-            const res = await axios.get(`${API_URL}/users`)
-            const users = res.data
-            const user = users.find(
-                (u) =>
-                    (u.email === data.eop || u.phone === data.eop) &&
-                    u.password === data.password
-            )
+            const res = await api.post("/auth/login", data)
+            const user = await res.data
             if (user) {
-                login(user, "demo-token")
+                login(user)
                 navigate("/")
-                toast.success("Welcome back!")
-            } else {
-                throw new Error({ status: 501, msg: "Invalid credentials" })
+                toast.success(`Welcome back ${user.name}`)
             }
-        } catch (error) {
-            if (error) {
-                toast.error("Invalid credentials")
-            }
+        } catch (err) {
+            toast.error(err.response.data.error)
         } finally {
             setIsLoading(false)
         }
     }
-    // -----------------------------------------------------------
 
     return (
         <form
             onSubmit={handleSubmit(onSubmit)}
             className='flex flex-col gap-6 w-full text-sm'
+            id='login-form'
         >
             <div className='flex flex-col gap-2'>
                 <label
