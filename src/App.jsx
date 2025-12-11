@@ -80,55 +80,6 @@ const App = () => {
             </ThemeToggle>
         </Suspense>
     )
-
-    /*return (
-        <BrowserRouter>
-            <ThemeToggle>
-                <Toaster
-                    position='top-center'
-                    toastOptions={{
-                        className:
-                            "text-center !bg-card-light dark:!bg-card-dark !text-primary-light dark:!text-primary-dark !shadow-xl !border !border-black/10 dark:!border-white/10",
-                        duration: 3000,
-                        removeDelay: 1000,
-                        success: {
-                            duration: 2000
-                        }
-                    }}
-                />
-                <Suspense fallback={<FullScreenLoader suspense />}>
-                    <Routes>
-                        <Route
-                            path='/login'
-                            element={<Login />}
-                        />
-                        <Route
-                            path='/signup'
-                            element={<SignUp />}
-                        />
-                        <Route
-                            path='/forgot-password'
-                            element={<ForgotPassword />}
-                        />
-                        <Route element={<ProtectedRoute />}>
-                            <Route
-                                path='/'
-                                element={<Dashboard />}
-                            />
-                            <Route
-                                path='/candidate-application'
-                                element={<CandidateApplication />}
-                            />
-                        </Route>
-                        <Route
-                            path='unauthorized'
-                            element={<Unauthorized />}
-                        />
-                    </Routes>
-                </Suspense>
-            </ThemeToggle>
-        </BrowserRouter>
-    ) */
 }
 
 export default App
