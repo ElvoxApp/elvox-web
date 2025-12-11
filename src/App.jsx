@@ -1,11 +1,5 @@
 import { lazy, Suspense, useEffect } from "react"
-import {
-    BrowserRouter,
-    Routes,
-    Route,
-    createBrowserRouter,
-    RouterProvider
-} from "react-router-dom"
+import { createBrowserRouter, RouterProvider } from "react-router-dom"
 import FullScreenLoader from "./components/FullScreenLoader"
 import useBlockImageAndLinkActions from "./hooks/useBlockImageAndLinkActions"
 import ProtectedRoute from "./pages/ProtectedRoute"
@@ -44,7 +38,8 @@ const routes = [
             { path: "/", element: <Dashboard /> },
             {
                 path: "/candidate-application",
-                element: <CandidateApplication />
+                element: <CandidateApplication />,
+                handle: { allowed: ["student"] }
             }
         ]
     }
