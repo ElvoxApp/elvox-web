@@ -1,5 +1,11 @@
 import { lazy, Suspense, useEffect } from "react"
-import { BrowserRouter, Routes, Route } from "react-router-dom"
+import {
+    BrowserRouter,
+    Routes,
+    Route,
+    createBrowserRouter,
+    RouterProvider
+} from "react-router-dom"
 import FullScreenLoader from "./components/FullScreenLoader"
 import useBlockImageAndLinkActions from "./hooks/useBlockImageAndLinkActions"
 import ProtectedRoute from "./pages/ProtectedRoute"
@@ -11,6 +17,7 @@ const Login = lazy(() => import("./pages/Login"))
 const Dashboard = lazy(() => import("./pages/Dashboard"))
 const CandidateApplication = lazy(() => import("./pages/CandidateApplication"))
 const ForgotPassword = lazy(() => import("./pages/ForgotPassword"))
+const Unauthorized = lazy(() => import("./pages/Unauthorized"))
 
 const ThemeToggle = ({ children }) => {
     const { theme } = useThemeStore()
@@ -26,6 +33,25 @@ const ThemeToggle = ({ children }) => {
     return children
 }
 
+const routes = [
+    { path: "/login", element: <Login /> },
+    { path: "/signup", element: <SignUp /> },
+    { path: "/forgot-password", element: <ForgotPassword /> },
+    { path: "/unauthorized", element: <Unauthorized /> },
+    {
+        element: <ProtectedRoute />,
+        children: [
+            { path: "/", element: <Dashboard /> },
+            {
+                path: "/candidate-application",
+                element: <CandidateApplication />
+            }
+        ]
+    }
+]
+
+const router = createBrowserRouter(routes)
+
 const App = () => {
     const { fetchMe } = useAuthStore()
 
@@ -36,6 +62,26 @@ const App = () => {
     }, [fetchMe])
 
     return (
+        <Suspense fallback={<FullScreenLoader suspense />}>
+            <ThemeToggle>
+                <Toaster
+                    position='top-center'
+                    toastOptions={{
+                        className:
+                            "text-center !bg-card-light dark:!bg-card-dark !text-primary-light dark:!text-primary-dark !shadow-xl !border !border-black/10 dark:!border-white/10",
+                        duration: 3000,
+                        removeDelay: 1000,
+                        success: {
+                            duration: 2000
+                        }
+                    }}
+                />
+                <RouterProvider router={router} />
+            </ThemeToggle>
+        </Suspense>
+    )
+
+    /*return (
         <BrowserRouter>
             <ThemeToggle>
                 <Toaster
@@ -74,11 +120,15 @@ const App = () => {
                                 element={<CandidateApplication />}
                             />
                         </Route>
+                        <Route
+                            path='unauthorized'
+                            element={<Unauthorized />}
+                        />
                     </Routes>
                 </Suspense>
             </ThemeToggle>
         </BrowserRouter>
-    )
+    ) */
 }
 
 export default App
