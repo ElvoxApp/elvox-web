@@ -47,7 +47,7 @@ const SignUpVerifyDetails = ({ setStep }) => {
                     setValue("user", res.data)
                 } else {
                     if (!toastShown.current) {
-                        toast.error("User already exists, Please log in")
+                        toast.error("Account already exists, Please login")
                         toastShown.current = true
                     }
                     navigate("/login")
