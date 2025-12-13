@@ -1,0 +1,98 @@
+import { useEffect, useMemo, useState } from "react"
+import ViewCandidatesHeader from "../components/ViewCandidatesHeader"
+import Candidate from "../components/Candidate"
+
+const ViewCandidates = () => {
+    const [candidates, setCandidates] = useState([])
+    const [nameInput, setNameInput] = useState("")
+    const [sort, setSort] = useState("name")
+    const [year, setYear] = useState("all")
+    const [className, setClassName] = useState("all")
+
+    const visibleCandidates = useMemo(() => {
+        let list = [...candidates]
+
+        // search
+        if (nameInput.trim() !== "") {
+            const lower = nameInput.toLowerCase()
+            list = list.filter((l) => l.name.toLowerCase().includes(lower))
+        }
+
+        // sort
+        if (sort === "name") {
+            list.sort((a, b) => a.name.localeCompare(b.name))
+        } else if (sort === "latest") {
+            list.sort((a, b) => new Date(b.created_at) - new Date(a.created_at))
+        }
+
+        // filter by class
+        if (className !== "all") {
+            list = list.filter((l) => l.class.toLowerCase() === className)
+        }
+
+        // filter by year
+        if (year !== "all") {
+            const map = {
+                first: [1, 2],
+                second: [3, 4],
+                third: [5, 6],
+                fourth: [7, 8]
+            }
+
+            const sem = map[year]
+
+            list = list.filter((l) => sem.includes(l.semester))
+        }
+
+        return list
+    }, [candidates, className, year, sort, nameInput])
+
+    useEffect(() => {
+        const fetchCandidates = async () => {
+            // LOGIC TO FETCH CANDIDATES
+            setCandidates([])
+        }
+
+        fetchCandidates()
+    }, [])
+
+    return (
+        <div className='flex flex-col px-3 py-5 sm:px-6 sm:py-6 flex-1'>
+            <title>Candidates</title>
+            {candidates?.length > 0 && (
+                <div className='flex flex-col gap-8'>
+                    <ViewCandidatesHeader
+                        nameInput={nameInput}
+                        setNameInput={setNameInput}
+                        sort={sort}
+                        setSort={setSort}
+                        year={year}
+                        setYear={setYear}
+                        className={className}
+                        setClassName={setClassName}
+                    />
+                    {visibleCandidates.length > 0 && (
+                        <div className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4'>
+                            {visibleCandidates.map((candidate) => (
+                                <Candidate
+                                    candidate={candidate}
+                                    key={candidate.id}
+                                />
+                            ))}
+                        </div>
+                    )}
+                </div>
+            )}
+
+            {!visibleCandidates.length && (
+                <div className='flex px-3 py-4 gap-8 flex-1 items-center justify-center'>
+                    <h2 className='text-center text-primary-light dark:text-primary-dark text-2xl md:text-3xl lg:text-4xl font-black w-[20ch]'>
+                        No Candidate Applications To Show
+                    </h2>
+                </div>
+            )}
+        </div>
+    )
+}
+
+export default ViewCandidates

@@ -24,7 +24,8 @@ const ProtectedRoute = () => {
 
     const titles = {
         "/": "Dashboard",
-        "/candidate-application": "Candidate Application"
+        "/candidate-application": "Candidate Application",
+        "/candidates": "Candidates"
     }
 
     return (

@@ -13,7 +13,7 @@ const DashboardOptionsSupervisor = () => {
                     <span className=''>Verify Voters</span>
                 </Button>
             </Link>
-            <Link to='#'>
+            <Link to='candidates'>
                 <Button className='flex flex-col justify-center items-center py-5 lg:py-7 gap-1 bg-accent hover:bg-button-hover w-full'>
                     <LuUsers className='text-primary-dark text-base lg:text-lg' />
                     <span className=''>View Candidates</span>

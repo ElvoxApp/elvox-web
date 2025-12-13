@@ -113,10 +113,10 @@ const SignUpVerifyDetails = ({ setStep }) => {
                                 key={field}
                                 className='flex w-full'
                             >
-                                <p className='text-secondary-light dark:text-secondary-dark w-1/2'>
+                                <p className='text-secondary-light dark:text-secondary-dark w-1/2 break-words'>
                                     {labels[field]}
                                 </p>
-                                <p className='text-primary-light dark:text-primary-dark w-1/2'>
+                                <p className='text-primary-light dark:text-primary-dark w-1/2 break-words'>
                                     {field === "phone"
                                         ? `+91 ${userData[field]}`
                                         : userData[field]}
