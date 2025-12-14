@@ -36,7 +36,7 @@ const SignUpForm = ({ children, setIsLoading }) => {
             }
 
             const otpVerifyRes = await api.post(
-                "/auth/otp/verify",
+                "/auth/otp/verify/signup",
                 otpVerifyData
             )
 

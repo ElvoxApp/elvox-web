@@ -19,7 +19,7 @@ const SignUpEnterOTP = ({ setStep }) => {
         <div className='flex flex-col gap-6 w-full text-sm'>
             <div className='flex flex-col items-center gap-4'>
                 <p className='text-primary-light dark:text-primary-dark text-center'>
-                    Enter the OTP sent to {user[method]}
+                    Enter the OTP sent to {user[method]}, expires in 5 minutes
                 </p>
                 <OTPInput />
             </div>

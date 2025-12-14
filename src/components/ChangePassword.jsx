@@ -1,79 +1,40 @@
-import { useFormContext } from "react-hook-form"
-import { EyeOpenIcon, EyeNoneIcon } from "@radix-ui/react-icons"
-import Button from "./Button"
-import Input from "./Input"
 import { useState } from "react"
-import ChooseOTPMethod from "./ChooseOTPMethod"
-import api from "../api/api"
-import FullScreenLoader from "./FullScreenLoader"
-import toast from "react-hot-toast"
+import { useFormContext } from "react-hook-form"
+import Input from "./Input"
+import { EyeNoneIcon, EyeOpenIcon } from "@radix-ui/react-icons"
 
 const passwordRegex =
     /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/
 
-const SignUpEnterPassword = ({ setIsLoading, setStep }) => {
+const ChangePassword = () => {
     const [showPassword, setShowPassword] = useState(false)
     const [showConfirmPassword, setShowConfirmPassword] = useState(false)
 
     const {
         register,
-        trigger,
         getValues,
-        clearErrors,
-        resetField,
         formState: { errors }
     } = useFormContext()
-
-    const handleNext = async () => {
-        const valid = await trigger([
-            "password",
-            "confirmPassword",
-            "otpMethod"
-        ])
-        if (valid) {
-            try {
-                setIsLoading(true)
-                const [otpMethod, user] = getValues(["otpMethod", "user"])
-                const res = await api.post("/auth/otp", {
-                    otpMethod,
-                    [otpMethod]: user[otpMethod],
-                    purpose: "signup"
-                })
-                if (res.status === 200) toast.success(res.data.message)
-                setStep((prev) => prev + 1)
-            } catch (err) {
-                toast.error(err.response.data.error)
-            } finally {
-                setIsLoading(false)
-            }
-        }
-    }
-    const handlePrev = () => {
-        const fields = ["password", "confirmPassword", "otpMethod"]
-        clearErrors(fields)
-        fields.forEach((field) => resetField(field))
-        setStep((prev) => prev - 1)
-    }
 
     return (
         <div className='flex flex-col gap-6 w-full text-sm'>
             <div className='flex flex-col gap-2'>
                 <label
-                    htmlFor='password'
+                    htmlFor='newPassword'
                     className='text-primary-light dark:text-primary-dark'
                 >
-                    Password
+                    New Password
                 </label>
                 <div className='relative w-full'>
                     <Input
                         type={showPassword ? "text" : "password"}
-                        id='password'
-                        placeholder='Enter your password'
+                        id='newPassword'
+                        placeholder='Enter your new password'
                         className='pr-10 select-none'
                         register={register}
                         errors={errors}
                         rules={{
-                            required: "Password is required",
+                            required: "New password is required",
                             pattern: {
                                 value: passwordRegex,
                                 message:
@@ -93,31 +54,31 @@ const SignUpEnterPassword = ({ setIsLoading, setStep }) => {
                         />
                     )}
                 </div>
-                {errors.password && (
+                {errors?.newPassword && (
                     <p className='text-xs text-red-500 mt-1 font-medium'>
-                        {errors.password.message}
+                        {errors?.newPassword?.message}
                     </p>
                 )}
             </div>
             <div className='flex flex-col gap-2'>
                 <label
-                    htmlFor='confirmPassword'
+                    htmlFor='confirmNewPassword'
                     className='text-primary-light dark:text-primary-dark'
                 >
-                    Confirm Password
+                    Confirm New Password
                 </label>
                 <div className='relative w-full'>
                     <Input
                         type={showConfirmPassword ? "text" : "password"}
-                        id='confirmPassword'
-                        placeholder='Confirm your password'
+                        id='confirmNewPassword'
+                        placeholder='Confirm your new password'
                         className='pr-10 select-none'
                         register={register}
                         errors={errors}
                         rules={{
-                            required: "Confirm your password",
+                            required: "Confirm your new password",
                             validate: (value) =>
-                                value === getValues("password") ||
+                                value === getValues("newPassword") ||
                                 "Passwords do not match"
                         }}
                     />
@@ -133,29 +94,14 @@ const SignUpEnterPassword = ({ setIsLoading, setStep }) => {
                         />
                     )}
                 </div>
-                {errors.confirmPassword && (
+                {errors?.confirmNewPassword && (
                     <p className='text-xs text-red-500 mt-1 font-medium'>
-                        {errors.confirmPassword.message}
+                        {errors?.confirmNewPassword?.message}
                     </p>
                 )}
-            </div>
-            <ChooseOTPMethod />
-            <div className='flex justify-center gap-3 w-full'>
-                <Button
-                    text='Previous'
-                    className='w-1/2 h-11 text-sm bg-secondary-button hover:bg-secondary-button-hover'
-                    type='button'
-                    onClick={handlePrev}
-                />
-                <Button
-                    text='Send OTP'
-                    className='w-1/2 h-11 text-sm bg-accent hover:bg-button-hover'
-                    type='button'
-                    onClick={handleNext}
-                />
             </div>
         </div>
     )
 }
 
-export default SignUpEnterPassword
+export default ChangePassword

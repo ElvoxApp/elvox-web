@@ -1,8 +1,10 @@
 import { useEffect, useMemo, useState } from "react"
 import ViewCandidatesHeader from "../components/ViewCandidatesHeader"
 import Candidate from "../components/Candidate"
+import FullScreenLoader from "../components/FullScreenLoader"
 
 const ViewCandidates = () => {
+    const [isLoading, setIsLoading] = useState(false)
     const [candidates, setCandidates] = useState([])
     const [nameInput, setNameInput] = useState("")
     const [sort, setSort] = useState("name")
@@ -49,49 +51,58 @@ const ViewCandidates = () => {
 
     useEffect(() => {
         const fetchCandidates = async () => {
-            // LOGIC TO FETCH CANDIDATES
-            setCandidates([])
+            // try {
+            //     setIsLoading(true)
+            //     LOGIC TO FETCH CANDIDATES
+            //     setCandidates([])
+            // } catch (err) {
+            // } finally {
+            //     setIsLoading(false)
+            // }
         }
 
         fetchCandidates()
     }, [])
 
     return (
-        <div className='flex flex-col px-3 py-5 sm:px-6 sm:py-6 flex-1'>
-            <title>Candidates</title>
-            {candidates?.length > 0 && (
-                <div className='flex flex-col gap-8'>
-                    <ViewCandidatesHeader
-                        nameInput={nameInput}
-                        setNameInput={setNameInput}
-                        sort={sort}
-                        setSort={setSort}
-                        year={year}
-                        setYear={setYear}
-                        className={className}
-                        setClassName={setClassName}
-                    />
-                    {visibleCandidates.length > 0 && (
-                        <div className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4'>
-                            {visibleCandidates.map((candidate) => (
-                                <Candidate
-                                    candidate={candidate}
-                                    key={candidate.id}
-                                />
-                            ))}
-                        </div>
-                    )}
-                </div>
-            )}
+        <>
+            <div className='flex flex-col px-3 py-5 sm:px-6 sm:py-6 flex-1'>
+                <title>Candidates</title>
+                {candidates?.length > 0 && (
+                    <div className='flex flex-col gap-8'>
+                        <ViewCandidatesHeader
+                            nameInput={nameInput}
+                            setNameInput={setNameInput}
+                            sort={sort}
+                            setSort={setSort}
+                            year={year}
+                            setYear={setYear}
+                            className={className}
+                            setClassName={setClassName}
+                        />
+                        {visibleCandidates.length > 0 && (
+                            <div className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4'>
+                                {visibleCandidates.map((candidate) => (
+                                    <Candidate
+                                        candidate={candidate}
+                                        key={candidate.id}
+                                    />
+                                ))}
+                            </div>
+                        )}
+                    </div>
+                )}
 
-            {!visibleCandidates.length && (
-                <div className='flex px-3 py-4 gap-8 flex-1 items-center justify-center'>
-                    <h2 className='text-center text-primary-light dark:text-primary-dark text-2xl md:text-3xl lg:text-4xl font-black w-[20ch]'>
-                        No Candidate Applications To Show
-                    </h2>
-                </div>
-            )}
-        </div>
+                {!visibleCandidates.length && (
+                    <div className='flex px-3 py-4 gap-8 flex-1 items-center justify-center'>
+                        <h2 className='text-center text-primary-light dark:text-primary-dark text-2xl md:text-3xl lg:text-4xl font-black w-[20ch]'>
+                            No Candidate Applications To Show
+                        </h2>
+                    </div>
+                )}
+            </div>
+            {isLoading && <FullScreenLoader />}
+        </>
     )
 }
 

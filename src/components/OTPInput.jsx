@@ -51,6 +51,10 @@ const OTPInput = () => {
         setValue("otp", finalOtp)
     }, [otp, setValue])
 
+    useEffect(() => {
+        inputsRef.current[0].focus()
+    }, [])
+
     return (
         <div className='flex justify-center items-center gap-2 w-full'>
             {Array.from({ length: 6 }).map((_, i) => (
