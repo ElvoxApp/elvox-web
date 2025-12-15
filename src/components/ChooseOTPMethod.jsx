@@ -1,5 +1,5 @@
 import { useFormContext } from "react-hook-form"
-import { EnvelopeIcon, PhoneIcon } from "@heroicons/react/24/outline"
+import { HiOutlineEnvelope, HiOutlinePhone } from "react-icons/hi2"
 
 const ChooseOTPMethod = () => {
     const {
@@ -33,7 +33,7 @@ const ChooseOTPMethod = () => {
                             required: "Select a method"
                         })}
                     />
-                    <EnvelopeIcon className='w-6' />
+                    <HiOutlineEnvelope className='size-6' />
                     <p>Email</p>
                 </label>
                 <label
@@ -51,7 +51,7 @@ const ChooseOTPMethod = () => {
                             required: "Select a method"
                         })}
                     />
-                    <PhoneIcon className='w-6' />
+                    <HiOutlinePhone className='size-6' />
                     <p>Phone</p>
                 </label>
             </div>

@@ -1,5 +1,5 @@
 import { useFormContext } from "react-hook-form"
-import { EyeOpenIcon, EyeNoneIcon } from "@radix-ui/react-icons"
+import { IoEyeOutline, IoEyeOffOutline } from "react-icons/io5"
 import Button from "./Button"
 import Input from "./Input"
 import { useState } from "react"
@@ -92,13 +92,13 @@ const SignUpEnterPassword = ({ setIsLoading, setStep, setContactInfo }) => {
                         }}
                     />
                     {showPassword ? (
-                        <EyeNoneIcon
-                            className='absolute right-3 top-1/2 -translate-y-1/2 text-primary-light dark:text-primary-dark cursor-pointer'
+                        <IoEyeOffOutline
+                            className='absolute right-3 top-1/2 -translate-y-1/2 text-primary-light dark:text-primary-dark cursor-pointer size-4'
                             onClick={() => setShowPassword(false)}
                         />
                     ) : (
-                        <EyeOpenIcon
-                            className='absolute right-3 top-1/2 -translate-y-1/2 text-primary-light dark:text-primary-dark cursor-pointer'
+                        <IoEyeOutline
+                            className='absolute right-3 top-1/2 -translate-y-1/2 text-primary-light dark:text-primary-dark cursor-pointer size-4'
                             onClick={() => setShowPassword(true)}
                         />
                     )}
@@ -132,13 +132,13 @@ const SignUpEnterPassword = ({ setIsLoading, setStep, setContactInfo }) => {
                         }}
                     />
                     {showConfirmPassword ? (
-                        <EyeNoneIcon
-                            className='absolute right-3 top-1/2 -translate-y-1/2 text-primary-light dark:text-primary-dark cursor-pointer'
+                        <IoEyeOffOutline
+                            className='absolute right-3 top-1/2 -translate-y-1/2 text-primary-light dark:text-primary-dark cursor-pointer size-4'
                             onClick={() => setShowConfirmPassword(false)}
                         />
                     ) : (
-                        <EyeOpenIcon
-                            className='absolute right-3 top-1/2 -translate-y-1/2 text-primary-light dark:text-primary-dark cursor-pointer'
+                        <IoEyeOutline
+                            className='absolute right-3 top-1/2 -translate-y-1/2 text-primary-light dark:text-primary-dark cursor-pointer size-4'
                             onClick={() => setShowConfirmPassword(true)}
                         />
                     )}
