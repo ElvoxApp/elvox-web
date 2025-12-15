@@ -2,11 +2,9 @@ import { useFormContext } from "react-hook-form"
 import Button from "./Button"
 import OTPInput from "./OTPInput"
 
-const SignUpEnterOTP = ({ setStep }) => {
-    const { getValues, watch, clearErrors, resetField } = useFormContext()
+const SignUpEnterOTP = ({ setStep, contactInfo }) => {
+    const { watch, clearErrors, resetField } = useFormContext()
 
-    const user = getValues("user")
-    const method = getValues("otpMethod")
     const otp = watch("otp")
 
     const handlePrev = () => {
@@ -19,7 +17,7 @@ const SignUpEnterOTP = ({ setStep }) => {
         <div className='flex flex-col gap-6 w-full text-sm'>
             <div className='flex flex-col items-center gap-4'>
                 <p className='text-primary-light dark:text-primary-dark text-center'>
-                    Enter the OTP sent to {user[method]}, expires in 5 minutes
+                    Enter the OTP sent to {contactInfo}
                 </p>
                 <OTPInput />
             </div>

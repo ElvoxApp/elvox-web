@@ -1,16 +1,21 @@
 import SelectRole from "./SelectRole"
 import Input from "./Input"
 import Button from "./Button"
-import { Link } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
 import { useFormContext } from "react-hook-form"
+import api from "../api/api"
+import toast from "react-hot-toast"
 
-const SignUpRoleStep = ({ setStep }) => {
+const SignUpRoleStep = ({ setStep, setIsLoading }) => {
     const {
         register,
         trigger,
         watch,
+        getValues,
         formState: { errors }
     } = useFormContext()
+
+    const navigate = useNavigate()
 
     const role = watch("role")
 
@@ -19,7 +24,50 @@ const SignUpRoleStep = ({ setStep }) => {
             "role",
             role === "student" ? "admno" : "empcode"
         ])
-        if (valid) return setStep((prev) => prev + 1)
+
+        try {
+            setIsLoading(true)
+            const userExists = await api.get(
+                `/users/exists?role=${role.toLowerCase()}&id=${
+                    role.toLowerCase() === "student"
+                        ? getValues("admno")
+                        : getValues("empcode")
+                }`
+            )
+
+            const personExists = await api.get(
+                `/${role.toLowerCase()}s/exists/${
+                    role.toLowerCase() === "student"
+                        ? getValues("admno")
+                        : getValues("empcode")
+                }`
+            )
+
+            if (personExists.data.exists) {
+                if (userExists.data.exists) {
+                    toast.error("Account already exists, Please login")
+                    navigate("/login")
+                } else {
+                    if (valid) return setStep((prev) => prev + 1)
+                }
+            } else {
+                toast.error(
+                    `Invalid ${
+                        role.toLowerCase() === "student"
+                            ? "admission number"
+                            : "employee code"
+                    }`
+                )
+            }
+        } catch (err) {
+            toast.error(
+                err.response.data.error
+                    ? err.response.data.error
+                    : err.response.data
+            )
+        } finally {
+            setIsLoading(false)
+        }
     }
 
     return (

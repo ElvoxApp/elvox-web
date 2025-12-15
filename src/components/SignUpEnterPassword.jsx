@@ -5,13 +5,12 @@ import Input from "./Input"
 import { useState } from "react"
 import ChooseOTPMethod from "./ChooseOTPMethod"
 import api from "../api/api"
-import FullScreenLoader from "./FullScreenLoader"
 import toast from "react-hot-toast"
 
 const passwordRegex =
     /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/
 
-const SignUpEnterPassword = ({ setIsLoading, setStep }) => {
+const SignUpEnterPassword = ({ setIsLoading, setStep, setContactInfo }) => {
     const [showPassword, setShowPassword] = useState(false)
     const [showConfirmPassword, setShowConfirmPassword] = useState(false)
 
@@ -33,13 +32,23 @@ const SignUpEnterPassword = ({ setIsLoading, setStep }) => {
         if (valid) {
             try {
                 setIsLoading(true)
-                const [otpMethod, user] = getValues(["otpMethod", "user"])
+                const [otpMethod, role] = getValues(["otpMethod", "role"])
+                const identifier =
+                    role === "student"
+                        ? getValues("admno")
+                        : getValues("empcode")
+
                 const res = await api.post("/auth/otp", {
                     otpMethod,
-                    [otpMethod]: user[otpMethod],
-                    purpose: "signup"
+                    purpose: "signup",
+                    role,
+                    [role === "student" ? "admno" : "empcode"]: identifier
                 })
-                if (res.status === 200) toast.success(res.data.message)
+
+                if (res.status === 200) {
+                    toast.success(res.data.message)
+                    setContactInfo(res.data.contact)
+                }
                 setStep((prev) => prev + 1)
             } catch (err) {
                 toast.error(err.response.data.error)
@@ -48,6 +57,7 @@ const SignUpEnterPassword = ({ setIsLoading, setStep }) => {
             }
         }
     }
+
     const handlePrev = () => {
         const fields = ["password", "confirmPassword", "otpMethod"]
         clearErrors(fields)

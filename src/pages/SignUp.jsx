@@ -5,7 +5,6 @@ import Title from "../components/Title"
 import FullScreenLoader from "../components/FullScreenLoader"
 import SignUpForm from "../components/SignUpForm"
 import SignUpSelectRole from "../components/SignUpSelectRole"
-import SignUpVerifyDetails from "../components/SignUpVerifyDetails"
 import SignUpEnterPassword from "../components/SignUpEnterPassword"
 import SignUpEnterOTP from "../components/SignUpEnterOTP"
 import { useNavigate } from "react-router-dom"
@@ -14,14 +13,15 @@ import { useAuthStore } from "../stores"
 const SignUp = () => {
     const [isLoading, setIsLoading] = useState(false)
     const [step, setStep] = useState(1)
+    const [contactInfo, setContactInfo] = useState("")
+
     const { isAuthenticated } = useAuthStore()
     const methods = useForm()
     const navigate = useNavigate()
     const widths = {
-        1: "w-1/4",
-        2: "w-2/4",
-        3: "w-3/4",
-        4: "w-full"
+        1: "w-1/3",
+        2: "w-2/3",
+        3: "w-full"
     }
 
     useEffect(() => {
@@ -41,7 +41,7 @@ const SignUp = () => {
                 <div className='w-11/12 md:w-9/12 lg:w-7/12 xl:w-5/12 2xl:w-4/12 bg-card-light dark:bg-card-dark rounded-xl shadow-lg flex flex-col items-center gap-10 px-10 py-11'>
                     <div className='flex flex-col items-center gap-2 w-full'>
                         <p className='text-xs text-secondary-light dark:text-secondary-dark font-sansation'>
-                            Step {step} of 4
+                            Step {step} of 3
                         </p>
                         <div className='w-full h-2 rounded-xl bg-field-light dark:bg-field-dark '>
                             <p
@@ -57,19 +57,23 @@ const SignUp = () => {
                         <SignUpForm setIsLoading={setIsLoading}>
                             <>
                                 {step === 1 && (
-                                    <SignUpSelectRole setStep={setStep} />
-                                )}
-                                {step === 2 && (
-                                    <SignUpVerifyDetails setStep={setStep} />
-                                )}
-                                {step === 3 && (
-                                    <SignUpEnterPassword
+                                    <SignUpSelectRole
                                         setStep={setStep}
                                         setIsLoading={setIsLoading}
                                     />
                                 )}
-                                {step === 4 && (
-                                    <SignUpEnterOTP setStep={setStep} />
+                                {step === 2 && (
+                                    <SignUpEnterPassword
+                                        setStep={setStep}
+                                        setIsLoading={setIsLoading}
+                                        setContactInfo={setContactInfo}
+                                    />
+                                )}
+                                {step === 3 && (
+                                    <SignUpEnterOTP
+                                        setStep={setStep}
+                                        contactInfo={contactInfo}
+                                    />
                                 )}
                             </>
                         </SignUpForm>

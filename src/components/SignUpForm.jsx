@@ -12,15 +12,9 @@ const SignUpForm = ({ children, setIsLoading }) => {
     const onSubmit = async () => {
         try {
             setIsLoading(true)
-            const [role, password, confirmPassword, otpMethod, otp, user] =
-                getValues([
-                    "role",
-                    "password",
-                    "confirmPassword",
-                    "otpMethod",
-                    "otp",
-                    "user"
-                ])
+            const [role, password, confirmPassword, otpMethod, otp] = getValues(
+                ["role", "password", "confirmPassword", "otpMethod", "otp"]
+            )
 
             const idField =
                 role.toLowerCase() === "student" ? "admno" : "empcode"
@@ -29,7 +23,6 @@ const SignUpForm = ({ children, setIsLoading }) => {
 
             const otpVerifyData = {
                 otpMethod,
-                [otpMethod]: user[otpMethod],
                 otp,
                 role,
                 [idField]: id
@@ -54,7 +47,6 @@ const SignUpForm = ({ children, setIsLoading }) => {
                 }
             }
         } catch (err) {
-            console.log(err)
             toast.error(err.response.data.error)
         } finally {
             setIsLoading(false)
