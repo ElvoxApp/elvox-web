@@ -1,11 +1,16 @@
 import Button from "./Button"
 import { IoSettingsOutline } from "react-icons/io5"
+import { FaRegFileAlt } from "react-icons/fa"
 import { FiAward } from "react-icons/fi"
 import { LuScroll, LuUsers } from "react-icons/lu"
-import { IoFlagOutline } from "react-icons/io5"
 import { Link } from "react-router-dom"
+import { useAuthStore } from "../stores"
 
 const DashboardOptionsAdmin = () => {
+    const {
+        user: { tutor_of }
+    } = useAuthStore()
+
     return (
         <div className='grid grid-cols-2 lg:grid-cols-3 gap-x-3 gap-y-4 lg:gap-y-3 w-full'>
             <Link to='#'>
@@ -20,6 +25,14 @@ const DashboardOptionsAdmin = () => {
                     <span className=''>Choose Supervisors</span>
                 </Button>
             </Link>
+            {tutor_of !== null && (
+                <Link to='#'>
+                    <Button className='flex flex-col justify-center items-center py-5 lg:py-7 gap-1 bg-accent hover:bg-button-hover w-full'>
+                        <FaRegFileAlt className='text-primary-dark text-base lg:text-lg' />
+                        <span className=''>Approve Applications</span>
+                    </Button>
+                </Link>
+            )}
             <Link to='candidates'>
                 <Button className='flex flex-col justify-center items-center py-5 lg:py-7 gap-1 bg-accent hover:bg-button-hover w-full'>
                     <LuUsers className='text-primary-dark text-base lg:text-lg' />
@@ -28,7 +41,7 @@ const DashboardOptionsAdmin = () => {
             </Link>
             <Link
                 to='#'
-                className='lg:hidden'
+                className={`${tutor_of === null ? "lg:hidden" : ""}`}
             >
                 <Button className='flex flex-col justify-center items-center py-5 lg:py-7 gap-1 bg-accent hover:bg-button-hover w-full'>
                     <FiAward className='text-primary-dark text-base lg:text-lg' />
@@ -37,33 +50,37 @@ const DashboardOptionsAdmin = () => {
             </Link>
             <Link
                 to='#'
-                className='max-lg:col-span-2 lg:hidden'
+                className={`${
+                    tutor_of === null ? "max-lg:col-span-2 lg:hidden" : ""
+                }`}
             >
                 <Button className='flex flex-col justify-center items-center py-5 lg:py-7 gap-1 bg-accent hover:bg-button-hover w-full'>
                     <LuScroll className='text-primary-dark text-base lg:text-lg' />
                     <span className=''>View Appeals</span>
                 </Button>
             </Link>
-            <div className='max-lg:hidden grid grid-cols-2 col-span-3 gap-x-3'>
-                <Link
-                    to='#'
-                    className=''
-                >
-                    <Button className='flex flex-col justify-center items-center py-7 gap-1 bg-accent hover:bg-button-hover w-full'>
-                        <FiAward className='text-primary-dark text-lg' />
-                        <span className=''>View Results</span>
-                    </Button>
-                </Link>
-                <Link
-                    to='#'
-                    className=''
-                >
-                    <Button className='flex flex-col justify-center items-center py-7 gap-1 bg-accent hover:bg-button-hover w-full'>
-                        <LuScroll className='text-primary-dark text-lg' />
-                        <span className=''>View Appeals</span>
-                    </Button>
-                </Link>
-            </div>
+            {tutor_of === null && (
+                <div className='max-lg:hidden grid grid-cols-2 col-span-3 gap-x-3'>
+                    <Link
+                        to='#'
+                        className=''
+                    >
+                        <Button className='flex flex-col justify-center items-center py-7 gap-1 bg-accent hover:bg-button-hover w-full'>
+                            <FiAward className='text-primary-dark text-lg' />
+                            <span className=''>View Results</span>
+                        </Button>
+                    </Link>
+                    <Link
+                        to='#'
+                        className=''
+                    >
+                        <Button className='flex flex-col justify-center items-center py-7 gap-1 bg-accent hover:bg-button-hover w-full'>
+                            <LuScroll className='text-primary-dark text-lg' />
+                            <span className=''>View Appeals</span>
+                        </Button>
+                    </Link>
+                </div>
+            )}
         </div>
     )
 }
