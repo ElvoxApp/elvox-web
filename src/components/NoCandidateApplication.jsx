@@ -1,10 +1,29 @@
 import Button from "./Button"
 import { useAuthStore } from "../stores"
+import toast from "react-hot-toast"
 
 const NoCandidateApplication = ({ setIsCandidateApplicationOpen }) => {
-    const {
-        user: { role }
-    } = useAuthStore()
+    const { user } = useAuthStore()
+
+    const handleClick = () => {
+        if (user?.backlogs && Number(user?.attendance) < 75) {
+            toast.error(
+                "You’re not eligible to apply due to active backlogs and attendance below 75%",
+                { duration: 3000 }
+            )
+        } else if (user?.backlogs) {
+            toast.error("You’re not eligible to apply due to active backlogs", {
+                duration: 3000
+            })
+        } else if (Number(user?.attendance) < 75) {
+            toast.error(
+                "You’re not eligible to apply due to attendance below 75%.",
+                { duration: 3000 }
+            )
+        } else {
+            setIsCandidateApplicationOpen(true)
+        }
+    }
 
     return (
         <div className='flex flex-col px-3 py-4 gap-8 flex-1 justify-center'>
@@ -13,12 +32,12 @@ const NoCandidateApplication = ({ setIsCandidateApplicationOpen }) => {
                     No Candidate Application Submitted
                 </h2>
             </div>
-            {role === "student" && (
+            {user?.role === "student" && (
                 <div className='flex justify-center items-center'>
                     <Button
                         text='Submit Application'
                         className='px-6 py-3 text-sm font-medium bg-accent hover:bg-button-hover'
-                        onClick={() => setIsCandidateApplicationOpen(true)}
+                        onClick={handleClick}
                     />
                 </div>
             )}
