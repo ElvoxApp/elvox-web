@@ -21,7 +21,7 @@ const CancelConfirm = ({
           max-h-[90vh] min-h-0 flex flex-col overflow-hidden
         '
             >
-                <div className='border-b border-gray-500 w-full p-2'>
+                <div className='border-b border-gray-500 w-full pb-2 pt-1'>
                     <h2 className='text-lg text-center'>Discard changes?</h2>
                 </div>
                 <div className='text-center text-base px-3 py-4'>

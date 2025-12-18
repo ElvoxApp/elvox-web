@@ -9,7 +9,7 @@ import { useAuthStore, useThemeStore } from "../stores"
 import ProfileMenu from "./ProfileMenu"
 import { useEffect, useRef, useState } from "react"
 
-const Header = ({ title }) => {
+const Header = ({ title, setShowChangePasswordModal }) => {
     const [showProfileMenu, setShowProfileMenu] = useState(false)
     const profileMenuRef = useRef(null)
     const profileRef = useRef(null)
@@ -75,7 +75,12 @@ const Header = ({ title }) => {
                         ref={profileRef}
                     />
                     {showProfileMenu && (
-                        <ProfileMenu profileMenuRef={profileMenuRef} />
+                        <ProfileMenu
+                            profileMenuRef={profileMenuRef}
+                            setShowChangePasswordModal={
+                                setShowChangePasswordModal
+                            }
+                        />
                     )}
                 </div>
             </div>

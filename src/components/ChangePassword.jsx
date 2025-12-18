@@ -6,8 +6,8 @@ import { IoEyeOutline, IoEyeOffOutline } from "react-icons/io5"
 const passwordRegex =
     /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/
 
-const ChangePassword = () => {
-    const [showPassword, setShowPassword] = useState(false)
+const ChangePassword = ({ forgot = true }) => {
+    const [showNewPassword, setShowNewPassword] = useState(false)
     const [showConfirmPassword, setShowConfirmPassword] = useState(false)
 
     const {
@@ -18,6 +18,38 @@ const ChangePassword = () => {
 
     return (
         <div className='flex flex-col gap-6 w-full text-sm'>
+            {!forgot && (
+                <div className='flex flex-col gap-2'>
+                    <label
+                        htmlFor='currentPassword'
+                        className='text-primary-light dark:text-primary-dark'
+                    >
+                        Current Password
+                    </label>
+                    <div className='relative w-full'>
+                        <Input
+                            type='password'
+                            id='currentPassword'
+                            placeholder='Enter your current password'
+                            className='pr-10 select-none'
+                            register={register}
+                            errors={errors}
+                            rules={{
+                                required: "Current password is required",
+                                minLength: {
+                                    value: 8,
+                                    message: "Minimum 8 characters"
+                                }
+                            }}
+                        />
+                    </div>
+                    {errors?.currentPassword && (
+                        <p className='text-xs text-red-500 mt-1 font-medium'>
+                            {errors?.currentPassword?.message}
+                        </p>
+                    )}
+                </div>
+            )}
             <div className='flex flex-col gap-2'>
                 <label
                     htmlFor='newPassword'
@@ -27,7 +59,7 @@ const ChangePassword = () => {
                 </label>
                 <div className='relative w-full'>
                     <Input
-                        type={showPassword ? "text" : "password"}
+                        type={showNewPassword ? "text" : "password"}
                         id='newPassword'
                         placeholder='Enter your new password'
                         className='pr-10 select-none'
@@ -42,15 +74,15 @@ const ChangePassword = () => {
                             }
                         }}
                     />
-                    {showPassword ? (
+                    {showNewPassword ? (
                         <IoEyeOffOutline
                             className='absolute right-3 top-1/2 -translate-y-1/2 text-primary-light dark:text-primary-dark cursor-pointer size-4'
-                            onClick={() => setShowPassword(false)}
+                            onClick={() => setShowNewPassword(false)}
                         />
                     ) : (
                         <IoEyeOutline
                             className='absolute right-3 top-1/2 -translate-y-1/2 text-primary-light dark:text-primary-dark cursor-pointer size-4'
-                            onClick={() => setShowPassword(true)}
+                            onClick={() => setShowNewPassword(true)}
                         />
                     )}
                 </div>

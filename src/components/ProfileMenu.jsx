@@ -2,7 +2,7 @@ import { LuUserRound, LuLogOut, LuLock } from "react-icons/lu"
 import { useAuthStore } from "../stores"
 import { Link } from "react-router-dom"
 
-const ProfileMenu = ({ profileMenuRef }) => {
+const ProfileMenu = ({ profileMenuRef, setShowChangePasswordModal }) => {
     const { user, logout } = useAuthStore()
 
     return (
@@ -28,7 +28,9 @@ const ProfileMenu = ({ profileMenuRef }) => {
                 </Link>
                 <button
                     className='flex items-center gap-2 cursor-pointer'
-                    onClick={() => {}}
+                    onClick={() => {
+                        setShowChangePasswordModal(true)
+                    }}
                 >
                     <LuLock className='text-base' />
                     <p>Change Password</p>

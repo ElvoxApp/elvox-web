@@ -99,7 +99,7 @@ const ForgotPassword = () => {
                             methods.getValues("passwordResetToken")
                     }
 
-                    const res = await api.patch("/auth/change-password", data)
+                    const res = await api.patch("/auth/reset-password", data)
 
                     if (res.status === 200) {
                         toast.success(res.data.message)
