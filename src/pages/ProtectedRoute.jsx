@@ -3,6 +3,7 @@ import { useAuthStore } from "../stores"
 import Header from "../components/Header"
 import ChangePasswordModal from "../components/ChangePasswordModal"
 import { useState } from "react"
+import FullScreenLoader from "../components/FullScreenLoader"
 
 const ProtectedRoute = () => {
     const [showChangePasswordModal, setShowChangePasswordModal] =
