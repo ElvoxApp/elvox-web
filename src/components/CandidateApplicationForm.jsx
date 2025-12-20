@@ -8,6 +8,7 @@ import Button from "./Button"
 
 const CandidateApplicationForm = ({ isOpen, setIsCancelConfirmOpen }) => {
     const [isLoading, setIsLoading] = useState(false)
+    const [election, setElection] = useState("")
     const [position, setPosition] = useState("General")
     const [nomineeOneData, setNomineeOneData] = useState(null)
     const [nomineeTwoData, setNomineeTwoData] = useState(null)
@@ -27,6 +28,7 @@ const CandidateApplicationForm = ({ isOpen, setIsCancelConfirmOpen }) => {
         !nomineeTwoSignature
 
     const handleSubmit = () => {
+        console.log(election)
         console.log(position)
         console.log(candidateSignature)
         console.log(nomineeOneData)
@@ -45,6 +47,8 @@ const CandidateApplicationForm = ({ isOpen, setIsCancelConfirmOpen }) => {
                 <CandidateDetails />
                 <div className='flex flex-col justify-between sm:flex-2 flex-1 w-full'>
                     <CandidateFormContent
+                        election={election}
+                        setElection={setElection}
                         position={position}
                         setPosition={setPosition}
                         setCandidateSignature={setCandidateSignature}

@@ -1,9 +1,11 @@
 import { Navigate, Outlet, useLocation, useMatches } from "react-router-dom"
-import { useAuthStore } from "../stores"
+import { useAuthStore, useElectionStore } from "../stores"
 import Header from "../components/Header"
 import ChangePasswordModal from "../components/ChangePasswordModal"
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import FullScreenLoader from "../components/FullScreenLoader"
+import toast from "react-hot-toast"
+import api from "../api/api"
 
 const ProtectedRoute = () => {
     const [showChangePasswordModal, setShowChangePasswordModal] =
@@ -18,6 +20,34 @@ const ProtectedRoute = () => {
 
     const allowedRoles = current?.handle?.allowed
 
+    const titles = {
+        "/": "Dashboard",
+        "/candidate-application": "Candidate Application",
+        "/candidates": "Candidates"
+    }
+
+    const { election, setElection } = useElectionStore()
+
+    const isElectionScheduled = election.length > 0
+
+    useEffect(() => {
+        const fetchElection = async () => {
+            try {
+                setIsLoading(true)
+                const res = await api.get("/elections")
+                setElection(res.data)
+            } catch (err) {
+                toast.error(
+                    err?.response?.data?.error || "Something went wrong!"
+                )
+            } finally {
+                setIsLoading(false)
+            }
+        }
+
+        if (!isElectionScheduled) fetchElection()
+    }, [setIsLoading, isElectionScheduled, setElection])
+
     if (!isUserLoaded) return <FullScreenLoader />
 
     if (!isAuthenticated)
@@ -27,12 +57,6 @@ const ProtectedRoute = () => {
                 replace
             />
         )
-
-    const titles = {
-        "/": "Dashboard",
-        "/candidate-application": "Candidate Application",
-        "/candidates": "Candidates"
-    }
 
     return (
         <div className='min-h-dvh w-full bg-bg-light dark:bg-bg-dark py-3 transition-all duration-100 flex flex-col'>

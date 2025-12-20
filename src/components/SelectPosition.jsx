@@ -6,7 +6,7 @@ import {
 } from "@headlessui/react"
 import { HiCheck, HiChevronDown } from "react-icons/hi"
 
-const CandidatePosition = ({ user, position, setPosition }) => {
+const SelectPosition = ({ user, position, setPosition }) => {
     return (
         <Listbox
             value={position}
@@ -38,4 +38,4 @@ const CandidatePosition = ({ user, position, setPosition }) => {
     )
 }
 
-export default CandidatePosition
+export default SelectPosition

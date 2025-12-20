@@ -1,9 +1,12 @@
-import CandidatePosition from "./CandidatePosition"
+import SelectPosition from "./SelectPosition"
 import Nominee from "./Nominee"
 import SignatureInput from "./SignatureInput"
 import { useAuthStore } from "../stores"
+import SelectElection from "./SelectElection"
 
 const CandidateFormContent = ({
+    election,
+    setElection,
     position,
     setPosition,
     setCandidateSignature,
@@ -20,8 +23,15 @@ const CandidateFormContent = ({
     return (
         <div className='flex flex-col flex-1 min-h-0 gap-3 w-full text-sm overflow-y-auto custom-scrollbar'>
             <div className='flex flex-col gap-2'>
+                <p>Election</p>
+                <SelectElection
+                    election={election}
+                    setElection={setElection}
+                />
+            </div>
+            <div className='flex flex-col gap-2'>
                 <p>Position</p>
-                <CandidatePosition
+                <SelectPosition
                     user={user}
                     position={position}
                     setPosition={setPosition}

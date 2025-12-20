@@ -1,6 +1,5 @@
 import { LuActivity, LuUsers } from "react-icons/lu"
 import { FaRegCalendar } from "react-icons/fa"
-import { LiaVoteYeaSolid } from "react-icons/lia"
 import { useElectionStore } from "../stores"
 import formatDate from "../utils/formatDate"
 
@@ -28,7 +27,7 @@ const getElectionStatus = (e) => {
 }
 
 const ElectionDetails = () => {
-    const election = useElectionStore().election[0]
+    const election = useElectionStore((state) => state.election[0])
 
     return (
         <div className='flex flex-col w-full gap-2 px-4 py-4 rounded-md dark:bg-card-dark bg-card-light shadow-lg transition-all duration-100'>
