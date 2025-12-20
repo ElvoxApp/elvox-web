@@ -8,6 +8,7 @@ import FullScreenLoader from "../components/FullScreenLoader"
 const ProtectedRoute = () => {
     const [showChangePasswordModal, setShowChangePasswordModal] =
         useState(false)
+    const [isLoading, setIsLoading] = useState(false)
 
     const { isAuthenticated, isUserLoaded, user } = useAuthStore()
     const { pathname } = useLocation()
@@ -42,7 +43,7 @@ const ProtectedRoute = () => {
                         setShowChangePasswordModal={setShowChangePasswordModal}
                     />
                     <div className='max-w-[1600px] mx-auto w-full flex flex-col flex-1'>
-                        <Outlet />
+                        <Outlet context={{ isLoading, setIsLoading }} />
                     </div>
                     <ChangePasswordModal
                         isOpen={showChangePasswordModal}
@@ -55,6 +56,7 @@ const ProtectedRoute = () => {
                     replace
                 />
             )}
+            {isLoading && <FullScreenLoader />}
         </div>
     )
 }

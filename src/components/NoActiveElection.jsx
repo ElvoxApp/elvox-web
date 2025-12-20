@@ -8,22 +8,34 @@ const NoActiveElection = () => {
     } = useAuthStore()
 
     return (
-        <div className='flex flex-col px-3 py-4 gap-8'>
+        <div className='flex flex-col px-3 py-10 gap-8 max-w-lg'>
             <div className='flex justify-center'>
                 <h2 className='text-center text-primary-light dark:text-primary-dark text-2xl md:text-3xl lg:text-4xl font-black w-[20ch]'>
                     No Elections Are Currently Active Or Scheduled
                 </h2>
             </div>
-            {role === "admin" && (
-                <div className='flex justify-center items-center'>
-                    <Link to='#'>
+            <div className='flex items-stretch gap-4 px-3'>
+                {role === "admin" && (
+                    <Link
+                        to='#'
+                        className='flex-1'
+                    >
                         <Button
                             text='Shedule New Election'
-                            className='px-6 py-3 text-sm font-medium bg-accent hover:bg-button-hover'
+                            className='w-full h-full px-6 py-3 text-sm font-medium bg-accent hover:bg-button-hover'
                         />
                     </Link>
-                </div>
-            )}
+                )}
+                <Link
+                    to='#'
+                    className='flex-1'
+                >
+                    <Button
+                        text='View Past Results'
+                        className='w-full h-full px-6 py-3 text-sm font-medium bg-accent hover:bg-button-hover'
+                    />
+                </Link>
+            </div>
         </div>
     )
 }
