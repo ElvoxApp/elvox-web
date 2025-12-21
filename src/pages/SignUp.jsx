@@ -16,7 +16,11 @@ const SignUp = () => {
     const [contactInfo, setContactInfo] = useState("")
 
     const { isAuthenticated } = useAuthStore()
-    const methods = useForm()
+    const methods = useForm({
+        defaultValues: {
+            role: ""
+        }
+    })
     const navigate = useNavigate()
     const widths = {
         1: "w-1/3",

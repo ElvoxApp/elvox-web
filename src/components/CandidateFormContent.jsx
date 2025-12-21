@@ -1,68 +1,86 @@
 import SelectPosition from "./SelectPosition"
 import Nominee from "./Nominee"
-import SignatureInput from "./SignatureInput"
-import { useAuthStore } from "../stores"
+import ImageInput from "./ImageInput"
 import SelectElection from "./SelectElection"
+import { useFormContext } from "react-hook-form"
 
-const CandidateFormContent = ({
-    election,
-    setElection,
-    position,
-    setPosition,
-    setCandidateSignature,
-    setIsLoading,
-    nomineeOneAdmNo,
-    setNomineeOneData,
-    nomineeTwoAdmNo,
-    setNomineeTwoData,
-    setNomineeOneSignature,
-    setNomineeTwoSignature
-}) => {
-    const { user } = useAuthStore()
+const CandidateFormContent = ({ setIsLoading }) => {
+    const {
+        formState: { errors }
+    } = useFormContext()
 
     return (
         <div className='flex flex-col flex-1 min-h-0 gap-3 w-full text-sm overflow-y-auto custom-scrollbar'>
             <div className='flex flex-col gap-2'>
-                <p>Election</p>
-                <SelectElection
-                    election={election}
-                    setElection={setElection}
-                />
+                <label
+                    htmlFor='election_id'
+                    className='text-primary-light dark:text-primary-dark'
+                >
+                    Election
+                </label>
+                <SelectElection />
+                {errors?.election_id && (
+                    <p className='text-xs text-red-500 mt-1 font-medium'>
+                        {errors?.election_id?.message}
+                    </p>
+                )}
             </div>
             <div className='flex flex-col gap-2'>
-                <p>Position</p>
-                <SelectPosition
-                    user={user}
-                    position={position}
-                    setPosition={setPosition}
-                />
+                <label
+                    htmlFor='position'
+                    className='text-primary-light dark:text-primary-dark'
+                >
+                    Position
+                </label>
+                <SelectPosition />
+                {errors?.position && (
+                    <p className='text-xs text-red-500 mt-1 font-medium'>
+                        {errors?.position?.message}
+                    </p>
+                )}
             </div>
             <div className='flex flex-col gap-2'>
-                <p>Candidate Signature</p>
-                <SignatureInput
-                    setSignature={setCandidateSignature}
-                    signFor='candidate'
+                <label
+                    htmlFor='signature'
+                    className='text-primary-light dark:text-primary-dark'
+                >
+                    Candidate Signature
+                </label>
+                <ImageInput
+                    name='signature'
+                    label='Signature'
                 />
+                {errors?.signature && (
+                    <p className='text-xs text-red-500 mt-1 font-medium'>
+                        {errors?.signature?.message}
+                    </p>
+                )}
             </div>
             <div className='flex flex-col gap-2'>
                 <p>Nominee 1</p>
                 <Nominee
                     number={1}
                     setIsLoading={setIsLoading}
-                    setNomineeData={setNomineeOneData}
-                    setNomineeSignature={setNomineeOneSignature}
-                    otherNomineeAdmNo={nomineeTwoAdmNo}
                 />
+                {errors?.nominee1 && Object.values(errors.nominee1)[0] && (
+                    <p className='text-xs text-red-500 mt-1 font-medium'>
+                        {errors?.nominee1 &&
+                            Object.values(errors.nominee1)[0]?.message}
+                    </p>
+                )}
             </div>
             <div className='flex flex-col gap-2'>
                 <p>Nominee 2</p>
                 <Nominee
                     number={2}
                     setIsLoading={setIsLoading}
-                    setNomineeData={setNomineeTwoData}
-                    setNomineeSignature={setNomineeTwoSignature}
-                    otherNomineeAdmNo={nomineeOneAdmNo}
                 />
+                {errors?.nominee2 && Object.values(errors.nominee2)[0] && (
+                    <p className='text-xs text-red-500 mt-1 font-medium'>
+                        {errors?.nominee2 &&
+                            Object.values(errors.nominee2)[0]?.message}
+                    </p>
+                )}
             </div>
         </div>
     )
