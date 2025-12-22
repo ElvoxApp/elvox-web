@@ -100,6 +100,7 @@ const SignUpRoleStep = ({ setStep, setIsLoading }) => {
                                     : "Employee code is required"
                         }}
                         onKeyDown={(e) => {
+                            e.preventDefault()
                             if (e.key === "Enter") handleNext()
                         }}
                     />
