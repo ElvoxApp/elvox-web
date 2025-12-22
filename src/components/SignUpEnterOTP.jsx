@@ -17,7 +17,8 @@ const SignUpEnterOTP = ({ setStep, contactInfo }) => {
         <div className='flex flex-col gap-6 w-full text-sm'>
             <div className='flex flex-col items-center gap-4'>
                 <p className='text-primary-light dark:text-primary-dark text-center'>
-                    Enter the OTP sent to {contactInfo}
+                    Enter the OTP sent to{" "}
+                    <span className='font-mono'>{contactInfo}</span>
                 </p>
                 <OTPInput />
             </div>

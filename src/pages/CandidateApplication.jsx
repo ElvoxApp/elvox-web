@@ -15,10 +15,16 @@ const CandidateApplication = () => {
                 setIsCandidateApplicationOpen={setIsCandidateApplicationOpen}
             />
             {/* ADD COMPONENT TO SHOW THE CANDIDATE APPLICATION, IF SUBMITTED */}
-            <CandidateApplicationForm
-                isOpen={isCandidateApplicationOpen}
-                setIsCancelConfirmOpen={setIsCancelConfirmOpen}
-            />
+
+            {isCandidateApplicationOpen && (
+                <CandidateApplicationForm
+                    isOpen={isCandidateApplicationOpen}
+                    setIsCancelConfirmOpen={setIsCancelConfirmOpen}
+                    setIsCandidateApplicationOpen={
+                        setIsCandidateApplicationOpen
+                    }
+                />
+            )}
             <CancelConfirm
                 isOpen={isCancelConfirmOpen}
                 setIsOpen={setIsCancelConfirmOpen}
