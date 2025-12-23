@@ -100,8 +100,10 @@ const SignUpRoleStep = ({ setStep, setIsLoading }) => {
                                     : "Employee code is required"
                         }}
                         onKeyDown={(e) => {
-                            e.preventDefault()
-                            if (e.key === "Enter") handleNext()
+                            if (e.key === "Enter") {
+                                e.preventDefault()
+                                handleNext()
+                            }
                         }}
                     />
                     {errors[role === "student" ? "admno" : "empcode"] && (
