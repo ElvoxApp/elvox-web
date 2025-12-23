@@ -44,36 +44,36 @@ const ElectionDetails = () => {
                 </span>
             </p>
             <div className='grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5 lg:gap-x-10 py-3 text-primary-light dark:text-primary-dark'>
-                <div className='flex flex-col gap-0.5'>
+                <div className='flex flex-col gap-2'>
                     <p>Nomination Start</p>
-                    <p className='flex items-center gap-2'>
+                    <p className='flex items-center flex-1 gap-2'>
                         <FaRegCalendar className='text-accent' />
                         <span className='font-semibold'>
                             {formatDate(election?.nomination_start)}
                         </span>
                     </p>
                 </div>
-                <div className='flex flex-col gap-0.5'>
+                <div className='flex flex-col gap-2'>
                     <p>Nomination End</p>
-                    <p className='flex items-center gap-2'>
+                    <p className='flex items-center flex-1 gap-2'>
                         <FaRegCalendar className='text-accent' />
                         <span className='font-semibold'>
                             {formatDate(election?.nomination_end)}
                         </span>
                     </p>
                 </div>
-                <div className='flex flex-col gap-0.5'>
+                <div className='flex flex-col gap-2'>
                     <p>Voting Day</p>
-                    <p className='flex items-center gap-2'>
+                    <p className='flex items-center flex-1 gap-2'>
                         <FaRegCalendar className='text-accent' />
                         <span className='font-semibold'>
                             {formatDate(election?.voting_start)}
                         </span>
                     </p>
                 </div>
-                <div className='flex flex-col gap-0.5'>
+                <div className='flex flex-col gap-2'>
                     <p>Total Candidates</p>
-                    <p className='flex items-center gap-2'>
+                    <p className='flex items-center flex-1 gap-2'>
                         <LuUsers className='text-accent text-base' />
                         <span className='font-semibold'>
                             {election?.total_candidates}
