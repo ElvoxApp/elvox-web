@@ -9,7 +9,7 @@ const CandidateApplication = () => {
     const [isCancelConfirmOpen, setIsCancelConfirmOpen] = useState(false)
 
     return (
-        <div className='flex flex-col px-3 py-5 sm:px-6 sm:py-6 flex-1'>
+        <div className='flex flex-col px-1 py-5 flex-1'>
             <title>Candidate Application</title>
             <NoCandidateApplication
                 setIsCandidateApplicationOpen={setIsCandidateApplicationOpen}

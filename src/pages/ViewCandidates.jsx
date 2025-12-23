@@ -66,7 +66,7 @@ const ViewCandidates = () => {
 
     return (
         <>
-            <div className='flex flex-col px-3 py-5 sm:px-6 sm:py-6 flex-1'>
+            <div className='flex flex-col px-1 py-5 flex-1'>
                 <title>Candidates</title>
                 {candidates?.length > 0 && (
                     <div className='flex flex-col gap-8'>
