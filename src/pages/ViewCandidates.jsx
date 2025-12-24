@@ -1,15 +1,18 @@
 import { useEffect, useMemo, useState } from "react"
 import ViewCandidatesHeader from "../components/ViewCandidatesHeader"
 import Candidate from "../components/Candidate"
-import FullScreenLoader from "../components/FullScreenLoader"
+import { toast } from "react-hot-toast"
+import { useOutletContext } from "react-router-dom"
+import api from "../api/api"
 
 const ViewCandidates = () => {
-    const [isLoading, setIsLoading] = useState(false)
     const [candidates, setCandidates] = useState([])
     const [nameInput, setNameInput] = useState("")
     const [sort, setSort] = useState("name")
     const [year, setYear] = useState("all")
     const [className, setClassName] = useState("all")
+
+    const { isLoading, setIsLoading } = useOutletContext()
 
     const visibleCandidates = useMemo(() => {
         let list = [...candidates]
@@ -51,58 +54,61 @@ const ViewCandidates = () => {
 
     useEffect(() => {
         const fetchCandidates = async () => {
-            // try {
-            //     setIsLoading(true)
-            //     LOGIC TO FETCH CANDIDATES
-            //     setCandidates([])
-            // } catch (err) {
-            // } finally {
-            //     setIsLoading(false)
-            // }
+            try {
+                setIsLoading(true)
+                const res = await api.get("/candidates?status=approved")
+                if (res.status === 200) setCandidates(res.data)
+            } catch (err) {
+                toast.error(
+                    err.response?.data?.message ||
+                        "Could not fetch candidates. Please try again."
+                )
+            } finally {
+                setIsLoading(false)
+            }
         }
 
         fetchCandidates()
-    }, [])
+    }, [setIsLoading])
+
+    if (isLoading) return null
 
     return (
-        <>
-            <div className='flex flex-col px-1 py-5 flex-1'>
-                <title>Candidates</title>
-                {candidates?.length > 0 && (
-                    <div className='flex flex-col gap-8'>
-                        <ViewCandidatesHeader
-                            nameInput={nameInput}
-                            setNameInput={setNameInput}
-                            sort={sort}
-                            setSort={setSort}
-                            year={year}
-                            setYear={setYear}
-                            className={className}
-                            setClassName={setClassName}
-                        />
-                        {visibleCandidates.length > 0 && (
-                            <div className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4'>
-                                {visibleCandidates.map((candidate) => (
-                                    <Candidate
-                                        candidate={candidate}
-                                        key={candidate.id}
-                                    />
-                                ))}
-                            </div>
-                        )}
-                    </div>
-                )}
+        <div className='flex flex-col px-1 py-5 flex-1'>
+            <title>Candidates</title>
+            {candidates?.length > 0 && (
+                <div className='flex flex-col gap-8'>
+                    <ViewCandidatesHeader
+                        nameInput={nameInput}
+                        setNameInput={setNameInput}
+                        sort={sort}
+                        setSort={setSort}
+                        year={year}
+                        setYear={setYear}
+                        className={className}
+                        setClassName={setClassName}
+                    />
+                    {visibleCandidates.length > 0 && (
+                        <div className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4'>
+                            {visibleCandidates.map((candidate) => (
+                                <Candidate
+                                    candidate={candidate}
+                                    key={candidate.id}
+                                />
+                            ))}
+                        </div>
+                    )}
+                </div>
+            )}
 
-                {!visibleCandidates.length && (
-                    <div className='flex px-3 py-4 gap-8 flex-1 items-center justify-center'>
-                        <h2 className='text-center text-primary-light dark:text-primary-dark text-2xl md:text-3xl lg:text-4xl font-black w-[20ch]'>
-                            No Candidate Applications To Show
-                        </h2>
-                    </div>
-                )}
-            </div>
-            {isLoading && <FullScreenLoader />}
-        </>
+            {!visibleCandidates.length && (
+                <div className='flex px-3 py-4 gap-8 flex-1 items-center justify-center'>
+                    <h2 className='text-center text-primary-light dark:text-primary-dark text-2xl md:text-3xl lg:text-4xl font-black w-[20ch]'>
+                        No Candidate Applications To Show
+                    </h2>
+                </div>
+            )}
+        </div>
     )
 }
 

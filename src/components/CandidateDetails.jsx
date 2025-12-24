@@ -22,8 +22,9 @@ const labels = {
 
 const CandidateDetails = () => {
     const { user } = useAuthStore()
+
     return (
-        <div className='flex justify-center sm:flex-1 border rounded-md border-gray-500 px-3 py-[18px] sm:overflow-y-scroll custom-scrollbar w-full'>
+        <div className='flex justify-center sm:flex-1 border rounded-md border-gray-500 px-3 py-[18px] sm:overflow-y-scroll custom-scrollbar w-full text-primary-light dark:text-primary-dark'>
             <div className='flex flex-col gap-2 divide-y divide-gray-500 w-full break-words'>
                 <div className='flex flex-col justify-center items-center gap-2 pb-2'>
                     <img

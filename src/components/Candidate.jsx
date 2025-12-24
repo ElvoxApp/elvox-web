@@ -37,7 +37,7 @@ const Candidate = ({ candidate }) => {
             </div>
             <div className='flex justify-center items-center'>
                 <p className='text-secondary-light dark:text-secondary-dark text-xs text-center'>
-                    Approved on: {readableDate(candidate.created_at)}
+                    Approved on: {readableDate(candidate.updated_at)}
                 </p>
             </div>
         </div>
