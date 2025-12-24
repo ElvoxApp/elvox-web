@@ -39,7 +39,7 @@ const CancelConfirm = ({
                     />
                     <Button
                         text='Discard'
-                        className='w-1/2 h-11 text-sm bg-red-600 hover:bg-red-700'
+                        className='w-1/2 h-11 text-sm bg-red-700 hover:bg-red-800'
                         type='button'
                         onClick={() => {
                             setIsOpen(false)
