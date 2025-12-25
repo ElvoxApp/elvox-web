@@ -107,10 +107,9 @@ const SignUpRoleStep = ({ setStep, setIsLoading }) => {
                         onKeyDown={(e) => {
                             if (e.key === "Enter") {
                                 if (identifier.length > 0) {
-                                    console.log("true")
                                     e.preventDefault()
+                                    handleNext()
                                 }
-                                handleNext()
                             }
                         }}
                     />
