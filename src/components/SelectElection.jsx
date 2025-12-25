@@ -11,7 +11,7 @@ import { Controller, useFormContext } from "react-hook-form"
 const SelectElection = () => {
     const { control } = useFormContext()
 
-    const elections = useElectionStore((state) => state.election)
+    const elections = useElectionStore((state) => state.elections)
 
     const electionOptions = elections.map((el) => ({
         name: el.name,

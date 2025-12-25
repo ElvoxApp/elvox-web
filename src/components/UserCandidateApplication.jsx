@@ -96,7 +96,11 @@ const shouldShowField = (field, candidate) => {
     return true
 }
 
-const UserCandidateApplication = ({ candidate }) => {
+const UserCandidateApplication = ({
+    candidate,
+    setCandidateApplication,
+    setIsApplicationSubmitted
+}) => {
     const [showConfirmDialog, setShowConfirmDialog] = useState(false)
     const [password, setPassword] = useState("")
     const [error, setError] = useState(null)
@@ -125,6 +129,7 @@ const UserCandidateApplication = ({ candidate }) => {
 
     const handleWithdraw = async () => {
         if (!password) return setError("Password is required")
+
         if (password.length < 8) return setError("At least 8 characters")
 
         setError(null)
@@ -133,16 +138,24 @@ const UserCandidateApplication = ({ candidate }) => {
             setIsLoading(true)
             const res = await api.patch(
                 `/candidates/${candidate.id}/withdraw`,
-                { password }
+                {
+                    password,
+                    election_id: candidate.election_id
+                }
             )
 
             if (res.status === 200) {
-                toast.success("Application withdrawn successfully")
+                toast.success(res.data.message)
                 setShowConfirmDialog(false)
+                setCandidateApplication(null)
+                setIsApplicationSubmitted({
+                    submitted: true,
+                    status: "withdrawn"
+                })
             }
         } catch (err) {
             toast.error(
-                err.response?.data?.message ||
+                err.response?.data?.error ||
                     "Failed to withdraw application. Please try again."
             )
         } finally {

@@ -27,7 +27,7 @@ const getElectionStatus = (e) => {
 }
 
 const ElectionDetails = () => {
-    const election = useElectionStore((state) => state.election[0])
+    const election = useElectionStore((state) => state.elections[0])
 
     return (
         <div className='flex flex-col w-full gap-2 px-4 py-4 rounded-md dark:bg-card-dark bg-card-light shadow-lg transition-all duration-100'>

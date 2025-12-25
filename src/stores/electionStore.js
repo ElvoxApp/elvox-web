@@ -1,8 +1,8 @@
 import { create } from "zustand"
 
 const useElectionStore = create((set) => ({
-    election: [],
-    setElection: (data) => set({ election: data })
+    elections: [],
+    setElections: (data) => set({ elections: data })
 }))
 
 export default useElectionStore

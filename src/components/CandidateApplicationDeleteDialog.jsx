@@ -1,6 +1,8 @@
 import { Dialog, DialogPanel } from "@headlessui/react"
 import Button from "./Button"
 import FullScreenLoader from "./FullScreenLoader"
+import { useRef } from "react"
+import { useEffect } from "react"
 
 const CandidateApplicationDeleteDialog = ({
     isOpen,
@@ -11,10 +13,19 @@ const CandidateApplicationDeleteDialog = ({
     error,
     isLoading
 }) => {
+    const inpRef = useRef(null)
+
+    useEffect(() => {
+        setPassword("")
+        inpRef.current?.focus()
+    }, [setPassword])
+
     return (
         <Dialog
             open={isOpen}
-            onClose={() => setIsOpen(false)}
+            onClose={() => {
+                setIsOpen(false)
+            }}
             className='fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm'
         >
             <DialogPanel
@@ -50,6 +61,10 @@ const CandidateApplicationDeleteDialog = ({
                         onChange={(e) => setPassword(e.target.value)}
                         placeholder='Enter your password'
                         className='outline-none border-none bg-field-light dark:bg-field-dark  rounded-md w-full h-11 p-3 text-primary-light dark:text-primary-dark placeholder:text-secondary-light dark:placeholder:text-secondary-dark active:bg-field-light dark:active:bg-field-dark'
+                        onKeyDown={(e) => {
+                            if (e.key === "Enter") handleWithdraw()
+                        }}
+                        ref={inpRef}
                     />
                     {error && (
                         <p className='text-xs text-red-500 mt-1 font-medium'>

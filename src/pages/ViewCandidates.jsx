@@ -60,7 +60,7 @@ const ViewCandidates = () => {
                 if (res.status === 200) setCandidates(res.data)
             } catch (err) {
                 toast.error(
-                    err.response?.data?.message ||
+                    err.response?.data?.error ||
                         "Could not fetch candidates. Please try again."
                 )
             } finally {

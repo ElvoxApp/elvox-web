@@ -26,16 +26,16 @@ const ProtectedRoute = () => {
         "/candidates": "Candidates"
     }
 
-    const { election, setElection } = useElectionStore()
+    const { elections, setElections } = useElectionStore()
 
-    const isElectionScheduled = election.length > 0
+    const isElectionScheduled = elections.length > 0
 
     useEffect(() => {
         const fetchElection = async () => {
             try {
                 setIsLoading(true)
                 const res = await api.get("/elections")
-                setElection(res.data)
+                setElections(res.data)
             } catch (err) {
                 toast.error(
                     err?.response?.data?.error || "Something went wrong!"
@@ -46,7 +46,7 @@ const ProtectedRoute = () => {
         }
 
         if (!isElectionScheduled) fetchElection()
-    }, [setIsLoading, isElectionScheduled, setElection])
+    }, [setIsLoading, isElectionScheduled, setElections])
 
     if (!isUserLoaded) return <FullScreenLoader />
 

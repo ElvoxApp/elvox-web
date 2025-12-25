@@ -6,7 +6,7 @@ import { useOutletContext } from "react-router-dom"
 import api from "../api/api"
 import UserCandidateApplication from "../components/UserCandidateApplication"
 import toast from "react-hot-toast"
-import { useAuthStore } from "../stores"
+import { useAuthStore, useElectionStore } from "../stores"
 
 const CandidateApplication = () => {
     const [checked, setChecked] = useState(false)
@@ -14,6 +14,10 @@ const CandidateApplication = () => {
         useState(false)
     const [isCancelConfirmOpen, setIsCancelConfirmOpen] = useState(false)
     const [candidateApplication, setCandidateApplication] = useState(null)
+    const [isApplicationSubmitted, setIsApplicationSubmitted] = useState({
+        submitted: false,
+        status: null
+    })
 
     const { isLoading, setIsLoading } = useOutletContext()
 
@@ -21,12 +25,27 @@ const CandidateApplication = () => {
         user: { id }
     } = useAuthStore()
 
+    const election = useElectionStore((state) => state.elections[0])
+    const { nomination_end } = election || {}
+
+    const showSubmitApplicationButton = {
+        show:
+            !isApplicationSubmitted.submitted &&
+            nomination_end &&
+            Date.now() < new Date(nomination_end),
+        status: isApplicationSubmitted.status
+    }
+
     useEffect(() => {
         const fetchMyCandidateApplication = async () => {
             try {
                 setIsLoading(true)
                 const exists = await api.get(`/candidates/exists/${id}`)
-                if (exists.data.exists) {
+                setIsApplicationSubmitted({
+                    submitted: exists.data.exists,
+                    status: exists.data.exists ? exists.data.status : null
+                })
+                if (exists.data.exists && exists.data.status !== "withdrawn") {
                     const res = await api.get("/candidates/me")
                     if (res.status === 200) {
                         const election = await api.get(
@@ -48,9 +67,7 @@ const CandidateApplication = () => {
                     setCandidateApplication(null)
                 }
             } catch (err) {
-                toast.error(
-                    err.response?.data?.message || "Something went wrong"
-                )
+                toast.error(err.response?.data?.error || "Something went wrong")
             } finally {
                 setChecked(true)
                 setIsLoading(false)
@@ -68,10 +85,15 @@ const CandidateApplication = () => {
                     setIsCandidateApplicationOpen={
                         setIsCandidateApplicationOpen
                     }
+                    showSubmitApplicationButton={showSubmitApplicationButton}
                 />
             )}
             {checked && candidateApplication && (
-                <UserCandidateApplication candidate={candidateApplication} />
+                <UserCandidateApplication
+                    candidate={candidateApplication}
+                    setCandidateApplication={setCandidateApplication}
+                    setIsApplicationSubmitted={setIsApplicationSubmitted}
+                />
             )}
 
             {isCandidateApplicationOpen && !candidateApplication && (

@@ -24,9 +24,9 @@ const Dashboard = () => {
 
     const DashboardOptions = dashboardOptions[role]
 
-    const { election } = useElectionStore()
+    const { elections } = useElectionStore()
 
-    const isElectionScheduled = election.length > 0
+    const isElectionScheduled = elections.length > 0
 
     return (
         <div className='flex flex-col px-2 py-5 flex-1'>
