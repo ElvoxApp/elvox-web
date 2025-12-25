@@ -19,11 +19,15 @@ const ChangePasswordModal = ({ isOpen, setIsOpen }) => {
 
             const res = await api.patch("/users/update-password", data)
             if (res.status === 200) {
-                toast.success(res.data.message)
+                toast.success(res.data.message, {
+                    id: "change-password-success"
+                })
             }
             setIsOpen(false)
         } catch (err) {
-            toast.error(err.response.data.error)
+            toast.error(err.response.data.error, {
+                id: "change-password-error"
+            })
         } finally {
             setIsLoading(false)
         }

@@ -2,7 +2,11 @@ import { LuUserRound, LuLogOut, LuLock } from "react-icons/lu"
 import { useAuthStore } from "../stores"
 import { Link } from "react-router-dom"
 
-const ProfileMenu = ({ profileMenuRef, setShowChangePasswordModal }) => {
+const ProfileMenu = ({
+    profileMenuRef,
+    setShowChangePasswordModal,
+    setShowProfileMenu
+}) => {
     const { user, logout } = useAuthStore()
 
     return (
@@ -20,8 +24,11 @@ const ProfileMenu = ({ profileMenuRef, setShowChangePasswordModal }) => {
                 <p className='font-medium text-base'>{user.name}</p>
             </div>
             <div className='flex flex-col pt-3 gap-2'>
-                <Link to='#'>
-                    <button className='flex items-center gap-2 cursor-pointer'>
+                <Link to='/profile'>
+                    <button
+                        className='flex items-center gap-2 cursor-pointer'
+                        onClick={() => setShowProfileMenu(false)}
+                    >
                         <LuUserRound className='text-base' />
                         <p>Profile</p>
                     </button>
@@ -30,6 +37,7 @@ const ProfileMenu = ({ profileMenuRef, setShowChangePasswordModal }) => {
                     className='flex items-center gap-2 cursor-pointer'
                     onClick={() => {
                         setShowChangePasswordModal(true)
+                        setShowProfileMenu(false)
                     }}
                 >
                     <LuLock className='text-base' />
@@ -37,7 +45,10 @@ const ProfileMenu = ({ profileMenuRef, setShowChangePasswordModal }) => {
                 </button>
                 <button
                     className='flex items-center gap-2 cursor-pointer'
-                    onClick={logout}
+                    onClick={() => {
+                        setShowProfileMenu(false)
+                        logout()
+                    }}
                 >
                     <LuLogOut className='text-base' />
                     <p>Logout</p>

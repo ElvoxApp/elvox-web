@@ -18,6 +18,7 @@ const SignUpRoleStep = ({ setStep, setIsLoading }) => {
     const navigate = useNavigate()
 
     const role = watch("role")
+    const identifier = watch(role === "student" ? "admno" : "empcode")
 
     const handleNext = async () => {
         const valid = await trigger([
@@ -45,7 +46,9 @@ const SignUpRoleStep = ({ setStep, setIsLoading }) => {
 
             if (personExists.data.exists) {
                 if (userExists.data.exists) {
-                    toast.error("Account already exists, Please login")
+                    toast.error("Account already exists, Please login", {
+                        id: "sign-up-user-exists-error"
+                    })
                     navigate("/login")
                 } else {
                     if (valid) return setStep((prev) => prev + 1)
@@ -56,14 +59,16 @@ const SignUpRoleStep = ({ setStep, setIsLoading }) => {
                         role.toLowerCase() === "student"
                             ? "admission number"
                             : "employee code"
-                    }`
+                    }`,
+                    { id: "sign-up-admno-empcode-error" }
                 )
             }
         } catch (err) {
             toast.error(
                 err.response.data.error
                     ? err.response.data.error
-                    : err.response.data
+                    : err.response.data,
+                { id: "sign-up-role-error" }
             )
         } finally {
             setIsLoading(false)
@@ -101,7 +106,10 @@ const SignUpRoleStep = ({ setStep, setIsLoading }) => {
                         }}
                         onKeyDown={(e) => {
                             if (e.key === "Enter") {
-                                e.preventDefault()
+                                if (identifier.length > 0) {
+                                    console.log("true")
+                                    e.preventDefault()
+                                }
                                 handleNext()
                             }
                         }}

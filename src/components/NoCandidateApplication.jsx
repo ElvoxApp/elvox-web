@@ -12,16 +12,17 @@ const NoCandidateApplication = ({
         if (user?.backlogs && Number(user?.attendance) < 75) {
             toast.error(
                 "You’re not eligible to apply due to active backlogs and attendance below 75%",
-                { duration: 3000 }
+                { duration: 3000, id: "candidate-application-eligibility" }
             )
         } else if (user?.backlogs) {
             toast.error("You’re not eligible to apply due to active backlogs", {
-                duration: 3000
+                duration: 3000,
+                id: "candidate-application-backlogs"
             })
         } else if (Number(user?.attendance) < 75) {
             toast.error(
                 "You’re not eligible to apply due to attendance below 75%.",
-                { duration: 3000 }
+                { duration: 3000, id: "candidate-application-attendance" }
             )
         } else {
             setIsCandidateApplicationOpen(true)

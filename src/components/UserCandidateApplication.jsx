@@ -145,7 +145,9 @@ const UserCandidateApplication = ({
             )
 
             if (res.status === 200) {
-                toast.success(res.data.message)
+                toast.success(res.data.message, {
+                    id: "application-withdraw-success"
+                })
                 setShowConfirmDialog(false)
                 setCandidateApplication(null)
                 setIsApplicationSubmitted({
@@ -156,7 +158,8 @@ const UserCandidateApplication = ({
         } catch (err) {
             toast.error(
                 err.response?.data?.error ||
-                    "Failed to withdraw application. Please try again."
+                    "Failed to withdraw application. Please try again.",
+                { id: "application-withdraw-error" }
             )
         } finally {
             setIsLoading(false)

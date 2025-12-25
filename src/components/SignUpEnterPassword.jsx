@@ -46,12 +46,12 @@ const SignUpEnterPassword = ({ setIsLoading, setStep, setContactInfo }) => {
                 })
 
                 if (res.status === 200) {
-                    toast.success(res.data.message)
+                    toast.success(res.data.message, { id: "otp-send-success" })
                     setContactInfo(res.data.contact)
                 }
                 setStep((prev) => prev + 1)
             } catch (err) {
-                toast.error(err.response.data.error)
+                toast.error(err.response.data.error, { id: "otp-send-error" })
             } finally {
                 setIsLoading(false)
             }

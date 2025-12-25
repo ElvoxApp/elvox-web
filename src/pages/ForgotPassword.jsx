@@ -48,10 +48,11 @@ const ForgotPassword = () => {
                     purpose: "forgot"
                 }
                 const res = await api.post("/auth/otp", data)
-                if (res.status === 200) toast.success(res.data.message)
+                if (res.status === 200)
+                    toast.success(res.data.message, { id: "otp-send-success" })
                 setShowOtpField(true)
             } catch (err) {
-                toast.error(err.response.data.error)
+                toast.error(err.response.data.error, { id: "otp-send-error" })
             } finally {
                 setIsLoading(false)
             }
@@ -75,7 +76,9 @@ const ForgotPassword = () => {
                         otpVerifyRes.status === 200 &&
                         otpVerifyRes.data.passwordResetToken
                     ) {
-                        toast.success(otpVerifyRes.data.message)
+                        toast.success(otpVerifyRes.data.message, {
+                            id: "otp-verify-success"
+                        })
                         methods.setValue(
                             "passwordResetToken",
                             otpVerifyRes.data.passwordResetToken
@@ -83,7 +86,9 @@ const ForgotPassword = () => {
                         setShowChangePassword(true)
                     }
                 } catch (err) {
-                    toast.error(err.response.data.error)
+                    toast.error(err.response.data.error, {
+                        id: "otp-verify-error"
+                    })
                 } finally {
                     setIsLoading(false)
                 }
@@ -102,11 +107,15 @@ const ForgotPassword = () => {
                     const res = await api.patch("/auth/reset-password", data)
 
                     if (res.status === 200) {
-                        toast.success(res.data.message)
+                        toast.success(res.data.message, {
+                            id: "password-reset-success"
+                        })
                         navigate("/login")
                     }
                 } catch (err) {
-                    toast.error(err.response.data.error)
+                    toast.error(err.response.data.error, {
+                        id: "password-reset-error"
+                    })
                 } finally {
                     setIsLoading(false)
                 }

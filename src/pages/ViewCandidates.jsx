@@ -61,7 +61,8 @@ const ViewCandidates = () => {
             } catch (err) {
                 toast.error(
                     err.response?.data?.error ||
-                        "Could not fetch candidates. Please try again."
+                        "Could not fetch candidates. Please try again.",
+                    { id: "candidates-fetch-error" }
                 )
             } finally {
                 setIsLoading(false)

@@ -49,11 +49,15 @@ const CandidateApplicationForm = ({
 
             const res = await api.post("/candidates", fd)
             if (res.status === 201) {
-                toast.success(res.data.message)
+                toast.success(res.data.message, {
+                    id: "candidate-application-success"
+                })
                 setIsCandidateApplicationOpen(false)
             }
         } catch (err) {
-            toast.error(err.response.data.error)
+            toast.error(err.response.data.error, {
+                id: "candidate-application-error"
+            })
         } finally {
             setIsLoading(false)
         }

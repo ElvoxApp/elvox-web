@@ -43,11 +43,13 @@ const SignUpForm = ({ children, setIsLoading }) => {
                 if (res.status === 201) {
                     login(res.data)
                     navigate("/")
-                    toast.success(`Welcome ${res.data.name}!`)
+                    toast.success(`Welcome ${res.data.name}!`, {
+                        id: "signup-success"
+                    })
                 }
             }
         } catch (err) {
-            toast.error(err.response.data.error)
+            toast.error(err.response.data.error, { id: "signup-error" })
         } finally {
             setIsLoading(false)
         }

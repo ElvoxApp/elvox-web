@@ -20,13 +20,17 @@ const Nominee = ({ number, setIsLoading }) => {
         const otherNomineeAdmno = getValues("nomineeTwoAdmno")
 
         if (admno === otherNomineeAdmno) {
-            toast.error("Nominees cannot be the same person")
+            toast.error("Nominees cannot be the same person", {
+                id: "nominee-same-person"
+            })
             setValue(`nominee${number}.admno`, "")
             return
         }
 
         if (admno === user.admno) {
-            toast.error("You cannot select yourself as a nominee")
+            toast.error("You cannot select yourself as a nominee", {
+                id: "nominee-self"
+            })
             setValue(`nominee${number}.admno`, "")
             return
         }
@@ -40,14 +44,16 @@ const Nominee = ({ number, setIsLoading }) => {
                 res.data.sem !== user.sem ||
                 res.data.batch !== user.batch
             ) {
-                toast.error("Nominee must be from the same class")
+                toast.error("Nominee must be from the same class", {
+                    id: "nominee-different-class"
+                })
                 setValue(`nominee${number}.admno`, "")
                 return
             }
             setValue(`nominee${number}.data`, res.data)
             setNomineeInfo(res.data)
         } catch (err) {
-            toast.error(err.response.data.error)
+            toast.error(err.response.data.error, { id: "nominee-fetch-error" })
             setValue(`nominee${number}.admno`, "")
         } finally {
             setIsLoading(false)

@@ -23,7 +23,8 @@ const ProtectedRoute = () => {
     const titles = {
         "/": "Dashboard",
         "/candidate-application": "Candidate Application",
-        "/candidates": "Candidates"
+        "/candidates": "Candidates",
+        "/profile": "Profile"
     }
 
     const { elections, setElections } = useElectionStore()
@@ -38,7 +39,8 @@ const ProtectedRoute = () => {
                 setElections(res.data)
             } catch (err) {
                 toast.error(
-                    err?.response?.data?.error || "Something went wrong!"
+                    err?.response?.data?.error || "Something went wrong!",
+                    { id: "elections-fetch-error" }
                 )
             } finally {
                 setIsLoading(false)

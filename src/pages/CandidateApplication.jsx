@@ -67,7 +67,12 @@ const CandidateApplication = () => {
                     setCandidateApplication(null)
                 }
             } catch (err) {
-                toast.error(err.response?.data?.error || "Something went wrong")
+                toast.error(
+                    err.response?.data?.error || "Something went wrong",
+                    {
+                        id: "candidate-application-fetch-error"
+                    }
+                )
             } finally {
                 setChecked(true)
                 setIsLoading(false)

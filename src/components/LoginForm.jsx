@@ -26,10 +26,12 @@ const LoginForm = ({ setIsLoading }) => {
             if (user) {
                 login(user)
                 navigate("/")
-                toast.success(`Welcome back ${user.name}`)
+                toast.success(`Welcome back ${user.name}`, {
+                    id: "login-success"
+                })
             }
         } catch (err) {
-            toast.error(err.response.data.error)
+            toast.error(err.response.data.error, { id: "login-error" })
         } finally {
             setIsLoading(false)
         }
