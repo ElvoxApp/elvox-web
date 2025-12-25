@@ -65,10 +65,12 @@ const statusStyles = {
 }
 
 const formatDate = (value) =>
-    new Date(value).toLocaleString("en-IN", {
-        dateStyle: "medium",
-        timeStyle: "short"
-    })
+    new Date(value)
+        .toLocaleString("en-IN", {
+            dateStyle: "medium",
+            timeStyle: "short"
+        })
+        .replace(/\b(am|pm)\b/, (m) => m.toUpperCase())
 
 const formatValue = (field, value) => {
     if (!value) return null
@@ -170,7 +172,7 @@ const UserCandidateApplication = ({
     return (
         <>
             <div className='flex justify-center pt-3'>
-                <div className='flex flex-col w-full px-4 py-6 rounded-md dark:bg-card-dark bg-card-light shadow-lg text-primary-light dark:text-primary-dark max-w-4xl'>
+                <div className='flex flex-col w-full px-4 py-6 rounded-lg dark:bg-card-dark bg-card-light shadow-lg text-primary-light dark:text-primary-dark max-w-4xl'>
                     <div className='flex flex-col gap-3 justify-center items-center'>
                         <img
                             src={candidate?.profile_pic}
@@ -181,7 +183,7 @@ const UserCandidateApplication = ({
                     </div>
                     <div className='grid grid-cols-1 md:grid-cols-2 gap-y-6 gap-x-8 pt-8 px-3'>
                         <div className='grid grid-cols-[1fr_12rem] md:grid-cols-[1fr_10rem] gap-y-2'>
-                            <p className='font-medium col-span-2'>
+                            <p className='font-semibold col-span-2'>
                                 Personal Information
                             </p>
                             {personalFields.map((field, i) => {
@@ -222,7 +224,7 @@ const UserCandidateApplication = ({
                             })}
                         </div>
                         <div className='grid grid-cols-[1fr_12rem] gap-y-2 md:hidden'>
-                            <p className='font-medium col-span-2'>
+                            <p className='font-semibold col-span-2'>
                                 Election Details
                             </p>
                             {electionFields.map((field, i) => {
@@ -263,7 +265,7 @@ const UserCandidateApplication = ({
                             })}
                         </div>
                         <div className='grid grid-cols-[1fr_12rem] gap-y-2 md:hidden'>
-                            <p className='font-medium col-span-2'>Nominees</p>
+                            <p className='font-semibold col-span-2'>Nominees</p>
                             {nomineeFields.map((field, i) => {
                                 const isLast = i === nomineeFields.length - 1
 
@@ -294,7 +296,7 @@ const UserCandidateApplication = ({
                         </div>
                         <div className='flex flex-col gap-[17.9px] max-md:hidden'>
                             <div className='grid grid-cols-[1fr_12rem] gap-y-2'>
-                                <p className='font-medium col-span-2'>
+                                <p className='font-semibold col-span-2'>
                                     Election Details
                                 </p>
                                 {electionFields.map((field, i) => {
@@ -336,7 +338,7 @@ const UserCandidateApplication = ({
                                 })}
                             </div>
                             <div className='grid grid-cols-[1fr_12rem] gap-y-2'>
-                                <p className='font-medium col-span-2'>
+                                <p className='font-semibold col-span-2'>
                                     Nominees
                                 </p>
                                 {nomineeFields.map((field, i) => {
@@ -370,7 +372,7 @@ const UserCandidateApplication = ({
                             </div>
                         </div>
                         <div className='grid grid-cols-[1fr_12rem] md:grid-cols-[1fr_10rem] gap-y-2 md:col-span-2'>
-                            <p className='font-medium col-span-2'>
+                            <p className='font-semibold col-span-2'>
                                 Application Status
                             </p>
                             {visibleApplicationFields.map((field, i) => {
