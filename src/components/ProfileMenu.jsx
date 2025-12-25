@@ -19,7 +19,7 @@ const ProfileMenu = ({
                     src={user?.profile_pic}
                     alt={user?.name}
                     width={64}
-                    className='rounded-full select-none'
+                    className='rounded-full'
                 />
                 <p className='font-medium text-base'>{user.name}</p>
             </div>
