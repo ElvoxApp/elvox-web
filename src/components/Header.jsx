@@ -80,6 +80,7 @@ const Header = ({ title, setShowChangePasswordModal }) => {
                             setShowChangePasswordModal={
                                 setShowChangePasswordModal
                             }
+                            setShowProfileMenu={setShowProfileMenu}
                         />
                     )}
                 </div>

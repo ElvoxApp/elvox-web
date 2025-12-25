@@ -13,6 +13,7 @@ const CandidateApplication = lazy(() => import("./pages/CandidateApplication"))
 const ForgotPassword = lazy(() => import("./pages/ForgotPassword"))
 const Unauthorized = lazy(() => import("./pages/Unauthorized"))
 const ViewCandidates = lazy(() => import("./pages/ViewCandidates"))
+const Profile = lazy(() => import("./pages/Profile"))
 
 const ThemeToggle = ({ children }) => {
     const { theme } = useThemeStore()
@@ -42,7 +43,8 @@ const routes = [
                 element: <CandidateApplication />,
                 handle: { allowed: ["student"] }
             },
-            { path: "/candidates", element: <ViewCandidates /> }
+            { path: "/candidates", element: <ViewCandidates /> },
+            { path: "/profile", element: <Profile /> }
         ]
     }
 ]
