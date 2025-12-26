@@ -4,7 +4,7 @@ import {
     IoNotificationsOutline
 } from "react-icons/io5"
 import Logo from "./Logo"
-import { Link, useNavigate } from "react-router-dom"
+import { Link } from "react-router-dom"
 import { useAuthStore, useThemeStore } from "../stores"
 import ProfileMenu from "./ProfileMenu"
 import { useEffect, useRef, useState } from "react"
@@ -13,7 +13,6 @@ const Header = ({ title, setShowChangePasswordModal }) => {
     const [showProfileMenu, setShowProfileMenu] = useState(false)
     const profileMenuRef = useRef(null)
     const profileRef = useRef(null)
-    const navigate = useNavigate()
 
     const { user } = useAuthStore()
     const { theme, toggleTheme } = useThemeStore()
@@ -44,7 +43,6 @@ const Header = ({ title, setShowChangePasswordModal }) => {
                     <Logo
                         textless={true}
                         className='w-10 lg:w-12 cursor-pointer'
-                        onClick={() => navigate("/")}
                     />
                 </Link>
                 <h1 className='text-base sm:text-xl lg:text-2xl font-semibold text-primary-light dark:text-primary-dark'>
@@ -63,7 +61,7 @@ const Header = ({ title, setShowChangePasswordModal }) => {
                         onClick={toggleTheme}
                     />
                 )}
-                <Link to='#'>
+                <Link to='/notifications'>
                     <IoNotificationsOutline className='text-primary-light dark:text-primary-dark text-xl cursor-pointer' />
                 </Link>
                 <div className='flex flex-col relative'>

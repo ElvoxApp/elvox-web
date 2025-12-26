@@ -2,18 +2,19 @@ import { lazy, Suspense, useEffect } from "react"
 import { createBrowserRouter, RouterProvider } from "react-router-dom"
 import FullScreenLoader from "./components/FullScreenLoader"
 import useBlockImageAndLinkActions from "./hooks/useBlockImageAndLinkActions"
-import ProtectedRoute from "./pages/ProtectedRoute"
 import { useThemeStore, useAuthStore } from "./stores"
 import { Toaster } from "react-hot-toast"
 
 const SignUp = lazy(() => import("./pages/SignUp"))
 const Login = lazy(() => import("./pages/Login"))
+const ProtectedRoute = lazy(() => import("./pages/ProtectedRoute"))
 const Dashboard = lazy(() => import("./pages/Dashboard"))
 const CandidateApplication = lazy(() => import("./pages/CandidateApplication"))
 const ForgotPassword = lazy(() => import("./pages/ForgotPassword"))
 const Unauthorized = lazy(() => import("./pages/Unauthorized"))
 const ViewCandidates = lazy(() => import("./pages/ViewCandidates"))
 const Profile = lazy(() => import("./pages/Profile"))
+const Notifications = lazy(() => import("./pages/Notifications"))
 
 const ThemeToggle = ({ children }) => {
     const { theme } = useThemeStore()
@@ -44,7 +45,8 @@ const routes = [
                 handle: { allowed: ["student"] }
             },
             { path: "/candidates", element: <ViewCandidates /> },
-            { path: "/profile", element: <Profile /> }
+            { path: "/profile", element: <Profile /> },
+            { path: "/notifications", element: <Notifications /> }
         ]
     }
 ]

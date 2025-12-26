@@ -11,6 +11,7 @@ const ProtectedRoute = () => {
     const [showChangePasswordModal, setShowChangePasswordModal] =
         useState(false)
     const [isLoading, setIsLoading] = useState(false)
+    const [electionsLoaded, setElectionsLoaded] = useState(false)
 
     const { isAuthenticated, isUserLoaded, user } = useAuthStore()
     const { pathname } = useLocation()
@@ -24,7 +25,8 @@ const ProtectedRoute = () => {
         "/": "Dashboard",
         "/candidate-application": "Candidate Application",
         "/candidates": "Candidates",
-        "/profile": "Profile"
+        "/profile": "Profile",
+        "/notifications": "Notifications"
     }
 
     const { elections, setElections } = useElectionStore()
@@ -44,6 +46,7 @@ const ProtectedRoute = () => {
                 )
             } finally {
                 setIsLoading(false)
+                setElectionsLoaded(true)
             }
         }
 
@@ -63,13 +66,18 @@ const ProtectedRoute = () => {
             />
         )
 
-    if (!isElectionScheduled && !isAllowedWhenInactive(pathname))
+    if (
+        !isElectionScheduled &&
+        !isAllowedWhenInactive(pathname) &&
+        electionsLoaded
+    ) {
         return (
             <Navigate
                 to='/'
                 replace
             />
         )
+    }
 
     return (
         <div className='min-h-dvh w-full bg-bg-light dark:bg-bg-dark py-3 transition-all duration-100 flex flex-col'>

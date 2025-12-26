@@ -2,30 +2,12 @@ import { useState } from "react"
 import Button from "./Button"
 import Notification from "./Notification"
 import Result from "./Result"
+import { useNotificationStore } from "../stores"
 
 const NotificationAndResults = () => {
     const [activeTab, setActiveTab] = useState("notifications")
-    /* MUST CHANGE FOR PRODUCTION - FETCH FROM BACKEND */
-    const notifications = [
-        {
-            id: 1,
-            message: "Election starts in 2 days!",
-            createdAt: "2025-10-04T16:14:30.488Z",
-            type: "info"
-        },
-        {
-            id: 2,
-            message: "New candidate Jane Doe verified",
-            createdAt: "2025-10-04T08:42:30.488Z",
-            type: "success"
-        },
-        {
-            id: 3,
-            message: "Candidate register period extended until Nov 15, 2025",
-            createdAt: "2025-10-01T14:06:30.488Z",
-            type: "warning"
-        }
-    ]
+
+    const { notifications } = useNotificationStore()
 
     const sortedNotifications = [...notifications]
         .sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt))
