@@ -113,8 +113,8 @@ const Profile = () => {
     }, [user])
 
     return (
-        <div className='flex justify-center px-1 pb-5 pt-8 flex-1'>
-            <div className='flex flex-col w-full px-4 py-6 rounded-lg dark:bg-card-dark bg-card-light shadow-lg text-primary-light dark:text-primary-dark max-w-4xl'>
+        <div className='flex justify-center px-2 md:px-5 lg:px-9 pb-5 pt-8 flex-1'>
+            <div className='flex flex-col w-full px-4 py-6 rounded-md dark:bg-card-dark bg-card-light shadow-lg text-primary-light dark:text-primary-dark max-w-4xl'>
                 <div className='flex flex-col gap-3 justify-center items-center'>
                     <img
                         src={user?.profile_pic}

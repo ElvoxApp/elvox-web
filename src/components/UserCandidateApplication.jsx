@@ -171,59 +171,128 @@ const UserCandidateApplication = ({
 
     return (
         <>
-            <div className='flex justify-center pt-3'>
-                <div className='flex flex-col w-full px-4 py-6 rounded-lg dark:bg-card-dark bg-card-light shadow-lg text-primary-light dark:text-primary-dark max-w-4xl'>
-                    <div className='flex flex-col gap-3 justify-center items-center'>
-                        <img
-                            src={candidate?.profile_pic}
-                            alt={candidate?.name}
-                            className='w-24 rounded-full'
-                        />
-                        <p className='text-xl font-bold'>{candidate?.name}</p>
-                    </div>
-                    <div className='grid grid-cols-[5fr_minmax(160px,1fr)] md:grid-cols-2 gap-y-6 md:gap-x-8 pt-8 px-3'>
-                        <div className='contents md:grid md:grid-cols-[1fr_10rem] md:gap-y-2'>
-                            <p className='font-semibold col-span-2'>
-                                Personal Information
-                            </p>
-                            {personalFields.map((field, i) => {
-                                if (!shouldShowField(field, candidate))
-                                    return null
+            <div className='flex flex-col w-full px-4 py-6 rounded-md dark:bg-card-dark bg-card-light shadow-lg text-primary-light dark:text-primary-dark max-w-4xl'>
+                <div className='flex flex-col gap-3 justify-center items-center'>
+                    <img
+                        src={candidate?.profile_pic}
+                        alt={candidate?.name}
+                        className='w-24 rounded-full'
+                    />
+                    <p className='text-xl font-bold'>{candidate?.name}</p>
+                </div>
+                <div className='grid grid-cols-[5fr_minmax(160px,1fr)] md:grid-cols-2 gap-y-6 md:gap-x-8 pt-8 px-3'>
+                    <div className='contents md:grid md:grid-cols-[1fr_10rem] md:gap-y-2'>
+                        <p className='font-semibold col-span-2'>
+                            Personal Information
+                        </p>
+                        {personalFields.map((field, i) => {
+                            if (!shouldShowField(field, candidate)) return null
 
-                                const value = formatValue(
-                                    field,
-                                    displayDetails[field]
-                                )
-                                if (!value) return null
+                            const value = formatValue(
+                                field,
+                                displayDetails[field]
+                            )
+                            if (!value) return null
 
-                                const isLast = i === personalFields.length - 1
+                            const isLast = i === personalFields.length - 1
 
-                                return (
-                                    <div
-                                        className='contents'
-                                        key={field}
+                            return (
+                                <div
+                                    className='contents'
+                                    key={field}
+                                >
+                                    <p
+                                        className={`text-xs text-secondary-light dark:text-secondary-dark py-1.5 ${
+                                            !isLast &&
+                                            "border-b border-b-gray-400/40"
+                                        }`}
                                     >
-                                        <p
-                                            className={`text-xs text-secondary-light dark:text-secondary-dark py-1.5 ${
-                                                !isLast &&
-                                                "border-b border-b-gray-400/40"
-                                            }`}
-                                        >
-                                            {labels[field]}
-                                        </p>
-                                        <p
-                                            className={`text-sm text-primary-light dark:text-primary-dark py-1.5 break-all ${
-                                                !isLast &&
-                                                "border-b border-b-gray-400/40"
-                                            }`}
-                                        >
-                                            {value}
-                                        </p>
-                                    </div>
-                                )
-                            })}
-                        </div>
-                        <div className='contents md:hidden'>
+                                        {labels[field]}
+                                    </p>
+                                    <p
+                                        className={`text-sm text-primary-light dark:text-primary-dark py-1.5 break-all ${
+                                            !isLast &&
+                                            "border-b border-b-gray-400/40"
+                                        }`}
+                                    >
+                                        {value}
+                                    </p>
+                                </div>
+                            )
+                        })}
+                    </div>
+                    <div className='contents md:hidden'>
+                        <p className='font-semibold col-span-2'>
+                            Election Details
+                        </p>
+                        {electionFields.map((field, i) => {
+                            if (!shouldShowField(field, candidate)) return null
+
+                            const value = formatValue(
+                                field,
+                                displayDetails[field]
+                            )
+                            if (!value) return null
+
+                            const isLast = i === electionFields.length - 1
+
+                            return (
+                                <div
+                                    className='contents'
+                                    key={field}
+                                >
+                                    <p
+                                        className={`text-xs text-secondary-light dark:text-secondary-dark py-1.5 ${
+                                            !isLast &&
+                                            "border-b border-b-gray-400/40"
+                                        }`}
+                                    >
+                                        {labels[field]}
+                                    </p>
+                                    <p
+                                        className={`text-sm text-primary-light dark:text-primary-dark py-1.5 break-all ${
+                                            !isLast &&
+                                            "border-b border-b-gray-400/40"
+                                        }`}
+                                    >
+                                        {value}
+                                    </p>
+                                </div>
+                            )
+                        })}
+                    </div>
+                    <div className='contents md:hidden'>
+                        <p className='font-semibold col-span-2'>Nominees</p>
+                        {nomineeFields.map((field, i) => {
+                            const isLast = i === nomineeFields.length - 1
+
+                            return (
+                                <div
+                                    className='contents'
+                                    key={field}
+                                >
+                                    <p
+                                        className={`text-xs text-secondary-light dark:text-secondary-dark py-1.5 ${
+                                            !isLast &&
+                                            "border-b border-b-gray-400/40"
+                                        }`}
+                                    >
+                                        {labels[field]}
+                                    </p>
+                                    <p
+                                        className={`text-sm text-primary-light dark:text-primary-dark py-1.5 break-all ${
+                                            !isLast &&
+                                            "border-b border-b-gray-400/40"
+                                        }`}
+                                    >
+                                        {displayDetails[field]}
+                                    </p>
+                                </div>
+                            )
+                        })}
+                    </div>
+                    <div className='flex flex-col gap-[17.9px] max-md:hidden'>
+                        <div className='grid grid-cols-[1fr_12rem] gap-y-2'>
                             <p className='font-semibold col-span-2'>
                                 Election Details
                             </p>
@@ -264,7 +333,7 @@ const UserCandidateApplication = ({
                                 )
                             })}
                         </div>
-                        <div className='contents md:hidden'>
+                        <div className='grid grid-cols-[1fr_12rem] gap-y-2'>
                             <p className='font-semibold col-span-2'>Nominees</p>
                             {nomineeFields.map((field, i) => {
                                 const isLast = i === nomineeFields.length - 1
@@ -294,142 +363,65 @@ const UserCandidateApplication = ({
                                 )
                             })}
                         </div>
-                        <div className='flex flex-col gap-[17.9px] max-md:hidden'>
-                            <div className='grid grid-cols-[1fr_12rem] gap-y-2'>
-                                <p className='font-semibold col-span-2'>
-                                    Election Details
-                                </p>
-                                {electionFields.map((field, i) => {
-                                    if (!shouldShowField(field, candidate))
-                                        return null
+                    </div>
+                    <div className='contents md:grid md:grid-cols-[1fr_10rem] md:gap-y-2 md:col-span-2'>
+                        <p className='font-semibold col-span-2'>
+                            Application Status
+                        </p>
+                        {visibleApplicationFields.map((field, i) => {
+                            const value = formatValue(
+                                field,
+                                displayDetails[field]
+                            )
 
-                                    const value = formatValue(
-                                        field,
-                                        displayDetails[field]
-                                    )
-                                    if (!value) return null
+                            const isLast =
+                                !showWithdrawButton &&
+                                i === visibleApplicationFields.length - 1
 
-                                    const isLast =
-                                        i === electionFields.length - 1
-
-                                    return (
-                                        <div
-                                            className='contents'
-                                            key={field}
-                                        >
-                                            <p
-                                                className={`text-xs text-secondary-light dark:text-secondary-dark py-1.5 ${
-                                                    !isLast &&
-                                                    "border-b border-b-gray-400/40"
-                                                }`}
-                                            >
-                                                {labels[field]}
-                                            </p>
-                                            <p
-                                                className={`text-sm text-primary-light dark:text-primary-dark py-1.5 break-all ${
-                                                    !isLast &&
-                                                    "border-b border-b-gray-400/40"
-                                                }`}
-                                            >
-                                                {value}
-                                            </p>
-                                        </div>
-                                    )
-                                })}
-                            </div>
-                            <div className='grid grid-cols-[1fr_12rem] gap-y-2'>
-                                <p className='font-semibold col-span-2'>
-                                    Nominees
-                                </p>
-                                {nomineeFields.map((field, i) => {
-                                    const isLast =
-                                        i === nomineeFields.length - 1
-
-                                    return (
-                                        <div
-                                            className='contents'
-                                            key={field}
-                                        >
-                                            <p
-                                                className={`text-xs text-secondary-light dark:text-secondary-dark py-1.5 ${
-                                                    !isLast &&
-                                                    "border-b border-b-gray-400/40"
-                                                }`}
-                                            >
-                                                {labels[field]}
-                                            </p>
-                                            <p
-                                                className={`text-sm text-primary-light dark:text-primary-dark py-1.5 break-all ${
-                                                    !isLast &&
-                                                    "border-b border-b-gray-400/40"
-                                                }`}
-                                            >
-                                                {displayDetails[field]}
-                                            </p>
-                                        </div>
-                                    )
-                                })}
-                            </div>
-                        </div>
-                        <div className='contents md:grid md:grid-cols-[1fr_10rem] md:gap-y-2 md:col-span-2'>
-                            <p className='font-semibold col-span-2'>
-                                Application Status
-                            </p>
-                            {visibleApplicationFields.map((field, i) => {
-                                const value = formatValue(
-                                    field,
-                                    displayDetails[field]
-                                )
-
-                                const isLast =
-                                    !showWithdrawButton &&
-                                    i === visibleApplicationFields.length - 1
-
-                                return (
-                                    <div
-                                        className='contents'
-                                        key={field}
+                            return (
+                                <div
+                                    className='contents'
+                                    key={field}
+                                >
+                                    <p
+                                        className={`text-xs text-secondary-light dark:text-secondary-dark py-1.5 ${
+                                            !isLast &&
+                                            "border-b border-b-gray-400/40"
+                                        }`}
                                     >
-                                        <p
-                                            className={`text-xs text-secondary-light dark:text-secondary-dark py-1.5 ${
-                                                !isLast &&
-                                                "border-b border-b-gray-400/40"
-                                            }`}
-                                        >
-                                            {labels[field]}
-                                        </p>
-                                        <p
-                                            className={`text-sm text-primary-light dark:text-primary-dark py-1.5 break-all ${
-                                                !isLast &&
-                                                "border-b border-b-gray-400/40"
-                                            }`}
-                                        >
-                                            <span
-                                                className={`${statusStyles[value]}`}
-                                            >
-                                                {value}
-                                            </span>
-                                        </p>
-                                    </div>
-                                )
-                            })}
-                            {showWithdrawButton && (
-                                <div className='contents'>
-                                    <p className='text-xs text-secondary-light dark:text-secondary-dark flex items-center py-1.5'>
-                                        Withdraw Application
+                                        {labels[field]}
                                     </p>
-                                    <p className='flex items-center py-1.5'>
-                                        <Button
-                                            text='Withdraw Application'
-                                            className='w-40 h-9 text-sm bg-red-700 hover:bg-red-800'
-                                            onClick={() =>
-                                                setShowConfirmDialog(true)
-                                            }
-                                        />
+                                    <p
+                                        className={`text-sm text-primary-light dark:text-primary-dark py-1.5 break-all ${
+                                            !isLast &&
+                                            "border-b border-b-gray-400/40"
+                                        }`}
+                                    >
+                                        <span
+                                            className={`${statusStyles[value]}`}
+                                        >
+                                            {value}
+                                        </span>
                                     </p>
                                 </div>
-                            )}
-                        </div>
+                            )
+                        })}
+                        {showWithdrawButton && (
+                            <div className='contents'>
+                                <p className='text-xs text-secondary-light dark:text-secondary-dark flex items-center py-1.5'>
+                                    Withdraw Application
+                                </p>
+                                <p className='flex items-center py-1.5'>
+                                    <Button
+                                        text='Withdraw Application'
+                                        className='w-40 h-9 text-sm bg-red-700 hover:bg-red-800'
+                                        onClick={() =>
+                                            setShowConfirmDialog(true)
+                                        }
+                                    />
+                                </p>
+                            </div>
+                        )}
                     </div>
                 </div>
             </div>

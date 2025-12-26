@@ -33,7 +33,7 @@ const Dashboard = () => {
             <title>Dashboard</title>
             {!isLoading && (
                 <div
-                    className={`flex flex-col sm:py-4 md:px-3 lg:px-7 text-sm justify-evenly flex-1 ${
+                    className={`flex flex-col sm:py-3 md:px-3 lg:px-7 text-sm justify-evenly flex-1 ${
                         isElectionScheduled ? "gap-6" : "gap-10"
                     }`}
                 >

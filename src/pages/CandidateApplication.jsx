@@ -83,7 +83,7 @@ const CandidateApplication = () => {
     }, [id, setIsLoading])
 
     return (
-        <div className='flex flex-col px-1 py-5 flex-1'>
+        <div className='flex justify-center px-2 md:px-5 lg:px-9 pb-5 pt-8 flex-1'>
             <title>Candidate Application</title>
             {checked && !candidateApplication && !isLoading && (
                 <NoCandidateApplication
