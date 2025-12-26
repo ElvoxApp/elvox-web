@@ -39,7 +39,7 @@ const Header = ({ title, setShowChangePasswordModal }) => {
 
     return (
         <div className='flex w-full justify-between items-center'>
-            <div className='flex items-center gap-5'>
+            <div className='flex items-center sm:gap-5 gap-3'>
                 <Link to='/'>
                     <Logo
                         textless={true}
