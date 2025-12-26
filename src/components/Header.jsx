@@ -5,7 +5,7 @@ import {
 } from "react-icons/io5"
 import Logo from "./Logo"
 import { Link } from "react-router-dom"
-import { useAuthStore, useThemeStore } from "../stores"
+import { useAuthStore, useNotificationStore, useThemeStore } from "../stores"
 import ProfileMenu from "./ProfileMenu"
 import { useEffect, useRef, useState } from "react"
 
@@ -16,6 +16,7 @@ const Header = ({ title, setShowChangePasswordModal }) => {
 
     const { user } = useAuthStore()
     const { theme, toggleTheme } = useThemeStore()
+    const { unread } = useNotificationStore()
 
     useEffect(() => {
         const handleClickOutside = (e) => {
@@ -49,7 +50,7 @@ const Header = ({ title, setShowChangePasswordModal }) => {
                     {title}
                 </h1>
             </div>
-            <div className='flex items-center lg:gap-8 sm:gap-6 gap-3'>
+            <div className='flex items-center lg:gap-8 sm:gap-6 gap-5'>
                 {theme === "dark" ? (
                     <IoSunnyOutline
                         className='text-primary-light dark:text-primary-dark text-xl cursor-pointer'
@@ -57,12 +58,20 @@ const Header = ({ title, setShowChangePasswordModal }) => {
                     />
                 ) : (
                     <IoMoonOutline
-                        className='text-primary-light dark:text-primary-dark text-xl cursor-pointer'
+                        className='text-primary-light dark:text-primary-dark text-2xl cursor-pointer'
                         onClick={toggleTheme}
                     />
                 )}
-                <Link to='/notifications'>
-                    <IoNotificationsOutline className='text-primary-light dark:text-primary-dark text-xl cursor-pointer' />
+                <Link
+                    to='/notifications'
+                    className='relative'
+                >
+                    <IoNotificationsOutline className='text-primary-light dark:text-primary-dark text-2xl cursor-pointer' />
+                    {unread > 0 && (
+                        <p className='absolute top-0 -right-0.5 text-xs bg-red-600 text-white rounded-full w-4 h-4 flex justify-center items-center text-center'>
+                            {unread}
+                        </p>
+                    )}
                 </Link>
                 <div className='flex flex-col relative'>
                     <img
