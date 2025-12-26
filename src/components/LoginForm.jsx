@@ -22,7 +22,7 @@ const LoginForm = ({ setIsLoading }) => {
         try {
             setIsLoading(true)
             const res = await api.post("/auth/login", data)
-            const user = await res.data
+            const { user } = await res.data
             if (user) {
                 login(user)
                 navigate("/")
