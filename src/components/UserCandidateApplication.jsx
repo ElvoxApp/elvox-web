@@ -17,7 +17,7 @@ const electionFields = [
 
 const applicationFields = [
     "status",
-    "actioned_by",
+    "actioned_by_name",
     "rejection_reason",
     "created_at",
     "updated_at"
@@ -34,7 +34,7 @@ const personalFields = [
 ]
 
 const labels = {
-    actioned_by: "Reviewed By",
+    actioned_by_name: "Reviewed By",
     class: "Class",
     created_at: "Submitted On",
     department: "Department",
