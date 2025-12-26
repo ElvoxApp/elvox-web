@@ -1,7 +1,6 @@
 import { Dialog, DialogPanel } from "@headlessui/react"
 import Button from "./Button"
 import FullScreenLoader from "./FullScreenLoader"
-import { useRef } from "react"
 import { useEffect } from "react"
 
 const CandidateApplicationDeleteDialog = ({
@@ -13,11 +12,8 @@ const CandidateApplicationDeleteDialog = ({
     error,
     isLoading
 }) => {
-    const inpRef = useRef(null)
-
     useEffect(() => {
         setPassword("")
-        inpRef.current?.focus()
     }, [setPassword])
 
     return (
@@ -64,7 +60,6 @@ const CandidateApplicationDeleteDialog = ({
                         onKeyDown={(e) => {
                             if (e.key === "Enter") handleWithdraw()
                         }}
-                        ref={inpRef}
                     />
                     {error && (
                         <p className='text-xs text-red-500 mt-1 font-medium'>
