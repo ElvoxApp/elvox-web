@@ -181,8 +181,8 @@ const UserCandidateApplication = ({
                         />
                         <p className='text-xl font-bold'>{candidate?.name}</p>
                     </div>
-                    <div className='grid grid-cols-1 md:grid-cols-2 gap-y-6 gap-x-8 pt-8 px-3'>
-                        <div className='grid grid-cols-[1fr_12rem] md:grid-cols-[1fr_10rem] gap-y-2'>
+                    <div className='grid grid-cols-[5fr_minmax(160px,1fr)] md:grid-cols-2 gap-y-6 md:gap-x-8 pt-8 px-3'>
+                        <div className='contents md:grid md:grid-cols-[1fr_10rem] md:gap-y-2'>
                             <p className='font-semibold col-span-2'>
                                 Personal Information
                             </p>
@@ -212,7 +212,7 @@ const UserCandidateApplication = ({
                                             {labels[field]}
                                         </p>
                                         <p
-                                            className={`text-sm text-primary-light dark:text-primary-dark py-1.5 ${
+                                            className={`text-sm text-primary-light dark:text-primary-dark py-1.5 break-all ${
                                                 !isLast &&
                                                 "border-b border-b-gray-400/40"
                                             }`}
@@ -223,7 +223,7 @@ const UserCandidateApplication = ({
                                 )
                             })}
                         </div>
-                        <div className='grid grid-cols-[1fr_12rem] gap-y-2 md:hidden'>
+                        <div className='contents md:hidden'>
                             <p className='font-semibold col-span-2'>
                                 Election Details
                             </p>
@@ -253,7 +253,7 @@ const UserCandidateApplication = ({
                                             {labels[field]}
                                         </p>
                                         <p
-                                            className={`text-sm text-primary-light dark:text-primary-dark py-1.5 ${
+                                            className={`text-sm text-primary-light dark:text-primary-dark py-1.5 break-all ${
                                                 !isLast &&
                                                 "border-b border-b-gray-400/40"
                                             }`}
@@ -264,7 +264,7 @@ const UserCandidateApplication = ({
                                 )
                             })}
                         </div>
-                        <div className='grid grid-cols-[1fr_12rem] gap-y-2 md:hidden'>
+                        <div className='contents md:hidden'>
                             <p className='font-semibold col-span-2'>Nominees</p>
                             {nomineeFields.map((field, i) => {
                                 const isLast = i === nomineeFields.length - 1
@@ -283,7 +283,7 @@ const UserCandidateApplication = ({
                                             {labels[field]}
                                         </p>
                                         <p
-                                            className={`text-sm text-primary-light dark:text-primary-dark py-1.5 ${
+                                            className={`text-sm text-primary-light dark:text-primary-dark py-1.5 break-all ${
                                                 !isLast &&
                                                 "border-b border-b-gray-400/40"
                                             }`}
@@ -326,7 +326,7 @@ const UserCandidateApplication = ({
                                                 {labels[field]}
                                             </p>
                                             <p
-                                                className={`text-sm text-primary-light dark:text-primary-dark py-1.5 ${
+                                                className={`text-sm text-primary-light dark:text-primary-dark py-1.5 break-all ${
                                                     !isLast &&
                                                     "border-b border-b-gray-400/40"
                                                 }`}
@@ -359,7 +359,7 @@ const UserCandidateApplication = ({
                                                 {labels[field]}
                                             </p>
                                             <p
-                                                className={`text-sm text-primary-light dark:text-primary-dark py-1.5 ${
+                                                className={`text-sm text-primary-light dark:text-primary-dark py-1.5 break-all ${
                                                     !isLast &&
                                                     "border-b border-b-gray-400/40"
                                                 }`}
@@ -371,7 +371,7 @@ const UserCandidateApplication = ({
                                 })}
                             </div>
                         </div>
-                        <div className='grid grid-cols-[1fr_12rem] md:grid-cols-[1fr_10rem] gap-y-2 md:col-span-2'>
+                        <div className='contents md:grid md:grid-cols-[1fr_10rem] md:gap-y-2 md:col-span-2'>
                             <p className='font-semibold col-span-2'>
                                 Application Status
                             </p>
@@ -399,7 +399,7 @@ const UserCandidateApplication = ({
                                             {labels[field]}
                                         </p>
                                         <p
-                                            className={`text-sm text-primary-light dark:text-primary-dark py-1.5 ${
+                                            className={`text-sm text-primary-light dark:text-primary-dark py-1.5 break-all ${
                                                 !isLast &&
                                                 "border-b border-b-gray-400/40"
                                             }`}

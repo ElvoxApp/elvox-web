@@ -9,7 +9,7 @@ const ProfileItem = ({ label, value, isLast }) => {
                 {label}
             </p>
             <p
-                className={`text-sm text-primary-light dark:text-primary-dark py-1.5 text-right ${
+                className={`text-sm text-primary-light dark:text-primary-dark py-1.5 break-all ${
                     !isLast && "border-b border-b-gray-400/40"
                 }`}
             >

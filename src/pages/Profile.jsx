@@ -34,7 +34,10 @@ const profileFields = {
     student: {
         personal: [
             { key: "admno", label: "Admission Number" },
-            { key: "email", label: "Email" },
+            {
+                key: "email",
+                label: "Email"
+            },
             { key: "phone", label: "Phone" }
         ],
 
@@ -123,7 +126,7 @@ const Profile = () => {
                         {capitalize(user?.role)}
                     </p>
                 </div>
-                <div className='flex flex-col pt-8 px-3 gap-6'>
+                <div className='grid grid-cols-[5fr_minmax(160px,1fr)] pt-8 px-3 gap-y-3'>
                     {Object.entries(profileField).map(([section, fields]) => (
                         <ProfileSection
                             key={section}
