@@ -1,5 +1,5 @@
 import { Navigate, Outlet, useLocation, useMatches } from "react-router-dom"
-import { useAuthStore, useElectionStore } from "../stores"
+import { useAuthStore, useElectionStore, useNotificationStore } from "../stores"
 import Header from "../components/Header"
 import ChangePasswordModal from "../components/ChangePasswordModal"
 import { useEffect, useState } from "react"
@@ -30,6 +30,7 @@ const ProtectedRoute = () => {
     }
 
     const { elections, setElections } = useElectionStore()
+    const { setNotifications } = useNotificationStore()
 
     const isElectionScheduled = elections.length > 0
 
@@ -52,6 +53,22 @@ const ProtectedRoute = () => {
 
         if (!isElectionScheduled) fetchElection()
     }, [setIsLoading, isElectionScheduled, setElections])
+
+    useEffect(() => {
+        const fetchNotificaions = async () => {
+            try {
+                const res = await api.get("/notifications")
+                setNotifications(res.data)
+            } catch (err) {
+                toast.error(
+                    err?.response?.data?.error || "Something went wrong!",
+                    { id: "notifications-fetch-error" }
+                )
+            }
+        }
+
+        fetchNotificaions()
+    }, [setNotifications])
 
     const isAllowedWhenInactive = (pathname) =>
         pathname === "/" || pathname.startsWith("/results")
