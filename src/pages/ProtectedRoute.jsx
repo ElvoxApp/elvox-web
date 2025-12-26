@@ -50,12 +50,23 @@ const ProtectedRoute = () => {
         if (!isElectionScheduled) fetchElection()
     }, [setIsLoading, isElectionScheduled, setElections])
 
+    const isAllowedWhenInactive = (pathname) =>
+        pathname === "/" || pathname.startsWith("/results")
+
     if (!isUserLoaded) return <FullScreenLoader />
 
     if (!isAuthenticated)
         return (
             <Navigate
                 to='/login'
+                replace
+            />
+        )
+
+    if (!isElectionScheduled && !isAllowedWhenInactive(pathname))
+        return (
+            <Navigate
+                to='/'
                 replace
             />
         )
