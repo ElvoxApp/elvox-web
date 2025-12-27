@@ -4,10 +4,10 @@ import FullScreenLoader from "./components/FullScreenLoader"
 import useBlockImageAndLinkActions from "./hooks/useBlockImageAndLinkActions"
 import { useThemeStore, useAuthStore } from "./stores"
 import { Toaster } from "react-hot-toast"
+import ProtectedRoute from "./pages/ProtectedRoute"
 
 const SignUp = lazy(() => import("./pages/SignUp"))
 const Login = lazy(() => import("./pages/Login"))
-const ProtectedRoute = lazy(() => import("./pages/ProtectedRoute"))
 const Dashboard = lazy(() => import("./pages/Dashboard"))
 const CandidateApplication = lazy(() => import("./pages/CandidateApplication"))
 const ForgotPassword = lazy(() => import("./pages/ForgotPassword"))
@@ -63,8 +63,8 @@ const App = () => {
     }, [fetchMe])
 
     return (
-        <Suspense fallback={<FullScreenLoader suspense />}>
-            <ThemeToggle>
+        <ThemeToggle>
+            <Suspense fallback={<FullScreenLoader suspense />}>
                 <Toaster
                     position='top-center'
                     toastOptions={{
@@ -78,8 +78,8 @@ const App = () => {
                     }}
                 />
                 <RouterProvider router={router} />
-            </ThemeToggle>
-        </Suspense>
+            </Suspense>
+        </ThemeToggle>
     )
 }
 
