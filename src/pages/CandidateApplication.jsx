@@ -110,11 +110,15 @@ const CandidateApplication = () => {
                     }
                 />
             )}
-            <CancelConfirm
-                isOpen={isCancelConfirmOpen}
-                setIsOpen={setIsCancelConfirmOpen}
-                setIsCandidateApplicationOpen={setIsCandidateApplicationOpen}
-            />
+            {isCancelConfirmOpen && (
+                <CancelConfirm
+                    isOpen={isCancelConfirmOpen}
+                    setIsOpen={setIsCancelConfirmOpen}
+                    setIsCandidateApplicationOpen={
+                        setIsCandidateApplicationOpen
+                    }
+                />
+            )}
         </div>
     )
 }
