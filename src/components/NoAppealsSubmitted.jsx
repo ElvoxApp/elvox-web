@@ -1,11 +1,11 @@
 import { LuScroll } from "react-icons/lu"
 import Button from "./Button"
 
-const NoAppealsSubmitted = () => {
+const NoAppealsSubmitted = ({ setShowAppealForm }) => {
     return (
         <div className='flex flex-col px-3 py-4 flex-1 items-center justify-center'>
             <div className='flex flex-col px-3 py-4 gap-4 flex-1 items-center justify-center max-w-xl'>
-                <LuScroll className='text-8xl' />
+                <LuScroll className='text-8xl text-primary-light dark:text-primary-dark' />
                 <h2 className='text-center text-primary-light dark:text-primary-dark text-2xl md:text-3xl lg:text-4xl font-black w-[20ch]'>
                     No Appeals Submitted
                 </h2>
@@ -16,7 +16,7 @@ const NoAppealsSubmitted = () => {
                 <Button
                     text='Submit Appeal'
                     className='px-6 py-3 text-sm font-medium bg-accent hover:bg-button-hover'
-                    onClick={() => {}}
+                    onClick={() => setShowAppealForm(true)}
                 />
             </div>
         </div>
