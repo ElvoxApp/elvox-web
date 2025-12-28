@@ -37,7 +37,7 @@ const Notification = ({
         <div
             className={`flex items-center justify-between gap-3 p-3 rounded-md text-primary-light dark:text-primary-dark even:dark:bg-[#16171d] even:bg-[#c4c9d4] odd:dark:bg-bg-dark odd:bg-bg-light ${
                 !notification.is_read && showUnread
-                    ? "border-l-5 border-accent"
+                    ? "border-l-6 border-accent"
                     : ""
             }`}
         >

@@ -68,8 +68,8 @@ const Header = ({ title, setShowChangePasswordModal }) => {
                 >
                     <IoNotificationsOutline className='text-primary-light dark:text-primary-dark text-2xl cursor-pointer' />
                     {unread > 0 && (
-                        <p className='absolute top-0 -right-0.5 text-xs bg-red-600 text-white rounded-full w-4 h-4 flex justify-center items-center text-center'>
-                            {unread}
+                        <p className='absolute -top-0.5 -right-1 text-xs bg-red-600 text-white rounded-full w-4.5 h-4.5 flex justify-center items-center text-center'>
+                            {unread > 9 ? "9+" : unread}
                         </p>
                     )}
                 </Link>
