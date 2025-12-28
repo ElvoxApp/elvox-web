@@ -67,6 +67,7 @@ const CandidateApplicationForm = ({
         <Modal
             open={isOpen}
             onClose={() => setIsCancelConfirmOpen(true)}
+            title='Candidate Application'
         >
             <div className='flex max-sm:flex-col flex-1 py-6 gap-6 w-full h-full max-sm:overflow-y-auto custom-scrollbar min-h-0'>
                 <CandidateDetails />

@@ -2,7 +2,7 @@ import { Dialog, DialogPanel } from "@headlessui/react"
 import { useEffect, useRef, useCallback } from "react"
 import { IoMdClose } from "react-icons/io"
 
-const Modal = ({ open, onClose, children }) => {
+const Modal = ({ open, onClose, title, children }) => {
     const hasPushedRef = useRef(false)
 
     useEffect(() => {
@@ -50,9 +50,7 @@ const Modal = ({ open, onClose, children }) => {
             >
                 <div className='shrink-0 relative'>
                     <div className='border-b border-gray-500 w-full p-2'>
-                        <h2 className='text-lg text-center'>
-                            Candidate Application
-                        </h2>
+                        <h2 className='text-lg text-center'>{title}</h2>
                     </div>
                     <IoMdClose
                         className='absolute -right-1.5 -top-2.5 text-2xl cursor-pointer active:scale-50 transition-all duration-300'
