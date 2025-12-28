@@ -29,6 +29,7 @@ const Modal = ({ open, onClose, title, children }) => {
     const handleRequestClose = useCallback(() => {
         if (hasPushedRef.current && window.history.state?.modal) {
             window.history.back()
+            onClose()
         } else {
             onClose()
         }
