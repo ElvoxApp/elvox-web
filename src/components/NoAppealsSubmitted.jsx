@@ -1,0 +1,24 @@
+import { LuScroll } from "react-icons/lu"
+import Button from "./Button"
+
+const NoAppealsSubmitted = () => {
+    return (
+        <div className='flex flex-col px-3 py-4 gap-4 flex-1 items-center justify-center'>
+            <LuScroll className='text-8xl' />
+            <h2 className='text-center text-primary-light dark:text-primary-dark text-2xl md:text-3xl lg:text-4xl font-black w-[20ch]'>
+                No Appeals Submitted
+            </h2>
+            <p className='text-center text-secondary-light dark:text-secondary-dark w-[50ch]'>
+                You haven't submitted any appeals yet. If you believe an issue
+                requires review, you can submit an appeal
+            </p>
+            <Button
+                text='Submit Appeal'
+                className='px-6 py-3 text-sm font-medium bg-accent hover:bg-button-hover'
+                onClick={() => {}}
+            />
+        </div>
+    )
+}
+
+export default NoAppealsSubmitted

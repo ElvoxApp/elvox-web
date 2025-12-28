@@ -26,7 +26,8 @@ const ProtectedRoute = () => {
         "/candidate-application": "Candidate Application",
         "/candidates": "Candidates",
         "/profile": "Profile",
-        "/notifications": "Notifications"
+        "/notifications": "Notifications",
+        "/appeals": "Appeals"
     }
 
     const { elections, setElections } = useElectionStore()
