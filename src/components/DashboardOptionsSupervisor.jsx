@@ -31,7 +31,7 @@ const DashboardOptionsSupervisor = () => {
                     </Button>
                 </Link>
             )}
-            <Link to='candidates'>
+            <Link to='/candidates'>
                 <Button className='flex flex-col justify-center items-center py-5 lg:py-7 gap-1 bg-accent hover:bg-button-hover w-full'>
                     <LuUsers className='text-primary-dark text-base lg:text-lg' />
                     <span className=''>View Candidates</span>
@@ -47,7 +47,7 @@ const DashboardOptionsSupervisor = () => {
                 </Button>
             </Link>
             <Link
-                to='#'
+                to='/appeals'
                 className={`${
                     tutor_of !== null ? "max-lg:col-span-2 lg:hidden" : ""
                 }`}
@@ -69,7 +69,7 @@ const DashboardOptionsSupervisor = () => {
                         </Button>
                     </Link>
                     <Link
-                        to='#'
+                        to='/appeals'
                         className=''
                     >
                         <Button className='flex flex-col justify-center items-center py-7 gap-1 bg-accent hover:bg-button-hover w-full'>

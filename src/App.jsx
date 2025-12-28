@@ -15,6 +15,7 @@ const Unauthorized = lazy(() => import("./pages/Unauthorized"))
 const ViewCandidates = lazy(() => import("./pages/ViewCandidates"))
 const Profile = lazy(() => import("./pages/Profile"))
 const Notifications = lazy(() => import("./pages/Notifications"))
+const SubmitAppeal = lazy(() => import("./pages/SubmitAppeal"))
 
 const ThemeToggle = ({ children }) => {
     const { theme } = useThemeStore()
@@ -46,7 +47,12 @@ const routes = [
             },
             { path: "/candidates", element: <ViewCandidates /> },
             { path: "/profile", element: <Profile /> },
-            { path: "/notifications", element: <Notifications /> }
+            { path: "/notifications", element: <Notifications /> },
+            {
+                path: "/appeals",
+                element: <SubmitAppeal />,
+                handle: { allowed: ["student", "teacher", "supervisor"] }
+            }
         ]
     }
 ]
