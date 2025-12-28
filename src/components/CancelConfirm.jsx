@@ -2,11 +2,7 @@ import { Dialog, DialogPanel } from "@headlessui/react"
 import Button from "./Button"
 import toast from "react-hot-toast"
 
-const CancelConfirm = ({
-    isOpen,
-    setIsOpen,
-    setIsCandidateApplicationOpen
-}) => {
+const CancelConfirm = ({ isOpen, setIsOpen, setIsFormOpen }) => {
     return (
         <Dialog
             open={isOpen}
@@ -43,7 +39,7 @@ const CancelConfirm = ({
                         type='button'
                         onClick={() => {
                             setIsOpen(false)
-                            setIsCandidateApplicationOpen(false)
+                            setIsFormOpen(false)
                             toast.dismiss()
                         }}
                     />
