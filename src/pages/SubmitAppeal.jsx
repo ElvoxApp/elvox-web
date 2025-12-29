@@ -1,5 +1,5 @@
-import { useEffect, useState } from "react"
-import { useBlocker } from "react-router-dom"
+import { useEffect, useRef, useState } from "react"
+import { useBlocker, useLocation, useNavigate } from "react-router-dom"
 import NoAppealsSubmitted from "../components/NoAppealsSubmitted"
 import SubmitAppealFormModal from "../components/SubmitAppealFormModal"
 import CancelConfirm from "../components/CancelConfirm"
@@ -14,18 +14,29 @@ const SubmitAppeal = () => {
 
     const { setIsLoading } = useOutletContext()
 
+    const navigate = useNavigate()
+    const location = useLocation()
+
     const blocker = useBlocker(showAppealForm)
+
+    const hasRestoredRef = useRef(false)
 
     useEffect(() => {
         if (blocker.state !== "blocked") return
 
         if (!showAppealForm) {
+            hasRestoredRef.current = false
             blocker.reset()
             return
         }
 
+        if (!hasRestoredRef.current) {
+            hasRestoredRef.current = true
+            navigate(location.pathname, { replace: true })
+        }
+
         setIsCancelConfirmOpen(true)
-    }, [blocker.state, showAppealForm, blocker])
+    }, [blocker.state, showAppealForm, navigate, location.pathname, blocker])
 
     useEffect(() => {
         const fetchAppeals = async () => {
