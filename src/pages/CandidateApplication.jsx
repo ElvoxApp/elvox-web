@@ -2,7 +2,7 @@ import { useEffect, useState } from "react"
 import CancelConfirm from "../components/CancelConfirm"
 import NoCandidateApplication from "../components/NoCandidateApplication"
 import CandidateApplicationForm from "../components/CandidateApplicationForm"
-import { useOutletContext } from "react-router-dom"
+import { useBlocker, useOutletContext } from "react-router-dom"
 import api from "../api/api"
 import UserCandidateApplication from "../components/UserCandidateApplication"
 import toast from "react-hot-toast"
@@ -18,6 +18,8 @@ const CandidateApplication = () => {
         submitted: false,
         status: null
     })
+
+    const blocker = useBlocker(isCandidateApplicationOpen)
 
     const { isLoading, setIsLoading } = useOutletContext()
 
@@ -35,6 +37,17 @@ const CandidateApplication = () => {
             Date.now() < new Date(nomination_end),
         status: isApplicationSubmitted.status
     }
+
+    useEffect(() => {
+        if (blocker.state !== "blocked") return
+
+        if (!isCandidateApplicationOpen) {
+            blocker.reset()
+            return
+        }
+
+        setIsCancelConfirmOpen(true)
+    }, [blocker.state, isCandidateApplicationOpen, blocker])
 
     useEffect(() => {
         const fetchMyCandidateApplication = async () => {

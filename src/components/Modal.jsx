@@ -1,44 +1,11 @@
 import { Dialog, DialogPanel } from "@headlessui/react"
-import { useEffect, useRef, useCallback } from "react"
 import { IoMdClose } from "react-icons/io"
 
 const Modal = ({ open, onClose, title, children }) => {
-    const hasPushedRef = useRef(false)
-
-    useEffect(() => {
-        if (!open) {
-            hasPushedRef.current = false
-            return
-        }
-
-        if (!hasPushedRef.current) {
-            window.history.pushState({ modal: true }, "")
-            hasPushedRef.current = true
-        }
-
-        const handler = (event) => {
-            if (event.state?.modal) {
-                onClose()
-            }
-        }
-
-        window.addEventListener("popstate", handler)
-        return () => window.removeEventListener("popstate", handler)
-    }, [open, onClose])
-
-    const handleRequestClose = useCallback(() => {
-        if (hasPushedRef.current && window.history.state?.modal) {
-            window.history.back()
-            onClose()
-        } else {
-            onClose()
-        }
-    }, [onClose])
-
     return (
         <Dialog
             open={open}
-            onClose={handleRequestClose}
+            onClose={onClose}
             className='fixed inset-0 z-40 flex sm:items-center justify-center p-4 bg-black/60 backdrop-blur-sm'
         >
             <DialogPanel
@@ -55,7 +22,7 @@ const Modal = ({ open, onClose, title, children }) => {
                     </div>
                     <IoMdClose
                         className='absolute -right-1.5 -top-2.5 text-2xl cursor-pointer active:scale-50 transition-all duration-300'
-                        onClick={handleRequestClose}
+                        onClick={onClose}
                     />
                 </div>
                 {children}

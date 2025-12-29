@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react"
+import { useBlocker } from "react-router-dom"
 import NoAppealsSubmitted from "../components/NoAppealsSubmitted"
 import SubmitAppealFormModal from "../components/SubmitAppealFormModal"
 import CancelConfirm from "../components/CancelConfirm"
@@ -12,6 +13,19 @@ const SubmitAppeal = () => {
     const [isCancelConfirmOpen, setIsCancelConfirmOpen] = useState(false)
 
     const { setIsLoading } = useOutletContext()
+
+    const blocker = useBlocker(showAppealForm)
+
+    useEffect(() => {
+        if (blocker.state !== "blocked") return
+
+        if (!showAppealForm) {
+            blocker.reset()
+            return
+        }
+
+        setIsCancelConfirmOpen(true)
+    }, [blocker.state, showAppealForm, blocker])
 
     useEffect(() => {
         const fetchAppeals = async () => {
