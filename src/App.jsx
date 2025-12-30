@@ -16,6 +16,7 @@ const ViewCandidates = lazy(() => import("./pages/ViewCandidates"))
 const Profile = lazy(() => import("./pages/Profile"))
 const Notifications = lazy(() => import("./pages/Notifications"))
 const Appeals = lazy(() => import("./pages/Appeals"))
+const AppealDetails = lazy(() => import("./pages/AppealDetails"))
 
 const ThemeToggle = ({ children }) => {
     const { theme } = useThemeStore()
@@ -51,6 +52,10 @@ const routes = [
             {
                 path: "/appeals",
                 element: <Appeals />
+            },
+            {
+                path: "/appeals/:id",
+                element: <AppealDetails />
             }
         ]
     }

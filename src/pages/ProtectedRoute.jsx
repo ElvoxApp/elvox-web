@@ -21,13 +21,19 @@ const ProtectedRoute = () => {
 
     const allowedRoles = current?.handle?.allowed
 
-    const titles = {
-        "/": "Dashboard",
-        "/candidate-application": "Candidate Application",
-        "/candidates": "Candidates",
-        "/profile": "Profile",
-        "/notifications": "Notifications",
-        "/appeals": "Appeals"
+    const getTitle = (pathname) => {
+        if (pathname.startsWith("/appeals/")) return "Appeal"
+
+        const titles = {
+            "/": "Dashboard",
+            "/candidate-application": "Candidate Application",
+            "/candidates": "Candidates",
+            "/profile": "Profile",
+            "/notifications": "Notifications",
+            "/appeals": "Appeals"
+        }
+
+        return titles[pathname]
     }
 
     const { election, setElection } = useElectionStore()
@@ -102,7 +108,7 @@ const ProtectedRoute = () => {
             {!allowedRoles || allowedRoles.includes(user.role) ? (
                 <div className='flex flex-col py-3 px-4 flex-1'>
                     <Header
-                        title={titles[pathname]}
+                        title={getTitle(pathname)}
                         setShowChangePasswordModal={setShowChangePasswordModal}
                     />
                     <div className='max-w-[1600px] mx-auto w-full flex flex-col flex-1'>
