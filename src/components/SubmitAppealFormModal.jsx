@@ -16,7 +16,8 @@ import toast from "react-hot-toast"
 const SubmitAppealFormModal = ({
     isOpen,
     setIsCancelConfirmOpen,
-    setShowAppealForm
+    setShowAppealForm,
+    setAppeals
 }) => {
     const [isLoading, setIsLoading] = useState(false)
 
@@ -45,8 +46,6 @@ const SubmitAppealFormModal = ({
             const data = getValues()
             const fd = new FormData()
 
-            fd.append("name", data?.name)
-            fd.append("identifier", data?.identifier)
             fd.append("category", data?.category)
             fd.append("election_id", data?.election_id)
             fd.append("subject", data?.subject)
@@ -61,6 +60,7 @@ const SubmitAppealFormModal = ({
                 toast.success(res.data.message, {
                     id: "submit-appeal-success"
                 })
+                setAppeals((appeals) => [...appeals, res.data.data])
                 setShowAppealForm(false)
             }
         } catch (err) {
