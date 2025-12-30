@@ -95,6 +95,21 @@ const Appeals = () => {
     return (
         <div className='flex flex-col items-center px-2 md:px-5 lg:px-9 py-5 flex-1'>
             <title>Appeals</title>
+            {appeals.length > 0 && (
+                <div className='flex flex-col w-full gap-5 max-w-5xl py-2'>
+                    <AppealsHeader
+                        setShowAppealForm={setShowAppealForm}
+                        sort={sort}
+                        setSort={setSort}
+                        setFilter={setFilter}
+                        filter={filter}
+                    />
+                    {visibleAppeals.length > 0 && (
+                        <AppealsList appeals={visibleAppeals} />
+                    )}
+                </div>
+            )}
+
             {visibleAppeals.length === 0 && !isLoading && (
                 <>
                     {role === "admin" ? (
@@ -109,19 +124,6 @@ const Appeals = () => {
                         />
                     )}
                 </>
-            )}
-
-            {visibleAppeals.length > 0 && (
-                <div className='flex flex-col w-full gap-5 max-w-5xl py-2'>
-                    <AppealsHeader
-                        setShowAppealForm={setShowAppealForm}
-                        sort={sort}
-                        setSort={setSort}
-                        setFilter={setFilter}
-                        filter={filter}
-                    />
-                    <AppealsList appeals={visibleAppeals} />
-                </div>
             )}
 
             {showAppealForm && (
