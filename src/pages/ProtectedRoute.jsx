@@ -11,7 +11,7 @@ const ProtectedRoute = () => {
     const [showChangePasswordModal, setShowChangePasswordModal] =
         useState(false)
     const [isLoading, setIsLoading] = useState(false)
-    const [electionsLoaded, setElectionsLoaded] = useState(false)
+    const [electionLoaded, setElectionLoaded] = useState(false)
 
     const { isAuthenticated, isUserLoaded, user } = useAuthStore()
     const { pathname } = useLocation()
@@ -30,30 +30,30 @@ const ProtectedRoute = () => {
         "/appeals": "Appeals"
     }
 
-    const { elections, setElections } = useElectionStore()
+    const { election, setElection } = useElectionStore()
     const { setNotifications } = useNotificationStore()
 
-    const isElectionScheduled = elections.length > 0
+    const isElectionScheduled = Object.keys(election).length > 0
 
     useEffect(() => {
         const fetchElection = async () => {
             try {
                 setIsLoading(true)
                 const res = await api.get("/elections")
-                setElections(res.data)
+                setElection(res.data)
             } catch (err) {
                 toast.error(
                     err?.response?.data?.error || "Something went wrong!",
-                    { id: "elections-fetch-error" }
+                    { id: "election-fetch-error" }
                 )
             } finally {
                 setIsLoading(false)
-                setElectionsLoaded(true)
+                setElectionLoaded(true)
             }
         }
 
         if (!isElectionScheduled) fetchElection()
-    }, [setIsLoading, isElectionScheduled, setElections])
+    }, [setIsLoading, isElectionScheduled, setElection])
 
     useEffect(() => {
         const fetchNotificaions = async () => {
@@ -87,7 +87,7 @@ const ProtectedRoute = () => {
     if (
         !isElectionScheduled &&
         !isAllowedWhenInactive(pathname) &&
-        electionsLoaded
+        electionLoaded
     ) {
         return (
             <Navigate

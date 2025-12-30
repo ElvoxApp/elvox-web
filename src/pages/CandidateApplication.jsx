@@ -35,8 +35,8 @@ const CandidateApplication = () => {
         user: { id }
     } = useAuthStore()
 
-    const election = useElectionStore((state) => state.elections[0])
-    const { nomination_end } = election || {}
+    const { election } = useElectionStore()
+    const { nomination_end } = election
 
     const showSubmitApplicationButton = {
         show:
@@ -81,21 +81,26 @@ const CandidateApplication = () => {
                     status: exists.data.exists ? exists.data.status : null
                 })
                 if (exists.data.exists && exists.data.status !== "withdrawn") {
-                    const res = await api.get("/candidates/me")
-                    if (res.status === 200) {
-                        const election = await api.get(
-                            `/elections/${res.data?.election_id}`
+                    if (election.id) {
+                        const res = await api.get(
+                            `/candidates/me?election=${election.id}`
                         )
-                        if (election.status === 200) {
-                            setCandidateApplication({
-                                ...res.data,
-                                election_name: election.data.name,
-                                nomination_start:
-                                    election.data.nomination_start,
-                                nomination_end: election.data.nomination_end,
-                                voting_start: election.data.voting_start,
-                                election_id: res.data.election_id
-                            })
+                        if (res.status === 200) {
+                            const electionRes = await api.get(
+                                `/elections/${res.data?.election_id}`
+                            )
+                            if (electionRes.status === 200) {
+                                setCandidateApplication({
+                                    ...res.data,
+                                    election_name: electionRes.data.name,
+                                    nomination_start:
+                                        electionRes.data.nomination_start,
+                                    nomination_end:
+                                        electionRes.data.nomination_end,
+                                    voting_start: electionRes.data.voting_start,
+                                    election_id: res.data.electionRes_id
+                                })
+                            }
                         }
                     }
                 } else {
@@ -115,7 +120,7 @@ const CandidateApplication = () => {
         }
 
         fetchMyCandidateApplication()
-    }, [id, setIsLoading])
+    }, [id, setIsLoading, election.id, isApplicationSubmitted.submitted])
 
     return (
         <div className='flex justify-center px-2 md:px-5 lg:px-9 pb-5 pt-8 flex-1'>
@@ -143,6 +148,7 @@ const CandidateApplication = () => {
                     setIsCandidateApplicationOpen={
                         setIsCandidateApplicationOpen
                     }
+                    setIsApplicationSubmitted={setIsApplicationSubmitted}
                 />
             )}
             {isCancelConfirmOpen && (

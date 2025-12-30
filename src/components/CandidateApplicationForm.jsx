@@ -11,7 +11,8 @@ import toast from "react-hot-toast"
 const CandidateApplicationForm = ({
     isOpen,
     setIsCancelConfirmOpen,
-    setIsCandidateApplicationOpen
+    setIsCandidateApplicationOpen,
+    setIsApplicationSubmitted
 }) => {
     const [isLoading, setIsLoading] = useState(false)
 
@@ -51,6 +52,10 @@ const CandidateApplicationForm = ({
             if (res.status === 201) {
                 toast.success(res.data.message, {
                     id: "candidate-application-success"
+                })
+                setIsApplicationSubmitted({
+                    submitted: true,
+                    status: "pending"
                 })
                 setIsCandidateApplicationOpen(false)
             }

@@ -23,11 +23,11 @@ const getElectionStatus = (e) => {
     if (now >= new Date(e.voting_end) && now <= new Date(e.election_end))
         return "Voting Ended"
 
-    return "Completed"
+    return "Closed"
 }
 
 const ElectionDetails = () => {
-    const election = useElectionStore((state) => state.elections[0])
+    const { election } = useElectionStore()
 
     return (
         <div className='flex flex-col w-full gap-2 px-4 py-4 rounded-md dark:bg-card-dark bg-card-light shadow-lg transition-all duration-100'>
