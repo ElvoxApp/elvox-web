@@ -7,7 +7,7 @@ import api from "../api/api"
 import { useOutletContext } from "react-router-dom"
 import toast from "react-hot-toast"
 
-const SubmitAppeal = () => {
+const Appeals = () => {
     const [appeals, setAppeals] = useState([])
     const [showAppealForm, setShowAppealForm] = useState(false)
     const [isCancelConfirmOpen, setIsCancelConfirmOpen] = useState(false)
@@ -84,4 +84,4 @@ const SubmitAppeal = () => {
     )
 }
 
-export default SubmitAppeal
+export default Appeals
