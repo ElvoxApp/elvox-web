@@ -49,7 +49,7 @@ const DashboardOptionsAdmin = () => {
                 </Button>
             </Link>
             <Link
-                to='#'
+                to='/appeals'
                 className={`${
                     tutor_of === null ? "max-lg:col-span-2 lg:hidden" : ""
                 }`}
@@ -71,7 +71,7 @@ const DashboardOptionsAdmin = () => {
                         </Button>
                     </Link>
                     <Link
-                        to='#'
+                        to='/appeals'
                         className=''
                     >
                         <Button className='flex flex-col justify-center items-center py-7 gap-1 bg-accent hover:bg-button-hover w-full'>
