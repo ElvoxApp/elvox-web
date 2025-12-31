@@ -40,7 +40,7 @@ const DashboardOptionsAdmin = () => {
                 </Button>
             </Link>
             <Link
-                to='#'
+                to='/results'
                 className={`${tutor_of === null ? "lg:hidden" : ""}`}
             >
                 <Button className='flex flex-col justify-center items-center py-5 lg:py-7 gap-1 bg-accent hover:bg-button-hover w-full'>
@@ -62,7 +62,7 @@ const DashboardOptionsAdmin = () => {
             {tutor_of === null && (
                 <div className='max-lg:hidden grid grid-cols-2 col-span-3 gap-x-3'>
                     <Link
-                        to='#'
+                        to='/results'
                         className=''
                     >
                         <Button className='flex flex-col justify-center items-center py-7 gap-1 bg-accent hover:bg-button-hover w-full'>

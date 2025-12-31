@@ -27,7 +27,7 @@ const NoActiveElection = () => {
                     </Link>
                 )}
                 <Link
-                    to='#'
+                    to='/results'
                     className='flex-1'
                 >
                     <Button

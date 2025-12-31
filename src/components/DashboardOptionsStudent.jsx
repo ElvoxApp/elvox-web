@@ -19,7 +19,7 @@ const DashboardOptionsStudent = () => {
                     <span className=''>View Candidates</span>
                 </Button>
             </Link>
-            <Link to='#'>
+            <Link to='/results'>
                 <Button className='flex flex-col justify-center items-center py-5 lg:py-7 gap-1 bg-accent hover:bg-button-hover w-full'>
                     <FiAward className='text-primary-dark text-base lg:text-lg' />
                     <span className=''>View Results</span>
