@@ -17,7 +17,7 @@ const FilterMenu = ({ options = [], filter, setFilter, label }) => {
                     <span className='text-sm'>
                         {`${label ? label + ": " : ""} ${
                             options.find((option) => option.value === filter)
-                                ?.label
+                                ?.label ?? ""
                         }`}
                     </span>
                     <HiChevronDown className='size-5' />
