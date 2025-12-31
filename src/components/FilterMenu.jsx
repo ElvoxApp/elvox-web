@@ -6,7 +6,7 @@ import {
 } from "@headlessui/react"
 import { HiCheck, HiChevronDown } from "react-icons/hi"
 
-const FilterMenu = ({ options = [], filter, setFilter }) => {
+const FilterMenu = ({ options = [], filter, setFilter, label }) => {
     return (
         <div className='flex flex-col w-full flex-1 relative'>
             <Listbox
@@ -15,10 +15,10 @@ const FilterMenu = ({ options = [], filter, setFilter }) => {
             >
                 <ListboxButton className='flex items-center justify-between gap-2 cursor-pointer w-full bg-field-light dark:bg-field-dark rounded-xl p-2 flex-1 focus:outline-none text-primary-light dark:text-primary-dark'>
                     <span className='text-sm'>
-                        {
+                        {`${label ? label + ": " : ""} ${
                             options.find((option) => option.value === filter)
                                 ?.label
-                        }
+                        }`}
                     </span>
                     <HiChevronDown className='size-5' />
                 </ListboxButton>

@@ -36,6 +36,7 @@ const FilterCandidatesByClass = ({ className, setClassName }) => {
             options={classes}
             filter={className}
             setFilter={setClassName}
+            label='Class'
         />
     )
 }

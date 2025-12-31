@@ -48,6 +48,7 @@ const ViewCandidatesHeader = ({
                         ]}
                         filter={year}
                         setFilter={setYear}
+                        label='Year'
                     />
                 </div>
                 <div className='flex flex-col w-full flex-1 relative'>
