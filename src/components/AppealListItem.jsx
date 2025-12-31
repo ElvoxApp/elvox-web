@@ -19,6 +19,18 @@ const formatDate = (value) =>
         })
         .replace(/\b(am|pm)\b/, (m) => m.toUpperCase())
 
+const getCategory = (category) => {
+    const APPEAL_CATEGORIES = {
+        candidate_application: "Candidate Application",
+        election_result: "Election Result",
+        voting_issue: "Voting Issue",
+        account_access: "Account / Access",
+        other: "Other"
+    }
+
+    return APPEAL_CATEGORIES[category]
+}
+
 const AppealListItem = ({ appeal }) => {
     const {
         user: { role }
@@ -43,12 +55,12 @@ const AppealListItem = ({ appeal }) => {
                     Election:{" "}
                     {appeal.election_id === election.id ? election.name : ""}
                 </p>
-                <p>Category: {capitalize(appeal.category)}</p>
+                <p>Category: {getCategory(appeal.category)}</p>
                 <p className='truncate'>Description: {appeal.description}</p>
                 {role === "admin" && (
                     <p>
-                        Submitted by: {appeal.submitted_by} (
-                        {capitalize(appeal.submitted_by_role)})
+                        Submitted by: {appeal.user_name} (
+                        {capitalize(appeal.user_role)})
                     </p>
                 )}
                 <p>
