@@ -49,7 +49,7 @@ const SignUpForm = ({ children, setIsLoading }) => {
                 }
             }
         } catch (err) {
-            toast.error(err.response.data.error, { id: "signup-error" })
+            toast.error(err.response?.data?.error, { id: "signup-error" })
         } finally {
             setIsLoading(false)
         }

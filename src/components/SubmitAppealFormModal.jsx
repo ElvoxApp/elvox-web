@@ -65,7 +65,7 @@ const SubmitAppealFormModal = ({
             }
         } catch (err) {
             toast.error(
-                err.response.data.error ||
+                err.response?.data?.error ||
                     "Failed to submit appeal. Please try again",
                 {
                     id: "submit-appeal-error"

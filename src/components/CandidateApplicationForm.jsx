@@ -60,7 +60,7 @@ const CandidateApplicationForm = ({
                 setIsCandidateApplicationOpen(false)
             }
         } catch (err) {
-            toast.error(err.response.data.error, {
+            toast.error(err.response?.data?.error, {
                 id: "candidate-application-error"
             })
         } finally {

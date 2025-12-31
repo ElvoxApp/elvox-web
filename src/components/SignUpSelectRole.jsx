@@ -65,9 +65,9 @@ const SignUpRoleStep = ({ setStep, setIsLoading }) => {
             }
         } catch (err) {
             toast.error(
-                err.response.data.error
-                    ? err.response.data.error
-                    : err.response.data,
+                err.response?.data?.error
+                    ? err.response?.data?.error
+                    : err.response?.data,
                 { id: "sign-up-role-error" }
             )
         } finally {

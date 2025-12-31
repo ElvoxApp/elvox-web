@@ -52,7 +52,7 @@ const ForgotPassword = () => {
                     toast.success(res.data.message, { id: "otp-send-success" })
                 setShowOtpField(true)
             } catch (err) {
-                toast.error(err.response.data.error, { id: "otp-send-error" })
+                toast.error(err.response?.data?.error, { id: "otp-send-error" })
             } finally {
                 setIsLoading(false)
             }
@@ -86,7 +86,7 @@ const ForgotPassword = () => {
                         setShowChangePassword(true)
                     }
                 } catch (err) {
-                    toast.error(err.response.data.error, {
+                    toast.error(err.response?.data?.error, {
                         id: "otp-verify-error"
                     })
                 } finally {
@@ -113,7 +113,7 @@ const ForgotPassword = () => {
                         navigate("/login")
                     }
                 } catch (err) {
-                    toast.error(err.response.data.error, {
+                    toast.error(err.response?.data?.error, {
                         id: "password-reset-error"
                     })
                 } finally {

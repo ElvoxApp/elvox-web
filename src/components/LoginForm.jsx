@@ -31,7 +31,7 @@ const LoginForm = ({ setIsLoading }) => {
                 })
             }
         } catch (err) {
-            toast.error(err.response.data.error, { id: "login-error" })
+            toast.error(err.response?.data?.error, { id: "login-error" })
         } finally {
             setIsLoading(false)
         }
