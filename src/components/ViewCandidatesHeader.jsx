@@ -1,7 +1,7 @@
 import { IoSearch } from "react-icons/io5"
 import SortCandidates from "./SortCandidates"
-import FilterCandidatesByYear from "./FilterCandidatesByYear"
 import FilterCandidatesByClass from "./FilterCandidatesByClass"
+import FilterMenu from "./FilterMenu"
 
 const ViewCandidatesHeader = ({
     nameInput,
@@ -38,9 +38,16 @@ const ViewCandidatesHeader = ({
             </div>
             <div className='flex gap-3'>
                 <div className='flex flex-col w-full flex-1 relative'>
-                    <FilterCandidatesByYear
-                        year={year}
-                        setYear={setYear}
+                    <FilterMenu
+                        options={[
+                            { value: "all", label: "All" },
+                            { value: "first", label: "First Year" },
+                            { value: "second", label: "Second Year" },
+                            { value: "third", label: "Third Year" },
+                            { value: "fourth", label: "Fourth Year" }
+                        ]}
+                        filter={year}
+                        setFilter={setYear}
                     />
                 </div>
                 <div className='flex flex-col w-full flex-1 relative'>

@@ -17,7 +17,7 @@ const FilterMenu = ({ options = [], filter, setFilter }) => {
                     <span className='text-sm'>
                         {
                             options.find((option) => option.value === filter)
-                                .label
+                                ?.label
                         }
                     </span>
                     <HiChevronDown className='size-5' />
@@ -25,11 +25,11 @@ const FilterMenu = ({ options = [], filter, setFilter }) => {
                 <ListboxOptions className='flex flex-col border border-gray-500 rounded-xl focus:outline-none text-sm absolute w-full top-10 z-10 bg-bg-light dark:bg-bg-dark'>
                     {options.map((option) => (
                         <ListboxOption
-                            key={option.value}
-                            value={option.value}
+                            key={option?.value}
+                            value={option?.value}
                             className='group flex justify-between items-center gap-2 px-3 py-2 cursor-pointer rounded-sm text-primary-light dark:text-primary-dark hover:text-primary-dark hover:bg-accent'
                         >
-                            <span>{option.label}</span>
+                            <span>{option?.label}</span>
                             <HiCheck className='invisible size-4 group-data-selected:visible' />
                         </ListboxOption>
                     ))}
