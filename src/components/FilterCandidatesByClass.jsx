@@ -25,7 +25,7 @@ const FilterCandidatesByClass = ({ className, setClassName }) => {
                 }
             })
 
-            setClasses([{ id: 0, value: "all", label: "All" }, ...clses])
+            setClasses(clses)
         }
 
         fetchClasses()
@@ -33,7 +33,7 @@ const FilterCandidatesByClass = ({ className, setClassName }) => {
 
     return (
         <FilterMenu
-            options={classes}
+            options={[{ id: 0, value: "all", label: "All" }, ...classes]}
             filter={className}
             setFilter={setClassName}
             label='Class'
