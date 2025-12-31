@@ -53,9 +53,10 @@ const Nominee = ({ number, setIsLoading }) => {
             setValue(`nominee${number}.data`, res.data)
             setNomineeInfo(res.data)
         } catch (err) {
-            toast.error(err.response?.data?.error, {
-                id: "nominee-fetch-error"
-            })
+            if (err.response)
+                toast.error(err.response?.data?.error, {
+                    id: "nominee-fetch-error"
+                })
             setValue(`nominee${number}.admno`, "")
         } finally {
             setIsLoading(false)

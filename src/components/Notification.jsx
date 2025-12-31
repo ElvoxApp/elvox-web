@@ -27,9 +27,13 @@ const Notification = ({
             markRead(id)
             await api.patch(`/notifications/${id}/read`)
         } catch (err) {
-            toast.error(err?.response?.data?.error || "Something went wrong!", {
-                id: "mark-notification-read-error"
-            })
+            if (err.response)
+                toast.error(
+                    err.response?.data?.error || "Something went wrong!",
+                    {
+                        id: "mark-notification-read-error"
+                    }
+                )
         }
     }
 

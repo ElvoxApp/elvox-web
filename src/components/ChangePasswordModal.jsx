@@ -25,9 +25,10 @@ const ChangePasswordModal = ({ isOpen, setIsOpen }) => {
             }
             setIsOpen(false)
         } catch (err) {
-            toast.error(err.response?.data?.error, {
-                id: "change-password-error"
-            })
+            if (err.response)
+                toast.error(err.response?.data?.error, {
+                    id: "change-password-error"
+                })
         } finally {
             setIsLoading(false)
         }
