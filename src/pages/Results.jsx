@@ -1,65 +1,21 @@
-import { useEffect, useMemo, useState } from "react"
+import { useEffect, useState } from "react"
 import ResultsHeader from "../components/ResultsHeader"
-import { useOutletContext } from "react-router-dom"
 import toast from "react-hot-toast"
 import api from "../api/api"
 import ResultsList from "../components/ResultsList"
+import FullScreenLoader from "../components/FullScreenLoader"
 
 const Results = () => {
     const [electionId, setElectionId] = useState("")
     const [elections, setElections] = useState([])
-    const [className, setClassName] = useState("all")
+    const [classId, setClassId] = useState("all")
     const [year, setYear] = useState("all")
     const [status, setStatus] = useState("all")
     const [results, setResults] = useState([])
 
-    const { isLoading, setIsLoading } = useOutletContext()
+    const [isLoading, setIsLoading] = useState(false)
 
-    const visibleResults = useMemo(() => {
-        const election = results.find((e) => e.electionId === electionId)
-
-        if (!election) return []
-
-        let list = [...election.results]
-
-        // filter by year
-        if (year !== "all") {
-            const map = {
-                first: [1, 2],
-                second: [3, 4],
-                third: [5, 6],
-                fourth: [7, 8]
-            }
-
-            const sem = map[year]
-
-            list = list.filter((l) => sem.includes(l.semester))
-        }
-
-        // filter by class
-        if (className !== "all") {
-            list = list.filter((l) => l.class.toLowerCase() === className)
-        }
-
-        // filter by status
-        if (status !== "all") {
-            list = list
-                .map((l) => ({
-                    ...l,
-                    candidates: l.candidates.filter(
-                        (c) => c.status.toLowerCase() === status
-                    )
-                }))
-                .filter((l) => l.candidates.length > 0)
-        }
-
-        return list
-    }, [className, electionId, year, status, results])
-
-    const electionHasAnyResults = useMemo(() => {
-        const election = results.find((e) => e.electionId === electionId)
-        return (election?.results?.length ?? 0) > 0
-    }, [electionId, results])
+    const electionHasAnyResults = results.length > 0
 
     useEffect(() => {
         const fetchElections = async () => {
@@ -87,10 +43,22 @@ const Results = () => {
             }
         }
 
+        fetchElections()
+    }, [])
+
+    useEffect(() => {
+        if (!electionId) return
+
         const fetchResults = async () => {
             try {
                 setIsLoading(true)
-                const res = await api.get("/results")
+                const res = await api.get(`/results/${electionId}`, {
+                    params: {
+                        status,
+                        class: classId,
+                        year
+                    }
+                })
                 setResults(res.data)
             } catch (err) {
                 if (err.response)
@@ -102,11 +70,8 @@ const Results = () => {
             }
         }
 
-        fetchElections()
         fetchResults()
-    }, [setIsLoading])
-
-    if (isLoading) return null
+    }, [status, year, classId, electionId])
 
     return (
         <div className='flex flex-col justify-center min-h-0 items-center px-2 md:px-5 lg:px-9 py-2 flex-1'>
@@ -114,8 +79,8 @@ const Results = () => {
             {electionId && (
                 <div className='flex flex-col w-full flex-1 gap-4 max-w-5xl min-h-0 text-sm'>
                     <ResultsHeader
-                        className={className}
-                        setClassName={setClassName}
+                        classId={classId}
+                        setClassId={setClassId}
                         year={year}
                         setYear={setYear}
                         status={status}
@@ -126,13 +91,11 @@ const Results = () => {
                         electionId={electionId}
                         setElectionId={setElectionId}
                     />
-                    {visibleResults.length > 0 && (
-                        <ResultsList results={visibleResults} />
-                    )}
+                    {results.length > 0 && <ResultsList results={results} />}
                 </div>
             )}
 
-            {visibleResults.length === 0 && (
+            {results.length === 0 && (
                 <div
                     className={`flex px-3 py-4 gap-8 flex-1 justify-center ${
                         !electionId ? "items-center" : ""
@@ -149,6 +112,11 @@ const Results = () => {
                             electionHasAnyResults &&
                             "No results match the selected filters"}
                     </h2>
+                </div>
+            )}
+            {isLoading && (
+                <div className='flex justify-between items-center'>
+                    <FullScreenLoader />
                 </div>
             )}
         </div>

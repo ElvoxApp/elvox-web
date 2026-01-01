@@ -7,8 +7,8 @@ const ResultsHeader = ({
     electionId,
     setElectionId,
     elections,
-    className, // not jsx className, but name of the class
-    setClassName,
+    classId,
+    setClassId,
     year,
     setYear,
     status,
@@ -53,8 +53,8 @@ const ResultsHeader = ({
                             year={year}
                             setYear={setYear}
                             setYearOpen={setYearOpen}
-                            className={className}
-                            setClassName={setClassName}
+                            classId={classId}
+                            setClassId={setClassId}
                             setClassOpen={setClassOpen}
                             status={status}
                             setStatus={setStatus}
@@ -76,8 +76,8 @@ const ResultsHeader = ({
                         year={year}
                         setYear={setYear}
                         setYearOpen={setYearOpen}
-                        className={className}
-                        setClassName={setClassName}
+                        classId={classId}
+                        setClassId={setClassId}
                         setClassOpen={setClassOpen}
                         status={status}
                         setStatus={setStatus}
