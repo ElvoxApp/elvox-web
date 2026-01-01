@@ -5,7 +5,7 @@ const ResultsFiltersNonMobilecreen = ({
     electionOpen,
     yearOpen,
     classOpen,
-    sortOpen,
+    statusOpen,
     elections,
     electionId,
     setElectionId,
@@ -16,14 +16,14 @@ const ResultsFiltersNonMobilecreen = ({
     className,
     setClassName,
     setClassOpen,
-    sort,
-    setSort,
-    setSortOpen
+    status,
+    setStatus,
+    setStatusOpen
 }) => {
     return (
         <div
             className={`flex items-center gap-3 transition-all duration-200 ease-out ${
-                electionOpen || yearOpen || classOpen || sortOpen
+                electionOpen || yearOpen || classOpen || statusOpen
                     ? "w-lg"
                     : "w-md"
             }`}
@@ -76,7 +76,7 @@ const ResultsFiltersNonMobilecreen = ({
             </div>
             <div
                 className={`flex relative transition-all duration-200 ease-out ${
-                    sortOpen ? "flex-1" : "flex-[0.6]"
+                    statusOpen ? "flex-1" : "flex-[0.6]"
                 }`}
             >
                 <FilterMenu
@@ -86,11 +86,11 @@ const ResultsFiltersNonMobilecreen = ({
                         { value: "lost", label: "Lost" },
                         { value: "tie", label: "Tie" }
                     ]}
-                    filter={sort}
-                    setFilter={setSort}
-                    label='Sort'
+                    filter={status}
+                    setFilter={setStatus}
+                    label='Status'
                     showSelected={false}
-                    onOpenChange={setSortOpen}
+                    onOpenChange={setStatusOpen}
                 />
             </div>
         </div>

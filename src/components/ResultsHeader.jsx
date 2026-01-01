@@ -1,5 +1,3 @@
-import FilterCandidatesByClass from "./FilterCandidatesByClass"
-import FilterMenu from "./FilterMenu"
 import Button from "./Button"
 import { useState } from "react"
 import ResultsFiltersMobile from "./ResultsFiltersMobile"
@@ -13,18 +11,18 @@ const ResultsHeader = ({
     setClassName,
     year,
     setYear,
-    sort,
-    setSort
+    status,
+    setStatus
 }) => {
     const [electionOpen, setElectionOpen] = useState(false)
     const [yearOpen, setYearOpen] = useState(false)
     const [classOpen, setClassOpen] = useState(false)
-    const [sortOpen, setSortOpen] = useState(false)
+    const [statusOpen, setStatusOpen] = useState(false)
     const [showMobileFilters, setShowMobileFilters] = useState(false)
 
     return (
         <div className='flex flex-col gap-4'>
-            <div className='flex items-center justify-between gap-6 rounded-xl px-4 py-3'>
+            <div className='flex items-center justify-between gap-6 rounded-xl py-3'>
                 <div className='flex flex-col flex-1 sm:hidden'>
                     <div className='flex items-center justify-between flex-1'>
                         <Button
@@ -47,7 +45,7 @@ const ResultsHeader = ({
                             electionOpen={electionOpen}
                             yearOpen={yearOpen}
                             classOpen={classOpen}
-                            sortOpen={sortOpen}
+                            statusOpen={statusOpen}
                             elections={elections}
                             electionId={electionId}
                             setElectionId={setElectionId}
@@ -58,9 +56,9 @@ const ResultsHeader = ({
                             className={className}
                             setClassName={setClassName}
                             setClassOpen={setClassOpen}
-                            sort={sort}
-                            setSort={setSort}
-                            setSortOpen={setSortOpen}
+                            status={status}
+                            setStatus={setStatus}
+                            setStatusOpen={setStatusOpen}
                         />
                     )}
                 </div>
@@ -70,7 +68,7 @@ const ResultsHeader = ({
                         electionOpen={electionOpen}
                         yearOpen={yearOpen}
                         classOpen={classOpen}
-                        sortOpen={sortOpen}
+                        statusOpen={statusOpen}
                         elections={elections}
                         electionId={electionId}
                         setElectionId={setElectionId}
@@ -81,9 +79,9 @@ const ResultsHeader = ({
                         className={className}
                         setClassName={setClassName}
                         setClassOpen={setClassOpen}
-                        sort={sort}
-                        setSort={setSort}
-                        setSortOpen={setSortOpen}
+                        status={status}
+                        setStatus={setStatus}
+                        setStatusOpen={setStatusOpen}
                     />
                     <Button
                         text='Export'
@@ -92,6 +90,12 @@ const ResultsHeader = ({
                         onClick={() => {}}
                     />
                 </div>
+            </div>
+            <div>
+                <h2 className='text-base sm:text-lg lg:text-xl font-semibold text-primary-light dark:text-primary-dark'>
+                    {elections.find((el) => el.value === electionId)?.label ||
+                        ""}
+                </h2>
             </div>
         </div>
     )

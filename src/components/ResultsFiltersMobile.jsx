@@ -13,8 +13,8 @@ const ResultsFiltersMobile = ({
     setYear,
     className,
     setClassName,
-    sort,
-    setSort
+    status,
+    setStatus
 }) => {
     return (
         <Dialog
@@ -65,9 +65,9 @@ const ResultsFiltersMobile = ({
                             { value: "lost", label: "Lost" },
                             { value: "tie", label: "Tie" }
                         ]}
-                        filter={sort}
-                        setFilter={setSort}
-                        label='Sort'
+                        filter={status}
+                        setFilter={setStatus}
+                        label='Status'
                         showSelected={false}
                     />
                 </div>
