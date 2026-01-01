@@ -9,7 +9,12 @@ import { HiCheck, HiChevronDown } from "react-icons/hi"
 import api from "../api/api"
 import FilterMenu from "./FilterMenu"
 
-const FilterCandidatesByClass = ({ className, setClassName }) => {
+const FilterCandidatesByClass = ({
+    className,
+    setClassName,
+    onOpenChange,
+    showSelected = true
+}) => {
     const [classes, setClasses] = useState([])
 
     useEffect(() => {
@@ -37,6 +42,8 @@ const FilterCandidatesByClass = ({ className, setClassName }) => {
             filter={className}
             setFilter={setClassName}
             label='Class'
+            showSelected={showSelected}
+            onOpenChange={onOpenChange}
         />
     )
 }
