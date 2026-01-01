@@ -20,7 +20,7 @@ const FilterMenu = ({
 
     useEffect(() => {
         const el = listRef.current
-        if (!el) return
+        if (!el || !onOpenChange) return
 
         const update = () => {
             onOpenChange(el.hasAttribute("data-open"))
