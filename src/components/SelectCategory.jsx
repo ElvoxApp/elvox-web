@@ -8,15 +8,15 @@ import { HiCheck, HiChevronDown } from "react-icons/hi"
 import { useAuthStore } from "../stores"
 import { Controller, useFormContext } from "react-hook-form"
 
-const SelectPosition = () => {
+const SelectCategory = () => {
     const { control } = useFormContext()
     const { user } = useAuthStore()
 
     return (
         <Controller
-            name='position'
+            name='category'
             control={control}
-            rules={{ required: "Position is required" }}
+            rules={{ required: "Category is required" }}
             render={({ field }) => (
                 <Listbox
                     value={field.value}
@@ -24,10 +24,10 @@ const SelectPosition = () => {
                     name={field.name}
                 >
                     <ListboxButton
-                        id='position'
+                        id='category'
                         className='flex items-center justify-between gap-2 cursor-pointer w-full bg-field-light dark:bg-field-dark rounded-md p-2'
                     >
-                        <span>{field.value || "Select Position"}</span>
+                        <span>{field.value || "Select Category"}</span>
                         <HiChevronDown className='size-5' />
                     </ListboxButton>
                     <ListboxOptions className='flex flex-col border border-gray-500 rounded-md w-full'>
@@ -54,4 +54,4 @@ const SelectPosition = () => {
     )
 }
 
-export default SelectPosition
+export default SelectCategory

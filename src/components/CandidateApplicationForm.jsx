@@ -19,7 +19,7 @@ const CandidateApplicationForm = ({
     const methods = useForm({
         defaultValues: {
             election_id: "",
-            position: "",
+            category: "",
             signature: null,
             nominee1: {
                 admno: "",
@@ -41,7 +41,7 @@ const CandidateApplicationForm = ({
             const fd = new FormData()
 
             fd.append("election_id", data?.election_id)
-            fd.append("position", data?.position)
+            fd.append("category", data?.category)
             fd.append("signature", data?.signature?.[0])
             fd.append("nominee1Admno", data?.nominee1?.admno)
             fd.append("nominee1Proof", data?.nominee1?.proof?.[0])

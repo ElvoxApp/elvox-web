@@ -1,4 +1,4 @@
-import SelectPosition from "./SelectPosition"
+import SelectCategory from "./SelectCategory"
 import Nominee from "./Nominee"
 import ImageInput from "./ImageInput"
 import SelectElection from "./SelectElection"
@@ -27,15 +27,15 @@ const CandidateFormContent = ({ setIsLoading }) => {
             </div>
             <div className='flex flex-col gap-2'>
                 <label
-                    htmlFor='position'
+                    htmlFor='category'
                     className='text-primary-light dark:text-primary-dark'
                 >
-                    Position
+                    Category
                 </label>
-                <SelectPosition />
-                {errors?.position && (
+                <SelectCategory />
+                {errors?.category && (
                     <p className='text-xs text-red-500 mt-1 font-medium'>
-                        {errors?.position?.message}
+                        {errors?.category?.message}
                     </p>
                 )}
             </div>

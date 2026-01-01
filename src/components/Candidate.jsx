@@ -32,7 +32,7 @@ const Candidate = ({ candidate }) => {
                     {candidate?.class}
                 </p>
                 <p className='border border-accent rounded-lg py-2 px-3 text-center break-words'>
-                    {candidate?.position}
+                    {candidate?.category}
                 </p>
             </div>
             <div className='flex justify-center items-center'>

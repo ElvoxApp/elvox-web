@@ -13,7 +13,8 @@ const FilterCandidatesByClass = ({
     className,
     setClassName,
     onOpenChange,
-    showSelected = true
+    showSelected = true,
+    idAsValue = false
 }) => {
     const [classes, setClasses] = useState([])
 
@@ -25,7 +26,7 @@ const FilterCandidatesByClass = ({
             const clses = data.map((cls) => {
                 return {
                     id: cls.id,
-                    value: cls.name.toLowerCase(),
+                    value: idAsValue ? cls.id : cls.name.toLowerCase(),
                     label: cls.name
                 }
             })
@@ -34,7 +35,7 @@ const FilterCandidatesByClass = ({
         }
 
         fetchClasses()
-    }, [])
+    }, [idAsValue])
 
     return (
         <FilterMenu

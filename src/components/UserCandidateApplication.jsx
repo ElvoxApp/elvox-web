@@ -40,7 +40,7 @@ const labels = {
     department: "Department",
     nominee1_name: "Nominee 1",
     nominee2_name: "Nominee 2",
-    position: "Position",
+    category: "Category",
     rejection_reason: "Rejection Reason",
     semester: "Semester",
     status: "Status",
