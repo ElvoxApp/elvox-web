@@ -7,6 +7,7 @@ const NotificationFilterAndSort = ({ sort, setSort, filter, setFilter }) => {
             <FilterMenu
                 filter={filter}
                 setFilter={setFilter}
+                label='Type'
                 options={[
                     { value: "all", label: "All" },
                     { value: "success", label: "Success" },

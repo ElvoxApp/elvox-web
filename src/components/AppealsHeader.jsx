@@ -33,6 +33,7 @@ const AppealsHeader = ({
                     <FilterMenu
                         filter={filter}
                         setFilter={setFilter}
+                        label='Category'
                         options={[
                             { value: "all", label: "All" },
                             {
