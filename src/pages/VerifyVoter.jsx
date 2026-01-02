@@ -5,7 +5,6 @@ import { useElectionStore } from "../stores"
 import toast from "react-hot-toast"
 import api from "../api/api"
 import VerifyVoterDetails from "../components/VerifyVoterDetails"
-import VerifyVoterConfirmDialog from "../components/VerifyVoterConfirmDialog"
 import VerifyVoterOTP from "../components/VerifyVoterOTP"
 
 const VerifyVoter = () => {
@@ -15,10 +14,6 @@ const VerifyVoter = () => {
     const [otpData, setOtpData] = useState(null)
     const [step, setStep] = useState(1)
     const [error, setError] = useState("")
-    const [showConfirm, setShowConfirm] = useState(false)
-    const [skipConfirm, setSkipConfirm] = useState(() => {
-        return sessionStorage.getItem("skipVerifyConfirm") === "true"
-    })
 
     const { election } = useElectionStore()
 
@@ -61,12 +56,6 @@ const VerifyVoter = () => {
         }
     }
 
-    const handleSkipConfirm = () => {
-        if (!skipConfirm) return
-
-        sessionStorage.setItem("skipVerifyConfirm", "true")
-    }
-
     const verifyVoter = async () => {
         if (!admno) {
             setError("Admission number is required")
@@ -76,7 +65,10 @@ const VerifyVoter = () => {
 
         try {
             setIsLoading(true)
-            const res = await api.post(`/voters/verify`, { admno })
+            const res = await api.post(`/voters/verify`, {
+                admno,
+                electionId: election.id
+            })
             setOtpData(res.data)
             toast.success("Voter verifeid", { id: "verify-voter-success" })
             nextStep()
@@ -87,8 +79,6 @@ const VerifyVoter = () => {
             })
         } finally {
             setIsLoading(false)
-            setShowConfirm(false)
-            handleSkipConfirm()
         }
     }
 
@@ -96,8 +86,7 @@ const VerifyVoter = () => {
         <>
             <div className='flex flex-col justify-center min-h-0 items-center flex-1 p-2'>
                 <title>Verify Voter</title>
-                {/* CHANGE !== BACK TO === */}
-                {election.status !== "voting" ? (
+                {election.status === "voting" ? (
                     <div className='bg-card-light dark:bg-card-dark rounded-md shadow-lg flex sm:min-w-md justify-center gap-5 px-4 py-6 sm:p-10'>
                         {step === 1 && (
                             <VerifyVoterEnterAdmNo
@@ -110,11 +99,7 @@ const VerifyVoter = () => {
                         {step === 2 && (
                             <VerifyVoterDetails
                                 student={student}
-                                verify={
-                                    skipConfirm
-                                        ? verifyVoter
-                                        : () => setShowConfirm(true)
-                                }
+                                verify={verifyVoter}
                                 reset={reset}
                             />
                         )}
@@ -135,15 +120,6 @@ const VerifyVoter = () => {
                             voting period
                         </p>
                     </div>
-                )}
-                {showConfirm && (
-                    <VerifyVoterConfirmDialog
-                        isOpen={showConfirm}
-                        setIsOpen={setShowConfirm}
-                        verifyVoter={verifyVoter}
-                        skipConfirm={skipConfirm}
-                        setSkipConfirm={setSkipConfirm}
-                    />
                 )}
             </div>
             {isLoading && <FullScreenLoader />}

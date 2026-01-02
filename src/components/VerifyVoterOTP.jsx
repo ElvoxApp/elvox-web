@@ -3,18 +3,25 @@ import { CircularProgressbar, buildStyles } from "react-circular-progressbar"
 import "react-circular-progressbar/dist/styles.css"
 
 const VerifyVoterOTP = ({ otpData, nextStep }) => {
-    const [timeLeft, setTimeLeft] = useState(60)
-    const [percentage, setPercentage] = useState(100)
+    const expiresAtMs = new Date(otpData.expiresAt).getTime()
+    const issuedAtMs = new Date(otpData.issuedAt).getTime()
 
-    const expiresAt = otpData.expiresAt
+    const total = Math.ceil((expiresAtMs - issuedAtMs) / 1000)
+    const initialTimeLeft = Math.max(
+        0,
+        Math.ceil((expiresAtMs - Date.now()) / 1000)
+    )
 
-    const total = 60
+    const [timeLeft, setTimeLeft] = useState(initialTimeLeft)
+    const [percentage, setPercentage] = useState(
+        (initialTimeLeft / total) * 100
+    )
 
     useEffect(() => {
         let timeoutId
 
         const interval = setInterval(() => {
-            const remainingMs = expiresAt - Date.now()
+            const remainingMs = new Date(expiresAtMs) - Date.now()
             const remainingSec = Math.max(0, Math.ceil(remainingMs / 1000))
 
             setTimeLeft(remainingSec)
@@ -32,11 +39,11 @@ const VerifyVoterOTP = ({ otpData, nextStep }) => {
             clearInterval(interval)
             if (timeoutId) clearTimeout(timeoutId)
         }
-    }, [expiresAt, nextStep])
+    }, [expiresAtMs, nextStep, total])
 
     return (
         <div className='flex flex-col items-center w-full gap-8 max-sm:px-6 max-sm:py-4'>
-            <div className='flex flex-col items-center gap-4'>
+            <div className='flex flex-col items-center gap-6'>
                 <p className='text-primary-light dark:text-primary-dark text-sm text-center select-none'>
                     Proceed to the voting system and enter this code
                 </p>

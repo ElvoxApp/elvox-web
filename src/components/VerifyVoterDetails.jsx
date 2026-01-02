@@ -64,8 +64,8 @@ const VerifyVoterDetails = ({ student, verify, reset }) => {
                         />
                     </div>
                     <p className='text-secondary-light dark:text-secondary-dark text-sm text-center'>
-                        Verify & Generate OTP will permanently verify the voter
-                        and generate a voting OTP. This action is irreversible
+                        Generates a time-limited voting OTP. OTP can be
+                        regenerated until the vote is cast
                     </p>
                 </div>
             </div>
