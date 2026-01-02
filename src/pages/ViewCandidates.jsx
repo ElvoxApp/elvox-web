@@ -72,107 +72,6 @@ const ViewCandidates = () => {
         fetchCandidates()
     }, [setIsLoading])
 
-    const TEMP = [
-        {
-            actioned_by: null,
-            category: "General",
-            class: "Bsc. Computer Science",
-            department: "Computer Science",
-            election_id: "251b1e0c-e454-4874-9cd4-424f90a0ab4f",
-            id: "9afb9a3-f1dc-4fb6-bbfe-90ec4ea5a7c4",
-            name: "John Doe",
-            profile_pic:
-                "https://cdn.jsdelivr.net/gh/faker-js/assets-person-portrait/male/512/91.jpg",
-            semester: 5,
-            status: "approved",
-            updated_at: "2025-12-31T14:47:11.344Z"
-        },
-        {
-            actioned_by: null,
-            category: "General",
-            class: "Bsc. Computer Science",
-            department: "Computer Science",
-            election_id: "251b1e0c-e454-4874-9cd4-424f90a0ab4f",
-            id: "9afb9a3-f1dc-4fb6-bbde-90ec4ea5a7c4",
-            name: "John Doe",
-            profile_pic:
-                "https://cdn.jsdelivr.net/gh/faker-js/assets-person-portrait/male/512/91.jpg",
-            semester: 5,
-            status: "approved",
-            updated_at: "2025-12-31T14:47:11.344Z"
-        },
-        {
-            actioned_by: null,
-            category: "General",
-            class: "Bsc. Computer Science",
-            department: "Computer Science",
-            election_id: "251b1e0c-e454-3874-9cd4-424f90a0ab4f",
-            id: "9afb9a3-f1dc-4fb6-bbfe-90ec4ea5a7c4",
-            name: "John Doe",
-            profile_pic:
-                "https://cdn.jsdelivr.net/gh/faker-js/assets-person-portrait/male/512/91.jpg",
-            semester: 5,
-            status: "approved",
-            updated_at: "2025-12-31T14:47:11.344Z"
-        },
-        {
-            actioned_by: null,
-            category: "General",
-            class: "Bsc. Computer Science",
-            department: "Computer Science",
-            election_id: "258b1e0c-e454-4874-9cd4-424f90a0ab4f",
-            id: "9afb9a3-f1dc-4fb6-bbfe-90ec4ea5a7c4",
-            name: "John Doe",
-            profile_pic:
-                "https://cdn.jsdelivr.net/gh/faker-js/assets-person-portrait/male/512/91.jpg",
-            semester: 5,
-            status: "approved",
-            updated_at: "2025-12-31T14:47:11.344Z"
-        },
-        {
-            actioned_by: null,
-            category: "General",
-            class: "Bsc. Computer Science",
-            department: "Computer Science",
-            election_id: "751b1e0c-e454-4874-9cd4-424f90a0ab4f",
-            id: "9afb9a3-f1dc-4fb6-bbfe-90ec4ea5a7c4",
-            name: "John Doe",
-            profile_pic:
-                "https://cdn.jsdelivr.net/gh/faker-js/assets-person-portrait/male/512/91.jpg",
-            semester: 5,
-            status: "approved",
-            updated_at: "2025-12-31T14:47:11.344Z"
-        },
-        {
-            actioned_by: null,
-            category: "General",
-            class: "Bsc. Computer Science",
-            department: "Computer Science",
-            election_id: "258b4e0c-e454-4874-9cd4-424f90a0ab4f",
-            id: "9afb9a3-f1dc-4fb6-bbfe-90ec4ea5a7c4",
-            name: "John Doe",
-            profile_pic:
-                "https://cdn.jsdelivr.net/gh/faker-js/assets-person-portrait/male/512/91.jpg",
-            semester: 5,
-            status: "approved",
-            updated_at: "2025-12-31T14:47:11.344Z"
-        },
-        {
-            actioned_by: null,
-            category: "General",
-            class: "Bsc. Mathematics",
-            department: "Computer Science",
-            election_id: "751b1e0c-e454-4874-9cd4-424f90a0ab4f",
-            id: "9afb9a3-f1dc-4fb6-bbfe-90cc4ea5a7c4",
-            name: "John Doe",
-            profile_pic:
-                "https://cdn.jsdelivr.net/gh/faker-js/assets-person-portrait/male/512/91.jpg",
-            semester: 5,
-            status: "approved",
-            updated_at: "2025-12-31T14:47:11.344Z"
-        }
-    ]
-
     if (isLoading) return null
 
     return (
@@ -192,7 +91,7 @@ const ViewCandidates = () => {
                     />
                     {visibleCandidates.length > 0 && (
                         <div className='flex flex-col flex-1 gap-3 overflow-y-auto custom-scrollbar min-h-0 rounded-md bg-card-light dark:bg-card-dark px-2 py-4'>
-                            {TEMP.map((candidate) => (
+                            {visibleCandidates.map((candidate) => (
                                 <Candidate
                                     candidate={candidate}
                                     key={candidate.id}
