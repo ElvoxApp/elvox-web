@@ -42,23 +42,15 @@ const ResultsHeader = ({
                         <ResultsFiltersMobile
                             showMobileFilters={showMobileFilters}
                             setShowMobileFilters={setShowMobileFilters}
-                            electionOpen={electionOpen}
-                            yearOpen={yearOpen}
-                            classOpen={classOpen}
-                            statusOpen={statusOpen}
                             elections={elections}
                             electionId={electionId}
                             setElectionId={setElectionId}
-                            setElectionOpen={setElectionOpen}
                             year={year}
                             setYear={setYear}
-                            setYearOpen={setYearOpen}
                             classId={classId}
                             setClassId={setClassId}
-                            setClassOpen={setClassOpen}
                             status={status}
                             setStatus={setStatus}
-                            setStatusOpen={setStatusOpen}
                         />
                     )}
                 </div>
