@@ -31,7 +31,8 @@ const ProtectedRoute = () => {
             "/profile": "Profile",
             "/notifications": "Notifications",
             "/appeals": "Appeals",
-            "/results": "Results"
+            "/results": "Results",
+            "/verify-voter": "Verify Voter"
         }
 
         return titles[pathname]

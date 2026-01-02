@@ -5,6 +5,7 @@ import useBlockImageAndLinkActions from "./hooks/useBlockImageAndLinkActions"
 import { useThemeStore, useAuthStore } from "./stores"
 import { Toaster } from "react-hot-toast"
 import ProtectedRoute from "./pages/ProtectedRoute"
+import VerifyVoter from "./pages/VerifyVoter"
 
 const SignUp = lazy(() => import("./pages/SignUp"))
 const Login = lazy(() => import("./pages/Login"))
@@ -12,6 +13,7 @@ const Dashboard = lazy(() => import("./pages/Dashboard"))
 const CandidateApplication = lazy(() => import("./pages/CandidateApplication"))
 const ForgotPassword = lazy(() => import("./pages/ForgotPassword"))
 const Unauthorized = lazy(() => import("./pages/Unauthorized"))
+const NotFound = lazy(() => import("./pages/NotFound"))
 const ViewCandidates = lazy(() => import("./pages/ViewCandidates"))
 const Profile = lazy(() => import("./pages/Profile"))
 const Notifications = lazy(() => import("./pages/Notifications"))
@@ -37,11 +39,13 @@ const routes = [
     { path: "/login", element: <Login /> },
     { path: "/signup", element: <SignUp /> },
     { path: "/forgot-password", element: <ForgotPassword /> },
-    { path: "/unauthorized", element: <Unauthorized /> },
     {
         element: <ProtectedRoute />,
         children: [
-            { path: "/", element: <Dashboard /> },
+            {
+                path: "/",
+                element: <Dashboard />
+            },
             {
                 path: "/candidate-application",
                 element: <CandidateApplication />,
@@ -70,6 +74,19 @@ const routes = [
             {
                 path: "/results",
                 element: <Results />
+            },
+            {
+                path: "/verify-voter",
+                element: <VerifyVoter />,
+                handle: { allowed: ["supervisor"] }
+            },
+            {
+                path: "/unauthorized",
+                element: <Unauthorized />
+            },
+            {
+                path: "*",
+                element: <NotFound />
             }
         ]
     }
