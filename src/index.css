@@ -24,6 +24,13 @@
     --color-secondary-button-hover-light: #42495a;
     --color-link: #6950ab;
     --color-link-hover: #7c59c9;
+    --otp-text: var(--color-primary-light);
+    --otp-trail: var(--color-field-light);
+}
+
+.dark {
+    --otp-text: var(--color-primary-dark);
+    --otp-trail: var(--color-field-dark);
 }
 
 body {
