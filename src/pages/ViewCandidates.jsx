@@ -90,7 +90,7 @@ const ViewCandidates = () => {
                         setClassName={setClassName}
                     />
                     {visibleCandidates.length > 0 && (
-                        <div className='flex flex-col flex-1 gap-3 overflow-y-auto custom-scrollbar min-h-0 rounded-md bg-card-light dark:bg-card-dark px-2 py-4'>
+                        <div className='flex flex-col flex-[1_1_0px] gap-3 overflow-y-auto custom-scrollbar rounded-md bg-card-light dark:bg-card-dark px-2 py-4'>
                             {visibleCandidates.map((candidate) => (
                                 <Candidate
                                     candidate={candidate}
