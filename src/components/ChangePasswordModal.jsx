@@ -73,7 +73,7 @@ const ChangePasswordModal = ({ isOpen, setIsOpen }) => {
                         <div className='flex justify-center gap-3 w-full'>
                             <Button
                                 text='Cancel'
-                                className='w-1/2 h-11 text-sm bg-secondary-button hover:bg-secondary-button-hover'
+                                className='w-1/2 h-11 text-sm bg-secondary-button hover:bg-secondary-button-hover-light dark:hover:bg-secondary-button-hover'
                                 type='button'
                                 onClick={() => setIsOpen(false)}
                             />

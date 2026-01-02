@@ -109,7 +109,7 @@ const SubmitAppealFormModal = ({
                     <div className='flex justify-center gap-3 mt-5 w-full'>
                         <Button
                             text='Cancel'
-                            className='w-1/2 h-11 text-sm bg-secondary-button hover:bg-secondary-button-hover'
+                            className='w-1/2 h-11 text-sm bg-secondary-button hover:bg-secondary-button-hover-light dark:hover:bg-secondary-button-hover'
                             type='button'
                             onClick={() => setIsCancelConfirmOpen(true)}
                         />

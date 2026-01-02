@@ -23,7 +23,7 @@ const NotificationAndResults = () => {
                     className={`px-2 py-2 lg:py-3 flex-1 ${
                         activeTab === "notifications"
                             ? "bg-accent hover:bg-button-hover"
-                            : "bg-secondary-button hover:bg-secondary-button-hover"
+                            : "bg-secondary-button hover:bg-secondary-button-hover-light dark:hover:bg-secondary-button-hover"
                     }`}
                     onClick={() => setActiveTab("notifications")}
                 >
@@ -33,7 +33,7 @@ const NotificationAndResults = () => {
                     className={`px-2 py-2 lg:py-3 flex-1 ${
                         activeTab === "results"
                             ? "bg-accent hover:bg-button-hover"
-                            : "bg-secondary-button hover:bg-secondary-button-hover"
+                            : "bg-secondary-button hover:bg-secondary-button-hover-light dark:hover:bg-secondary-button-hover"
                     }`}
                     onClick={() => setActiveTab("results")}
                 >
