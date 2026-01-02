@@ -114,7 +114,7 @@ const App = () => {
                         duration: 3000,
                         removeDelay: 1000,
                         success: {
-                            duration: 2000
+                            duration: 2500
                         }
                     }}
                 />
