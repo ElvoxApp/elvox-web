@@ -32,7 +32,7 @@ const VerifyVoterOTP = ({ otpData, nextStep }) => {
             clearInterval(interval)
             if (timeoutId) clearTimeout(timeoutId)
         }
-    }, [expiresAt])
+    }, [expiresAt, nextStep])
 
     return (
         <div className='flex flex-col items-center w-full gap-8 max-sm:px-6 max-sm:py-4'>
