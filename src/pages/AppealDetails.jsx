@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react"
-import { useParams } from "react-router-dom"
+import { useNavigate, useParams } from "react-router-dom"
 import toast from "react-hot-toast"
 import api from "../api/api"
 import AppealDetailsSummary from "../components/AppealDetailsSummary"
@@ -17,6 +17,7 @@ const AppealDetails = () => {
     const [error, setError] = useState("")
 
     const { id } = useParams()
+    const navigate = useNavigate()
 
     const { user } = useAuthStore()
 
@@ -70,53 +71,65 @@ const AppealDetails = () => {
                         "Failed to fetch appeal, please try again",
                     { id: "appeal-fetch-error" }
                 )
+                navigate("/appeals")
             } finally {
                 setIsLoading(false)
             }
         }
 
         fetchAppeal()
-    }, [id, setIsLoading])
+    }, [id, setIsLoading, navigate])
 
     return (
-        <div className='flex justify-center px-2 md:px-5 lg:px-9 py-5 flex-1'>
-            <title>
-                {appeal?.subject ? `Appeal - ${appeal.subject}` : "Appeal"}
-            </title>
-            <div className='flex flex-col gap-4 w-full px-4 py-6 rounded-md dark:bg-card-dark bg-card-light shadow-lg text-primary-light dark:text-primary-dark max-w-4xl'>
-                <AppealDetailsSummary appeal={appeal} />
-                <AppealDetailsDescription description={appeal.description} />
-                <AppealDetailsAttachments attachments={appeal.attachments} />
-                <AppealAdminNote
-                    note={appeal.admin_comment}
-                    noteValue={noteValue}
-                    setNoteValue={setNoteValue}
-                    error={error}
-                />
+        <>
+            {Object.keys(appeal).length > 0 && (
+                <div className='flex justify-center px-2 md:px-5 lg:px-9 py-5 flex-1'>
+                    <title>
+                        {appeal?.subject
+                            ? `Appeal - ${appeal.subject}`
+                            : "Appeal"}
+                    </title>
+                    <div className='flex flex-col gap-4 w-full px-4 py-6 rounded-md dark:bg-card-dark bg-card-light shadow-lg text-primary-light dark:text-primary-dark max-w-4xl'>
+                        <AppealDetailsSummary appeal={appeal} />
+                        <AppealDetailsDescription
+                            description={appeal.description}
+                        />
+                        <AppealDetailsAttachments
+                            attachments={appeal.attachments}
+                        />
+                        <AppealAdminNote
+                            note={appeal.admin_comment}
+                            noteValue={noteValue}
+                            setNoteValue={setNoteValue}
+                            error={error}
+                        />
 
-                {appeal.status === "pending" && user.role === "admin" && (
-                    <div className='flex justify-center gap-3 w-full'>
-                        <Button
-                            text='Reject'
-                            className='w-1/2 h-11 text-sm bg-red-700 hover:bg-red-800'
-                            type='button'
-                            onClick={() => handleAction("rejected")}
-                        />
-                        <Button
-                            text='Approve'
-                            className='w-1/2 h-11 text-sm bg-accent hover:bg-button-hover'
-                            type='button'
-                            onClick={() => handleAction("approved")}
-                        />
+                        {appeal.status === "pending" &&
+                            user.role === "admin" && (
+                                <div className='flex justify-center gap-3 w-full'>
+                                    <Button
+                                        text='Reject'
+                                        className='w-1/2 h-11 text-sm bg-red-700 hover:bg-red-800'
+                                        type='button'
+                                        onClick={() => handleAction("rejected")}
+                                    />
+                                    <Button
+                                        text='Approve'
+                                        className='w-1/2 h-11 text-sm bg-accent hover:bg-button-hover'
+                                        type='button'
+                                        onClick={() => handleAction("approved")}
+                                    />
+                                </div>
+                            )}
                     </div>
-                )}
-            </div>
-            {isLoading && (
-                <div className='flex justify-between items-center'>
-                    <FullScreenLoader />
+                    {isLoading && (
+                        <div className='flex justify-between items-center'>
+                            <FullScreenLoader />
+                        </div>
+                    )}
                 </div>
             )}
-        </div>
+        </>
     )
 }
 
