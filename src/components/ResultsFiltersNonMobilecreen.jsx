@@ -13,8 +13,8 @@ const ResultsFiltersNonMobilecreen = ({
     year,
     setYear,
     setYearOpen,
-    classId,
-    setClassId,
+    classValue,
+    setClassValue,
     setClassOpen,
     status,
     setStatus,
@@ -68,11 +68,10 @@ const ResultsFiltersNonMobilecreen = ({
                 }`}
             >
                 <FilterCandidatesByClass
-                    className={classId}
-                    setClassName={setClassId}
+                    className={classValue}
+                    setClassName={setClassValue}
                     showSelected={false}
                     onOpenChange={setClassOpen}
-                    idAsValue={true}
                 />
             </div>
             <div

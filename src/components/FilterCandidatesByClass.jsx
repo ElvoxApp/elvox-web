@@ -1,11 +1,4 @@
-import {
-    Listbox,
-    ListboxButton,
-    ListboxOption,
-    ListboxOptions
-} from "@headlessui/react"
 import { useEffect, useState } from "react"
-import { HiCheck, HiChevronDown } from "react-icons/hi"
 import api from "../api/api"
 import FilterMenu from "./FilterMenu"
 
@@ -13,8 +6,7 @@ const FilterCandidatesByClass = ({
     className,
     setClassName,
     onOpenChange,
-    showSelected = true,
-    idAsValue = false
+    showSelected = true
 }) => {
     const [classes, setClasses] = useState([])
 
@@ -23,19 +15,24 @@ const FilterCandidatesByClass = ({
             const res = await api.get("/classes")
             const data = await res.data
 
-            const clses = data.map((cls) => {
-                return {
-                    id: cls.id,
-                    value: idAsValue ? cls.id : cls.name.toLowerCase(),
-                    label: cls.name
-                }
-            })
+            const clses = [
+                ...new Map(
+                    data.map((cls) => [
+                        cls.name.toLowerCase(),
+                        {
+                            id: cls.id,
+                            value: cls.name.toLowerCase(),
+                            label: cls.name
+                        }
+                    ])
+                ).values()
+            ]
 
             setClasses(clses)
         }
 
         fetchClasses()
-    }, [idAsValue])
+    }, [])
 
     return (
         <FilterMenu

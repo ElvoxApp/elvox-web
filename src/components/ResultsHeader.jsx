@@ -7,8 +7,8 @@ const ResultsHeader = ({
     electionId,
     setElectionId,
     elections,
-    classId,
-    setClassId,
+    classValue,
+    setClassValue,
     year,
     setYear,
     status,
@@ -47,8 +47,8 @@ const ResultsHeader = ({
                             setElectionId={setElectionId}
                             year={year}
                             setYear={setYear}
-                            classId={classId}
-                            setClassId={setClassId}
+                            classValue={classValue}
+                            setClassValue={setClassValue}
                             status={status}
                             setStatus={setStatus}
                         />
@@ -68,8 +68,8 @@ const ResultsHeader = ({
                         year={year}
                         setYear={setYear}
                         setYearOpen={setYearOpen}
-                        classId={classId}
-                        setClassId={setClassId}
+                        classValue={classValue}
+                        setClassValue={setClassValue}
                         setClassOpen={setClassOpen}
                         status={status}
                         setStatus={setStatus}

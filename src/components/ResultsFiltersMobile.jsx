@@ -11,8 +11,8 @@ const ResultsFiltersMobile = ({
     setElectionId,
     year,
     setYear,
-    classId,
-    setClassId,
+    classValue,
+    setClassValue,
     status,
     setStatus
 }) => {
@@ -54,10 +54,9 @@ const ResultsFiltersMobile = ({
                         showSelected={false}
                     />
                     <FilterCandidatesByClass
-                        className={classId}
-                        setClassName={setClassId}
+                        className={classValue}
+                        setClassName={setClassValue}
                         showSelected={false}
-                        idAsValue={true}
                     />
                     <FilterMenu
                         options={[

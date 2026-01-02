@@ -8,7 +8,7 @@ import FullScreenLoader from "../components/FullScreenLoader"
 const Results = () => {
     const [electionId, setElectionId] = useState("")
     const [elections, setElections] = useState([])
-    const [classId, setClassId] = useState("all")
+    const [classValue, setClassValue] = useState("all")
     const [year, setYear] = useState("all")
     const [status, setStatus] = useState("all")
     const [results, setResults] = useState([])
@@ -55,7 +55,7 @@ const Results = () => {
                 const res = await api.get(`/results/${electionId}`, {
                     params: {
                         status,
-                        class: classId,
+                        class: classValue,
                         year
                     }
                 })
@@ -71,7 +71,7 @@ const Results = () => {
         }
 
         fetchResults()
-    }, [status, year, classId, electionId])
+    }, [status, year, classValue, electionId])
 
     return (
         <div className='flex flex-col justify-center min-h-0 items-center px-2 md:px-5 lg:px-9 py-2 flex-1'>
@@ -79,8 +79,8 @@ const Results = () => {
             {electionId && (
                 <div className='flex flex-col w-full flex-1 gap-4 max-w-5xl min-h-0 text-sm'>
                     <ResultsHeader
-                        classId={classId}
-                        setClassId={setClassId}
+                        classValue={classValue}
+                        setClassValue={setClassValue}
                         year={year}
                         setYear={setYear}
                         status={status}
