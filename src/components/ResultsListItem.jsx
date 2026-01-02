@@ -14,14 +14,19 @@ const getYear = (sem) => {
 const ResultsListItem = ({ result }) => {
     return (
         <div className='flex flex-col gap-3 dark:bg-[#16171d] bg-bg-light text-primary-light dark:text-primary-dark rounded-md px-3 py-2'>
-            <div className='flex items-center justify-between py-2 border-b border-gray-500'>
-                <p className='text-[15px]'>
-                    {result?.class}{" "}
+            <div className='flex items-center justify-between gap-3 py-2 border-b border-gray-500'>
+                <p className='flex sm:items-center sm:gap-1 max-sm:flex-col max-sm:gap-0.5 text-[15px]'>
+                    <span>{result?.class} </span>
                     <span className='text-[13px]'>
                         ({getYear(result?.semester)})
                     </span>
                 </p>
-                <p className='text-[15px]'>Total votes: {result?.totalVotes}</p>
+                <p className='flex sm:items-center sm:gap-1 max-sm:flex-col max-sm:gap-0.5 text-[15px]'>
+                    <span>
+                        Total votes<span className='max-sm:hidden'>: </span>
+                    </span>
+                    <span>{result?.totalVotes}</span>
+                </p>
             </div>
             <div className='flex flex-col gap-2'>
                 {result?.candidates
@@ -37,12 +42,11 @@ const ResultsListItem = ({ result }) => {
                                 votes={candidate?.votes}
                                 className='max-sm:hidden'
                             />
-                            {candidate?.lead?.startsWith("+") ||
-                            candidate?.lead?.startsWith("-") ? (
+                            {parseInt(candidate.lead) !== 0 ? (
                                 <p className='text-center max-sm:hidden'>
-                                    {candidate.lead.startsWith("+")
-                                        ? `${candidate.lead} Lead`
-                                        : `${candidate.lead.slice(1)} Behind`}
+                                    {candidate.lead.startsWith("-")
+                                        ? `-${candidate.lead.slice(1)} Behind`
+                                        : `+${candidate.lead} Lead`}
                                 </p>
                             ) : (
                                 <div className='max-sm:hidden' /> // keeps grid alignment
