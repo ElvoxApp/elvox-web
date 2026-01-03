@@ -24,7 +24,7 @@ const DashboardOptionsSupervisor = () => {
                 </Button>
             </Link>
             {tutor_of !== null && (
-                <Link to='#'>
+                <Link to='/approve-applications'>
                     <Button className='flex flex-col justify-center items-center py-5 lg:py-7 gap-1 bg-accent hover:bg-button-hover w-full'>
                         <FaRegFileAlt className='text-primary-dark text-base lg:text-lg' />
                         <span className=''>Approve Applications</span>

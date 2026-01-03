@@ -20,6 +20,7 @@ const Notifications = lazy(() => import("./pages/Notifications"))
 const Appeals = lazy(() => import("./pages/Appeals"))
 const AppealDetails = lazy(() => import("./pages/AppealDetails"))
 const Results = lazy(() => import("./pages/Results"))
+const ApproveApplications = lazy(() => import("./pages/ApproveApplications"))
 
 const ThemeToggle = ({ children }) => {
     const { theme } = useThemeStore()
@@ -79,6 +80,11 @@ const routes = [
                 path: "/verify-voter",
                 element: <VerifyVoter />,
                 handle: { allowed: ["supervisor"] }
+            },
+            {
+                path: "/approve-applications",
+                element: <ApproveApplications />,
+                handle: { allowed: ["tutor"] }
             },
             {
                 path: "/unauthorized",

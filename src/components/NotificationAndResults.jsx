@@ -1,20 +1,30 @@
-import { useState } from "react"
+import { useEffect, useState } from "react"
+import { Link } from "react-router-dom"
 import Button from "./Button"
 import Notification from "./Notification"
 import Result from "./Result"
-import { useNotificationStore } from "../stores"
+import { useElectionStore, useNotificationStore } from "../stores"
+import api from "../api/api"
 
 const NotificationAndResults = () => {
     const [activeTab, setActiveTab] = useState("notifications")
+    const [results, setResults] = useState([])
 
     const { notifications } = useNotificationStore()
+    const { election } = useElectionStore()
 
     const sortedNotifications = [...notifications]
         .sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt))
         .slice(0, 3)
 
-    const results = []
-    /* ------------------------------------ */
+    useEffect(() => {
+        const fetchRandomResults = async () => {
+            const res = await api.get(`/results/random?limit=3`)
+            setResults(res.data)
+        }
+
+        fetchRandomResults()
+    }, [election.id])
 
     return (
         <div className='flex flex-col w-full gap-3 px-3 py-4 rounded-md bg-card-light dark:bg-card-dark min-h-52 shadow-lg transition-all duration-100'>
@@ -48,6 +58,11 @@ const NotificationAndResults = () => {
                             notification={notification}
                         />
                     ))}
+                    <Link to='/notifications'>
+                        <Button className='w-full py-2 lg:py-3 flex-1 bg-secondary-button hover:bg-secondary-button-hover-light dark:hover:bg-secondary-button-hover'>
+                            More
+                        </Button>
+                    </Link>
                 </div>
             ) : (
                 activeTab === "notifications" && (
@@ -64,6 +79,11 @@ const NotificationAndResults = () => {
                             result={result}
                         />
                     ))}
+                    <Link to='/results'>
+                        <Button className='w-full py-2 lg:py-3 flex-1 bg-secondary-button hover:bg-secondary-button-hover-light dark:hover:bg-secondary-button-hover'>
+                            More
+                        </Button>
+                    </Link>
                 </div>
             ) : (
                 activeTab === "results" && (

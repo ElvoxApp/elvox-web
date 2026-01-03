@@ -17,7 +17,7 @@ const DashboardOptionsTeacher = () => {
             } gap-x-3 gap-y-4 lg:gap-y-3 w-full`}
         >
             {tutor_of !== null && (
-                <Link to='#'>
+                <Link to='/approve-applications'>
                     <Button className='flex flex-col justify-center items-center py-5 lg:py-7 gap-1 bg-accent hover:bg-button-hover w-full'>
                         <FaRegFileAlt className='text-primary-dark text-base lg:text-lg' />
                         <span className=''>Approve Applications</span>
