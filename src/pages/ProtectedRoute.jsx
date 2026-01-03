@@ -32,7 +32,8 @@ const ProtectedRoute = () => {
             "/notifications": "Notifications",
             "/appeals": "Appeals",
             "/results": "Results",
-            "/verify-voter": "Verify Voter"
+            "/verify-voter": "Verify Voter",
+            "/approve-applications": "Approve Applications"
         }
 
         return titles[pathname]
@@ -82,6 +83,12 @@ const ProtectedRoute = () => {
     const isAllowedWhenInactive = (pathname) =>
         pathname === "/" || pathname.startsWith("/results")
 
+    // CHECK IF THE USER HAVE AUTHORIZATION TO ACCESS THE PAGE
+    const isUserAuthorized =
+        !allowedRoles ||
+        allowedRoles.includes(user?.role) ||
+        (allowedRoles.includes("tutor") && user?.tutor_of !== null)
+
     if (!isUserLoaded) return <FullScreenLoader />
 
     if (!isAuthenticated)
@@ -107,7 +114,7 @@ const ProtectedRoute = () => {
 
     return (
         <div className='min-h-dvh w-full bg-bg-light dark:bg-bg-dark py-3 transition-all duration-100 flex flex-col'>
-            {!allowedRoles || allowedRoles.includes(user.role) ? (
+            {isUserAuthorized ? (
                 <div className='flex flex-col py-3 px-4 flex-1 min-h-0'>
                     <Header
                         title={getTitle(pathname)}
