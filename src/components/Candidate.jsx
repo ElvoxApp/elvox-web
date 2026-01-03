@@ -43,8 +43,8 @@ const Candidate = ({ candidate }) => {
                         </p>
                     </div>
                     <div className='grid grid-cols-2 sm:flex'>
-                        <p className='text-secondary-light dark:text-secondary-dark text-xs sm:text-center flex max-sm:flex-col'>
-                            <span>Approved on: </span>
+                        <p className='text-secondary-light dark:text-secondary-dark text-xs sm:text-center sm:gap-1 flex max-sm:flex-col'>
+                            <span>Approved on:</span>
                             <span>{readableDate(candidate.updated_at)}</span>
                         </p>
                     </div>
