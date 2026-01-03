@@ -75,7 +75,9 @@ const CandidateApplication = () => {
         const fetchMyCandidateApplication = async () => {
             try {
                 setIsLoading(true)
-                const exists = await api.get(`/candidates/exists/${id}`)
+                const exists = await api.get(
+                    `/candidates/exists/${id}?election=${election.id}`
+                )
                 setIsApplicationSubmitted({
                     submitted: exists.data.exists,
                     status: exists.data.exists ? exists.data.status : null
