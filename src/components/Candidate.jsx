@@ -15,7 +15,7 @@ const readableDate = (date) => {
 
 const Candidate = ({ candidate }) => {
     return (
-        <div className='flex items-center justify-between gap-3 dark:bg-[#16171d] bg-bg-light text-primary-light dark:text-primary-dark rounded-md px-3 py-2'>
+        <div className='flex items-center justify-between gap-3 dark:bg-[#16171d] bg-bg-light text-primary-light dark:text-primary-dark rounded-md px-3 py-2 relative'>
             <div className='flex gap-3'>
                 <div className='flex items-center'>
                     <img
@@ -30,14 +30,17 @@ const Candidate = ({ candidate }) => {
                             {candidate?.name}
                         </p>
                     </div>
-                    <div className='flex items-center gap-2'>
-                        <p className='text-xs'>{candidate?.class},</p>
+                    <div className='flex max-sm:flex-col gap-0.5 sm:items-center sm:gap-2 max-sm:pb-3'>
+                        <p className='text-xs'>
+                            {candidate?.class}
+                            <span className='max-sm:hidden'>,</span>
+                        </p>
                         <p className='text-xs'>
                             {getYear(candidate?.semester)}
                         </p>
                     </div>
                     <div className='flex'>
-                        <p className='text-secondary-light dark:text-secondary-dark text-xs text-center'>
+                        <p className='text-secondary-light dark:text-secondary-dark text-xs text-center max-sm:absolute max-sm:bottom-1'>
                             Approved on: {readableDate(candidate.updated_at)}
                         </p>
                     </div>
