@@ -100,7 +100,7 @@ const CandidateApplication = () => {
                                     nomination_end:
                                         electionRes.data.nomination_end,
                                     voting_start: electionRes.data.voting_start,
-                                    election_id: res.data.electionRes_id
+                                    election_id: res.data.election_id
                                 })
                             }
                         }
