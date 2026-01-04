@@ -7,7 +7,12 @@ import Modal from "./Modal"
 import EditSupervisorListItem from "./EditSupervisorListItem"
 import Button from "./Button"
 
-const EditSupervisors = ({ isOpen, setShowEditModal, supervisors }) => {
+const EditSupervisors = ({
+    isOpen,
+    setShowEditModal,
+    supervisors,
+    fetchSupervisors
+}) => {
     const [eligibleTeachers, setEligibleTeachers] = useState([])
     const [isLoading, setIsLoading] = useState(false)
     const [changes, setChanges] = useState({
@@ -105,6 +110,8 @@ const EditSupervisors = ({ isOpen, setShowEditModal, supervisors }) => {
             toast.success(
                 `Editing supervisors success, ${res.data.added} added and ${res.data.removed} removed`
             )
+            fetchSupervisors()
+            setShowEditModal(false)
         } catch (err) {
             toast.error(
                 err.response?.data?.error ||

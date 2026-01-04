@@ -5,6 +5,7 @@ import Button from "../components/Button"
 import EditSupervisors from "../components/EditSupervisors"
 import api from "../api/api"
 import toast from "react-hot-toast"
+import { useCallback } from "react"
 
 const DEMO = [
     {
@@ -22,25 +23,25 @@ const ChooseSupervisors = () => {
 
     const { isLoading, setIsLoading } = useOutletContext()
 
-    useEffect(() => {
-        const fetchSupervisors = async () => {
-            try {
-                setIsLoading(true)
-                const res = await api.get(`/elections/supervisors`)
-                setSupervisors(res.data)
-            } catch (err) {
-                toast.error(
-                    err.response?.data?.error ||
-                        "Failed to fetch supervisors, please try again",
-                    { id: "supervisors-fetch-error" }
-                )
-            } finally {
-                setIsLoading(false)
-            }
+    const fetchSupervisors = useCallback(async () => {
+        try {
+            setIsLoading(true)
+            const res = await api.get(`/elections/supervisors`)
+            setSupervisors(res.data)
+        } catch (err) {
+            toast.error(
+                err.response?.data?.error ||
+                    "Failed to fetch supervisors, please try again",
+                { id: "supervisors-fetch-error" }
+            )
+        } finally {
+            setIsLoading(false)
         }
-
-        fetchSupervisors()
     }, [setIsLoading])
+
+    useEffect(() => {
+        fetchSupervisors()
+    }, [fetchSupervisors])
 
     if (isLoading) return null
 
@@ -60,7 +61,6 @@ const ChooseSupervisors = () => {
                     {supervisors.length > 0 && (
                         <div className='flex flex-col flex-[1_1_0px] gap-3 overflow-y-auto custom-scrollbar rounded-md bg-card-light dark:bg-card-dark px-2 py-4'>
                             {supervisors.map((supervisor) => (
-                                /* CHANGE KEY TO supervisor.id */
                                 <Supervisor
                                     key={supervisor.id}
                                     supervisor={supervisor}
@@ -75,6 +75,7 @@ const ChooseSupervisors = () => {
                     isOpen={showEditModal}
                     setShowEditModal={setShowEditModal}
                     supervisors={supervisors}
+                    fetchSupervisors={fetchSupervisors}
                 />
             )}
 
