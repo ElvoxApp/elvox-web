@@ -11,7 +11,7 @@ const getYear = (sem) => {
     return ["First", "Second", "Third", "Fourth"][y - 1] + " year"
 }
 
-const Result = ({ result }) => {
+const Result = ({ result, election }) => {
     return (
         <div
             className={`flex items-center justify-between gap-3 p-3 rounded-md text-primary-light dark:text-primary-dark even:dark:bg-[#16171d] even:bg-[#c4c9d4] odd:dark:bg-bg-dark odd:bg-bg-light`}
@@ -29,6 +29,9 @@ const Result = ({ result }) => {
                     <p className='text-sm'>{result?.name}</p>
                     <p className='text-xs text-secondary-light dark:text-secondary-dark'>
                         {result?.class} ({getYear(result?.semester)})
+                    </p>
+                    <p className='text-xs text-secondary-light dark:text-secondary-dark'>
+                        {election?.name}
                     </p>
                 </div>
                 <p className={statusStyles[result?.result_status]}>

@@ -8,7 +8,7 @@ import api from "../api/api"
 
 const NotificationAndResults = () => {
     const [activeTab, setActiveTab] = useState("notifications")
-    const [results, setResults] = useState([])
+    const [results, setResults] = useState({})
 
     const { notifications } = useNotificationStore()
     const { election } = useElectionStore()
@@ -71,12 +71,13 @@ const NotificationAndResults = () => {
                     </div>
                 )
             )}
-            {activeTab === "results" && results.length > 0 ? (
+            {activeTab === "results" && results?.results.length > 0 ? (
                 <div className='flex flex-col gap-2'>
-                    {results.map((result) => (
+                    {results?.results.map((result) => (
                         <Result
-                            key={result?.id}
+                            key={result?.candidate_id}
                             result={result}
+                            election={results?.election}
                         />
                     ))}
                     <Link to='/results'>
