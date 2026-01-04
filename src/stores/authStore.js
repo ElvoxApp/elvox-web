@@ -11,6 +11,9 @@ const useAuthStore = create((set) => ({
         await api.post("/auth/logout")
         set({ user: null, isAuthenticated: false, isUserLoaded: true })
     },
+    setRole: (newRole) => {
+        set((state) => ({ user: { ...state.user, role: newRole } }))
+    },
     fetchMe: async () => {
         try {
             const res = await api.get("/auth/me")
