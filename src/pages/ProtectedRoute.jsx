@@ -13,7 +13,7 @@ const ProtectedRoute = () => {
     const [isLoading, setIsLoading] = useState(false)
     const [electionLoaded, setElectionLoaded] = useState(false)
 
-    const { isAuthenticated, isUserLoaded, user } = useAuthStore()
+    const { isAuthenticated, isUserLoaded, user, setRole } = useAuthStore()
     const { pathname } = useLocation()
 
     const matches = useMatches()
@@ -33,7 +33,8 @@ const ProtectedRoute = () => {
             "/appeals": "Appeals",
             "/results": "Results",
             "/verify-voter": "Verify Voter",
-            "/approve-applications": "Approve Applications"
+            "/approve-applications": "Approve Applications",
+            "/choose-supervisors": "Choose Supervisors"
         }
 
         return titles[pathname]
@@ -63,6 +64,27 @@ const ProtectedRoute = () => {
 
         if (!isElectionScheduled) fetchElection()
     }, [setIsLoading, isElectionScheduled, setElection])
+
+    useEffect(() => {
+        const checkIfSupervisor = async () => {
+            try {
+                setIsLoading(true)
+                const res = await api.get(
+                    `/auth/me/check-role?election=${election.id}`
+                )
+                if (res.data.isSupervisor) setRole(res.data.effectiveRole)
+            } catch (err) {
+                toast.error(
+                    err?.response?.data?.error || "Something went wrong!",
+                    { id: "role-fetch-error" }
+                )
+            } finally {
+                setIsLoading(false)
+            }
+        }
+
+        if (election.id) checkIfSupervisor()
+    }, [election.id, setRole])
 
     useEffect(() => {
         const fetchNotificaions = async () => {

@@ -5,7 +5,6 @@ import useBlockImageAndLinkActions from "./hooks/useBlockImageAndLinkActions"
 import { useThemeStore, useAuthStore } from "./stores"
 import { Toaster } from "react-hot-toast"
 import ProtectedRoute from "./pages/ProtectedRoute"
-import VerifyVoter from "./pages/VerifyVoter"
 
 const SignUp = lazy(() => import("./pages/SignUp"))
 const Login = lazy(() => import("./pages/Login"))
@@ -21,6 +20,8 @@ const Appeals = lazy(() => import("./pages/Appeals"))
 const AppealDetails = lazy(() => import("./pages/AppealDetails"))
 const Results = lazy(() => import("./pages/Results"))
 const ApproveApplications = lazy(() => import("./pages/ApproveApplications"))
+const VerifyVoter = lazy(() => import("./pages/VerifyVoter"))
+const ChooseSupervisors = lazy(() => import("./pages/ChooseSupervisors"))
 
 const ThemeToggle = ({ children }) => {
     const { theme } = useThemeStore()
@@ -85,6 +86,11 @@ const routes = [
                 path: "/approve-applications",
                 element: <ApproveApplications />,
                 handle: { allowed: ["tutor"] }
+            },
+            {
+                path: "/choose-supervisors",
+                element: <ChooseSupervisors />,
+                handle: { allowed: ["admin"] }
             },
             {
                 path: "/unauthorized",
