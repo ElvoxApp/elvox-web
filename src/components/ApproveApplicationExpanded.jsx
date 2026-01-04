@@ -1,4 +1,4 @@
-import React from "react"
+import capitalize from "../utils/capitalize"
 import { useElectionStore } from "../stores"
 import Button from "./Button"
 import { IoImageOutline } from "react-icons/io5"
@@ -13,7 +13,7 @@ const ApproveApplicationExpanded = ({
     const rows = {
         "Candidate Information": [
             { "Admission Number": candidate?.admno },
-            { Category: candidate?.category },
+            { Category: capitalize(candidate?.category) },
             { Election: election?.name }
         ],
         "Nominee 1 Information": [
