@@ -12,6 +12,7 @@ const ProtectedRoute = () => {
         useState(false)
     const [isLoading, setIsLoading] = useState(false)
     const [electionLoaded, setElectionLoaded] = useState(false)
+    const [checkedIfSupervisor, setCheckedIfSupervisor] = useState(false)
 
     const { isAuthenticated, isUserLoaded, user, setRole } = useAuthStore()
     const { pathname } = useLocation()
@@ -79,6 +80,7 @@ const ProtectedRoute = () => {
                     { id: "role-fetch-error" }
                 )
             } finally {
+                setCheckedIfSupervisor(true)
                 setIsLoading(false)
             }
         }
@@ -111,7 +113,12 @@ const ProtectedRoute = () => {
         allowedRoles.includes(user?.role) ||
         (allowedRoles.includes("tutor") && user?.tutor_of !== null)
 
-    if (!isUserLoaded) return <FullScreenLoader />
+    if (
+        !isUserLoaded ||
+        !electionLoaded ||
+        (electionLoaded && election.id && !checkedIfSupervisor)
+    )
+        return <FullScreenLoader />
 
     if (!isAuthenticated)
         return (
