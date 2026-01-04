@@ -32,7 +32,7 @@ const SelectCategory = () => {
                     </ListboxButton>
                     <ListboxOptions className='flex flex-col border border-gray-500 rounded-md w-full'>
                         <ListboxOption
-                            value='General'
+                            value='general'
                             className='group flex justify-between items-center gap-2 px-3 py-2 cursor-pointer rounded-sm text-primary-light dark:text-primary-dark hover:text-primary-dark hover:bg-accent'
                         >
                             <span>General</span>
@@ -40,7 +40,7 @@ const SelectCategory = () => {
                         </ListboxOption>
                         {user?.gender === "female" && (
                             <ListboxOption
-                                value='Reserved'
+                                value='reserved'
                                 className='group flex justify-between items-center gap-2 px-3 py-2 cursor-pointer rounded-sm hover:bg-accent'
                             >
                                 <span>Reserved</span>

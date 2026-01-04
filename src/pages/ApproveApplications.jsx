@@ -128,7 +128,7 @@ const ApproveApplications = () => {
             {!candidates.length && (
                 <div className='flex px-3 py-4 gap-8 flex-1 items-center justify-center'>
                     <h2 className='text-center text-primary-light dark:text-primary-dark text-2xl md:text-3xl lg:text-4xl font-black w-[27ch]'>
-                        No Pending Candidate Applications To Show
+                        No Pending Candidate Applications To Show For Your Class
                     </h2>
                 </div>
             )}
