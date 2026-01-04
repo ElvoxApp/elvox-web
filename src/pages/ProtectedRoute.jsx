@@ -85,8 +85,8 @@ const ProtectedRoute = () => {
             }
         }
 
-        if (election.id) checkIfSupervisor()
-    }, [election.id, setRole])
+        if (election.id && user?.role === "teacher") checkIfSupervisor()
+    }, [election.id, setRole, user?.role])
 
     useEffect(() => {
         const fetchNotificaions = async () => {
@@ -116,7 +116,10 @@ const ProtectedRoute = () => {
     if (
         !isUserLoaded ||
         !electionLoaded ||
-        (electionLoaded && election.id && !checkedIfSupervisor)
+        (electionLoaded &&
+            election.id &&
+            user?.role === "teacher" &&
+            !checkedIfSupervisor)
     )
         return <FullScreenLoader />
 
