@@ -32,7 +32,7 @@ const NoCandidateApplication = ({
     return (
         <div className='flex flex-col px-3 py-4 gap-8 flex-1 justify-center'>
             <div className='flex justify-center'>
-                <h2 className='text-center text-primary-light dark:text-primary-dark text-2xl md:text-3xl lg:text-4xl font-black w-[20ch]'>
+                <h2 className='text-center text-primary-light dark:text-primary-dark text-2xl md:text-3xl lg:text-4xl font-black'>
                     {showSubmitApplicationButton.status === "withdrawn"
                         ? "You Have Withdrawn Your Candidate Application"
                         : "No Candidate Application Submitted"}

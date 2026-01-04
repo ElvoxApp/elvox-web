@@ -6,7 +6,7 @@ const NoAppealsSubmitted = ({ setShowAppealForm }) => {
         <div className='flex flex-col px-3 py-4 flex-1 items-center justify-center'>
             <div className='flex flex-col px-3 py-4 gap-4 flex-1 items-center justify-center max-w-xl'>
                 <LuScroll className='text-8xl text-primary-light dark:text-primary-dark' />
-                <h2 className='text-center text-primary-light dark:text-primary-dark text-2xl md:text-3xl lg:text-4xl font-black w-[20ch]'>
+                <h2 className='text-center text-primary-light dark:text-primary-dark text-2xl md:text-3xl lg:text-4xl font-black'>
                     No Appeals Submitted
                 </h2>
                 <p className='text-sm md:text-base text-center text-secondary-light dark:text-secondary-dark'>

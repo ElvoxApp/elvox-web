@@ -38,7 +38,7 @@ const Header = ({ title, setShowChangePasswordModal }) => {
     }, [])
 
     return (
-        <div className='flex w-full justify-between items-center'>
+        <div className='flex w-full justify-between items-center gap-3'>
             <div className='flex items-center sm:gap-5 gap-3'>
                 <Link to='/'>
                     <Logo
@@ -50,23 +50,23 @@ const Header = ({ title, setShowChangePasswordModal }) => {
                     {title}
                 </h1>
             </div>
-            <div className='flex items-center lg:gap-8 sm:gap-6 gap-5'>
+            <div className='flex items-center lg:gap-8 sm:gap-6 gap-4'>
                 {theme === "dark" ? (
                     <IoSunnyOutline
-                        className='text-primary-light dark:text-primary-dark text-xl cursor-pointer'
+                        className='text-primary-light dark:text-primary-dark text-xl sm:text-2xl cursor-pointer'
                         onClick={toggleTheme}
                     />
                 ) : (
                     <IoMoonOutline
-                        className='text-primary-light dark:text-primary-dark text-2xl cursor-pointer'
+                        className='text-primary-light dark:text-primary-dark text-xl sm:text-2xl cursor-pointer'
                         onClick={toggleTheme}
                     />
                 )}
                 <Link
                     to='/notifications'
-                    className='relative'
+                    className='relative flex items-center min-w-0'
                 >
-                    <IoNotificationsOutline className='text-primary-light dark:text-primary-dark text-2xl cursor-pointer' />
+                    <IoNotificationsOutline className='text-primary-light dark:text-primary-dark text-xl sm:text-2xl cursor-pointer' />
                     {unread > 0 && (
                         <p className='absolute -top-0.5 -right-1 text-xs bg-red-600 text-white rounded-full w-4.5 h-4.5 flex justify-center items-center text-center'>
                             {unread > 9 ? "9+" : unread}

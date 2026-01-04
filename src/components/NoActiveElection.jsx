@@ -10,7 +10,7 @@ const NoActiveElection = () => {
     return (
         <div className='flex flex-col px-3 py-10 gap-8 max-w-lg'>
             <div className='flex justify-center'>
-                <h2 className='text-center text-primary-light dark:text-primary-dark text-2xl md:text-3xl lg:text-4xl font-black w-[20ch]'>
+                <h2 className='text-center text-primary-light dark:text-primary-dark text-2xl md:text-3xl lg:text-4xl font-black'>
                     No Elections Are Currently Active Or Scheduled
                 </h2>
             </div>

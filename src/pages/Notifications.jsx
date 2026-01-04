@@ -57,7 +57,7 @@ const Notifications = () => {
             </div>
             {!visibleNotifications.length && (
                 <div className='flex px-3 py-4 flex-1 items-center justify-center'>
-                    <h2 className='text-center text-primary-light dark:text-primary-dark text-2xl md:text-3xl lg:text-4xl font-black w-[20ch]'>
+                    <h2 className='text-center text-primary-light dark:text-primary-dark text-2xl md:text-3xl lg:text-4xl font-black'>
                         No Notifications To Show
                     </h2>
                 </div>

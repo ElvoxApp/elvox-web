@@ -115,7 +115,7 @@ const VerifyVoter = () => {
                         <h2 className='text-center text-primary-light dark:text-primary-dark text-2xl md:text-3xl lg:text-4xl font-black'>
                             Voting is not active
                         </h2>
-                        <p className='text-secondary-light dark:text-secondary-dark text-center text-base md:text-lg w-[32ch]'>
+                        <p className='text-secondary-light dark:text-secondary-dark text-center text-base md:text-lg'>
                             Voter verification is available only during the
                             voting period
                         </p>

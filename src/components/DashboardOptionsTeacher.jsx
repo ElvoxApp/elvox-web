@@ -18,20 +18,20 @@ const DashboardOptionsTeacher = () => {
         >
             {tutor_of !== null && (
                 <Link to='/approve-applications'>
-                    <Button className='flex flex-col justify-center items-center py-5 lg:py-7 gap-1 bg-accent hover:bg-button-hover w-full'>
+                    <Button className='flex flex-col justify-center items-center py-5 lg:py-7 gap-1 bg-accent hover:bg-button-hover w-full h-full'>
                         <FaRegFileAlt className='text-primary-dark text-base lg:text-lg' />
                         <span className=''>Approve Applications</span>
                     </Button>
                 </Link>
             )}
             <Link to='/candidates'>
-                <Button className='flex flex-col justify-center items-center py-5 lg:py-7 gap-1 bg-accent hover:bg-button-hover w-full'>
+                <Button className='flex flex-col justify-center items-center py-5 lg:py-7 gap-1 bg-accent hover:bg-button-hover w-full h-full'>
                     <LuUsers className='text-primary-dark text-base lg:text-lg' />
                     <span className=''>View Candidates</span>
                 </Button>
             </Link>
             <Link to='/results'>
-                <Button className='flex flex-col justify-center items-center py-5 lg:py-7 gap-1 bg-accent hover:bg-button-hover w-full'>
+                <Button className='flex flex-col justify-center items-center py-5 lg:py-7 gap-1 bg-accent hover:bg-button-hover w-full h-full'>
                     <FiAward className='text-primary-dark text-base lg:text-lg' />
                     <span className=''>View Results</span>
                 </Button>
@@ -40,7 +40,7 @@ const DashboardOptionsTeacher = () => {
                 to='/appeals'
                 className={`${tutor_of === null ? "max-lg:col-span-2" : ""}`}
             >
-                <Button className='flex flex-col justify-center items-center py-5 lg:py-7 gap-1 bg-accent hover:bg-button-hover w-full'>
+                <Button className='flex flex-col justify-center items-center py-5 lg:py-7 gap-1 bg-accent hover:bg-button-hover w-full h-full'>
                     <LuScroll className='text-primary-dark text-base lg:text-lg' />
                     <span className=''>Submit Appeal</span>
                 </Button>

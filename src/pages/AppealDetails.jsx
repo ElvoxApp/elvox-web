@@ -122,11 +122,11 @@ const AppealDetails = () => {
                                 </div>
                             )}
                     </div>
-                    {isLoading && (
-                        <div className='flex justify-between items-center'>
-                            <FullScreenLoader />
-                        </div>
-                    )}
+                </div>
+            )}
+            {isLoading && (
+                <div className='flex justify-between items-center'>
+                    <FullScreenLoader />
                 </div>
             )}
         </>

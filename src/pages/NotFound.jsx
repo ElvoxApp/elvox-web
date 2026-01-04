@@ -9,14 +9,14 @@ const NotFound = () => {
                     <h2 className='text-center text-primary-light dark:text-primary-dark text-4xl font-black'>
                         404 <br /> Not Found
                     </h2>
-                    <p className='text-center text-sm text-secondary-light dark:text-secondary-dark  max-w-[28ch]'>
+                    <p className='text-center text-sm text-secondary-light dark:text-secondary-dark'>
                         The page you’re looking for doesn’t exist or has been
                         moved
                     </p>
                 </div>
                 <Link
                     to='/'
-                    className='px-6 py-3 text-sm font-medium bg-accent hover:bg-button-hover text-primary-dark rounded-md active:scale-85 transition-all duration-200'
+                    className='p-3 text-sm font-medium bg-accent hover:bg-button-hover text-primary-dark rounded-md active:scale-85 transition-all duration-200'
                 >
                     Go to Dashboard
                 </Link>
