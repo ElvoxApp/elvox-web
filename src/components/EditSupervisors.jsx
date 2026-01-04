@@ -97,7 +97,6 @@ const EditSupervisors = ({ isOpen, setShowEditModal, supervisors }) => {
                     return { id: u.id, empcode: u.empcode }
                 })
             }
-            console.log(payload)
 
             const res = await api.post(
                 `/elections/${election.id}/supervisors`,
