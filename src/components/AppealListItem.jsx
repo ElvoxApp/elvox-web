@@ -40,7 +40,7 @@ const AppealListItem = ({ appeal }) => {
     return (
         <Link
             to={appeal.id}
-            className='flex flex-col gap-2 bg-card-light dark:bg-card-dark w-full px-3 py-2 rounded-md text-sm hover:bg-[#d9d9d9] dark:hover:bg-[#1a1b21]'
+            className='flex flex-col gap-2 bg-card-light dark:bg-card-dark w-full px-3 py-2 rounded-md text-sm hover:bg-[#d4d4d4] dark:hover:bg-[#16171d]'
         >
             <div className='flex justify-between'>
                 <p className='text-primary-light dark:text-primary-dark text-base'>
