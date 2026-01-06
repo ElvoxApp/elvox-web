@@ -5,8 +5,9 @@ import NotificationAndResults from "../components/NotificationAndResults"
 import DashboardOptionsSupervisor from "../components/DashboardOptionsSupervisor"
 import DashboardOptionsAdmin from "../components/DashboardOptionsAdmin"
 import { useAuthStore, useElectionStore } from "../stores"
-import NoActiveElection from "../components/NoActiveElection"
+import NoActiveElectionAdminDashboard from "../components/NoActiveElectionAdminDashboard"
 import { useOutletContext } from "react-router-dom"
+import NoActiveElectionCommon from "../components/NoActiveElectionCommon"
 
 const Dashboard = () => {
     const {
@@ -29,12 +30,16 @@ const Dashboard = () => {
     const isElectionScheduled = Object.keys(election).length > 0
 
     return (
-        <div className='flex flex-col px-2 py-5 flex-1'>
+        <div
+            className={`flex flex-col px-2 flex-1 ${
+                isElectionScheduled ? "py-5" : "py-5"
+            }`}
+        >
             <title>Dashboard</title>
             {!isLoading && (
                 <div
-                    className={`flex flex-col sm:py-3 md:px-3 lg:px-7 text-sm justify-evenly flex-1 ${
-                        isElectionScheduled ? "gap-6" : "gap-10"
+                    className={`flex flex-col md:px-3 lg:px-7 text-sm justify-evenly flex-1 ${
+                        isElectionScheduled ? "gap-6 sm:py-3" : "gap-6 sm:py-3"
                     }`}
                 >
                     {isElectionScheduled ? (
@@ -42,10 +47,10 @@ const Dashboard = () => {
                             <ElectionDetails />
                             <DashboardOptions />
                         </>
+                    ) : role === "admin" ? (
+                        <NoActiveElectionAdminDashboard />
                     ) : (
-                        <div className='flex justify-center'>
-                            <NoActiveElection />
-                        </div>
+                        <NoActiveElectionCommon />
                     )}
                     <NotificationAndResults />
                 </div>
