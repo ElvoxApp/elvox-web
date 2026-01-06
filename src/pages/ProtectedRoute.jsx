@@ -117,7 +117,7 @@ const ProtectedRoute = () => {
     if (
         !isUserLoaded ||
         (isAuthenticated &&
-            (!isElectionScheduled ||
+            ((!isElectionScheduled && !electionLoaded) ||
                 (isElectionScheduled &&
                     election.id &&
                     user?.role === "teacher" &&
