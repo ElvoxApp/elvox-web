@@ -95,7 +95,7 @@ const Results = () => {
                 </div>
             )}
 
-            {results.length === 0 && (
+            {results.length === 0 && !isLoading && (
                 <div
                     className={`flex px-3 py-4 gap-8 flex-1 justify-center ${
                         !electionId ? "items-center" : ""
