@@ -1,5 +1,6 @@
 import { create } from "zustand"
 import api from "../api/api"
+import toast from "react-hot-toast"
 
 const useAuthStore = create((set) => ({
     isAuthenticated: false,
@@ -24,11 +25,14 @@ const useAuthStore = create((set) => ({
                 isAuthenticated: true,
                 isUserLoaded: true
             })
-        } catch {
+        } catch (err) {
             set({
                 user: null,
                 isAuthenticated: false,
                 isUserLoaded: true
+            })
+            toast.error(err?.response?.data?.error || "Something went wrong!", {
+                id: "user-fetch-error"
             })
         }
     }

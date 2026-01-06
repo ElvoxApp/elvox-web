@@ -63,8 +63,8 @@ const ProtectedRoute = () => {
             }
         }
 
-        if (!isElectionScheduled) fetchElection()
-    }, [setIsLoading, isElectionScheduled, setElection])
+        if (!isElectionScheduled && isAuthenticated) fetchElection()
+    }, [setIsLoading, isElectionScheduled, setElection, isAuthenticated])
 
     useEffect(() => {
         const checkIfSupervisor = async () => {
@@ -85,8 +85,9 @@ const ProtectedRoute = () => {
             }
         }
 
-        if (election.id && user?.role === "teacher") checkIfSupervisor()
-    }, [election.id, setRole, user?.role])
+        if (election.id && user?.role === "teacher" && isAuthenticated)
+            checkIfSupervisor()
+    }, [election.id, setRole, user?.role, isAuthenticated])
 
     useEffect(() => {
         const fetchNotificaions = async () => {
@@ -101,8 +102,8 @@ const ProtectedRoute = () => {
             }
         }
 
-        fetchNotificaions()
-    }, [setNotifications])
+        if (isAuthenticated) fetchNotificaions()
+    }, [setNotifications, isAuthenticated])
 
     const isAllowedWhenInactive = (pathname) =>
         pathname === "/" || pathname.startsWith("/results")
@@ -115,11 +116,12 @@ const ProtectedRoute = () => {
 
     if (
         !isUserLoaded ||
-        !isElectionScheduled ||
-        (isElectionScheduled &&
-            election.id &&
-            user?.role === "teacher" &&
-            !checkedIfSupervisor)
+        (isAuthenticated &&
+            (!isElectionScheduled ||
+                (isElectionScheduled &&
+                    election.id &&
+                    user?.role === "teacher" &&
+                    !checkedIfSupervisor)))
     )
         return <FullScreenLoader />
 
