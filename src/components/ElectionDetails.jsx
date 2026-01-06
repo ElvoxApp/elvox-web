@@ -3,27 +3,13 @@ import { FaRegCalendar } from "react-icons/fa"
 import { useElectionStore } from "../stores"
 import formatDate from "../utils/formatDate"
 
-const getElectionStatus = (e) => {
-    const now = new Date()
-
-    if (now < new Date(e.election_start)) return "Upcoming"
-
-    if (now >= new Date(e.election_start) && now < new Date(e.nomination_start))
-        return "Nominations Opening Soon"
-
-    if (now >= new Date(e.nomination_start) && now < new Date(e.nomination_end))
-        return "Nominations Open"
-
-    if (now >= new Date(e.nomination_end) && now < new Date(e.voting_start))
-        return "Voting Scheduled"
-
-    if (now >= new Date(e.voting_start) && now < new Date(e.voting_end))
-        return "Voting Live"
-
-    if (now >= new Date(e.voting_end) && now <= new Date(e.election_end))
-        return "Voting Ended"
-
-    return "Closed"
+const electionStatus = {
+    draft: "Coming Soon",
+    nominations: "Nominations Open",
+    "pre-voting": "Voting Preparation",
+    voting: "Voting Live",
+    "post-voting": "Results Published",
+    closed: "Election Concluded"
 }
 
 const ElectionDetails = () => {
@@ -39,7 +25,7 @@ const ElectionDetails = () => {
                 <span>
                     Status:{" "}
                     <span className='text-accent'>
-                        {getElectionStatus(election)}
+                        {electionStatus[election.status]}
                     </span>
                 </span>
             </p>
