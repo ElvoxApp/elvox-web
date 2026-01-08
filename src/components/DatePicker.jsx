@@ -53,7 +53,9 @@ export default function DateTimePicker({
                 <Popover.Content
                     sideOffset={8}
                     align='start'
-                    className='z-50 rounded-lg bg-field-light dark:bg-field-dark p-3 shadow-lg'
+                    collisionPadding={15}
+                    avoidCollisions
+                    className='z-50 rounded-lg bg-field-light dark:bg-field-dark p-3 shadow-lg max-w-[calc(100vw-32px)]'
                 >
                     <DayPicker
                         mode='single'
