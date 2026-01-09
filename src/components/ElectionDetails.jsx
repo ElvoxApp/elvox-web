@@ -3,17 +3,19 @@ import { FaRegCalendar } from "react-icons/fa"
 import { useElectionStore } from "../stores"
 import formatDate from "../utils/formatDate"
 
-const electionStatus = {
-    draft: "Coming Soon",
-    nominations: "Nominations Open",
-    "pre-voting": "Voting Preparation",
-    voting: "Voting Live",
-    "post-voting": "Results Published",
-    closed: "Election Concluded"
-}
-
 const ElectionDetails = () => {
     const { election } = useElectionStore()
+
+    const electionStatus = {
+        draft: "Coming Soon",
+        nominations: "Nominations Open",
+        "pre-voting": "Voting Preparation",
+        voting: "Voting Live",
+        "post-voting": election?.result_published
+            ? "Results Published"
+            : "Voting Finished",
+        closed: "Election Concluded"
+    }
 
     return (
         <div className='flex flex-col w-full gap-2 px-4 py-4 rounded-md dark:bg-card-dark bg-card-light shadow-lg transition-all duration-100'>
