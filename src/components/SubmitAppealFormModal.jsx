@@ -117,6 +117,7 @@ const SubmitAppealFormModal = ({
                             text='Submit Appeal'
                             className='w-1/2 h-11 text-sm bg-accent hover:bg-button-hover'
                             type='submit'
+                            disabled={isLoading}
                         />
                     </div>
                 </form>
