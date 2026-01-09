@@ -28,9 +28,9 @@ const Notifications = () => {
     }, [notifications, filter, sort])
 
     return (
-        <div className='flex flex-col items-center px-2 md:px-5 lg:px-9 pb-5 pt-8 flex-1'>
+        <div className='flex flex-col items-center px-2 md:px-5 lg:px-9 pb-5 pt-8 flex-1 min-h-0'>
             <title>Notifications</title>
-            <div className='flex flex-col w-full gap-5 max-w-4xl'>
+            <div className='flex flex-col w-full gap-5 max-w-4xl flex-1 min-h-0'>
                 {notifications?.length > 0 && (
                     <NotificationFilterAndSort
                         sort={sort}
@@ -40,8 +40,8 @@ const Notifications = () => {
                     />
                 )}
                 {visibleNotifications?.length > 0 && (
-                    <div className='flex flex-col px-3 py-4 gap-8 rounded-md dark:bg-card-dark bg-card-light shadow-lg text-primary-light dark:text-primary-dark'>
-                        <div className='flex flex-col gap-3'>
+                    <div className='flex flex-col flex-1 min-h-0 px-3 py-4 gap-8 rounded-md dark:bg-card-dark bg-card-light shadow-lg text-primary-light dark:text-primary-dark'>
+                        <div className='flex flex-col gap-3 overflow-y-auto custom-scrollbar flex-[1_1_0px]'>
                             {visibleNotifications.map((notification) => (
                                 <Notification
                                     key={notification.id}
