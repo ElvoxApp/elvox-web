@@ -22,6 +22,8 @@ const Results = lazy(() => import("./pages/Results"))
 const ApproveApplications = lazy(() => import("./pages/ApproveApplications"))
 const VerifyVoter = lazy(() => import("./pages/VerifyVoter"))
 const ChooseSupervisors = lazy(() => import("./pages/ChooseSupervisors"))
+const ManageElection = lazy(() => import("./pages/ManageElection"))
+const AuditLogs = lazy(() => import("./pages/AuditLogs"))
 
 const ThemeToggle = ({ children }) => {
     const { theme } = useThemeStore()
@@ -90,6 +92,16 @@ const routes = [
             {
                 path: "/choose-supervisors",
                 element: <ChooseSupervisors />,
+                handle: { allowed: ["admin"] }
+            },
+            {
+                path: "/manage-election",
+                element: <ManageElection />,
+                handle: { allowed: ["admin"] }
+            },
+            {
+                path: "/logs",
+                element: <AuditLogs />,
                 handle: { allowed: ["admin"] }
             },
             {

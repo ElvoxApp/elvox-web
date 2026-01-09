@@ -13,7 +13,7 @@ const DashboardOptionsAdmin = () => {
 
     return (
         <div className='grid grid-cols-2 lg:grid-cols-3 gap-x-3 gap-y-4 lg:gap-y-3 w-full'>
-            <Link to='#'>
+            <Link to='/manage-election'>
                 <Button className='flex flex-col justify-center items-center py-5 lg:py-7 gap-1 bg-accent hover:bg-button-hover w-full h-full'>
                     <IoSettingsOutline className='text-primary-dark text-base lg:text-lg' />
                     <span className=''>Manage Election</span>
@@ -67,7 +67,7 @@ const DashboardOptionsAdmin = () => {
                     </Button>
                 </Link>
                 <Link
-                    to='#'
+                    to='/logs'
                     className={tutor_of !== null ? "max-lg:col-span-2" : ""}
                 >
                     <Button className='flex flex-col justify-center items-center py-5 lg:py-7 gap-1 bg-accent hover:bg-button-hover w-full h-full'>
