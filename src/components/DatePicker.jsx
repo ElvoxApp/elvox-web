@@ -5,11 +5,7 @@ import { format } from "date-fns"
 import "react-day-picker/dist/style.css"
 import { MdOutlineCalendarToday } from "react-icons/md"
 
-export default function DateTimePicker({
-    value,
-    onChange,
-    placeholder = "Select date"
-}) {
+const DatePicker = ({ value, onChange, placeholder = "Select date" }) => {
     const [open, setOpen] = useState(false)
 
     return (
@@ -63,3 +59,5 @@ export default function DateTimePicker({
         </div>
     )
 }
+
+export default DatePicker
