@@ -3,7 +3,7 @@ import Button from "./Button"
 import { LuCalendarCheck, LuClipboardList, LuScroll } from "react-icons/lu"
 import { FiAward } from "react-icons/fi"
 
-const NoActiveElectionAdminDashboard = () => {
+const NoActiveElectionAdminDashboard = ({ setShowCreateElectionModal }) => {
     return (
         <>
             <div className='flex flex-col w-full gap-2 px-4 py-14 rounded-md dark:bg-card-dark bg-card-light shadow-lg transition-all duration-100'>
@@ -15,12 +15,13 @@ const NoActiveElectionAdminDashboard = () => {
             </div>
             <div className='flex flex-col gap-10'>
                 <div className='grid grid-cols-2 gap-x-3 gap-y-4 lg:gap-y-3 w-full'>
-                    <Link to='#'>
-                        <Button className='flex flex-col justify-center items-center py-5 lg:py-7 gap-1 bg-accent hover:bg-button-hover w-full h-full'>
-                            <LuCalendarCheck className='text-primary-dark text-base lg:text-lg' />
-                            <span className=''>Shedule New Election</span>
-                        </Button>
-                    </Link>
+                    <Button
+                        className='flex flex-col justify-center items-center py-5 lg:py-7 gap-1 bg-accent hover:bg-button-hover w-full h-full'
+                        onClick={() => setShowCreateElectionModal(true)}
+                    >
+                        <LuCalendarCheck className='text-primary-dark text-base lg:text-lg' />
+                        <span className=''>Shedule New Election</span>
+                    </Button>
                     <Link to='/appeals'>
                         <Button className='flex flex-col justify-center items-center py-5 lg:py-7 gap-1 bg-accent hover:bg-button-hover w-full h-full'>
                             <LuScroll className='text-primary-dark text-base lg:text-lg' />

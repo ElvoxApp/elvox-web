@@ -8,8 +8,12 @@ import { useAuthStore, useElectionStore } from "../stores"
 import NoActiveElectionAdminDashboard from "../components/NoActiveElectionAdminDashboard"
 import { useOutletContext } from "react-router-dom"
 import NoActiveElectionCommon from "../components/NoActiveElectionCommon"
+import CreateElectionModal from "../components/CreateElectionModal"
+import { useState } from "react"
 
 const Dashboard = () => {
+    const [showCreateElectionModal, setShowCreateElectionModal] =
+        useState(false)
     const {
         user: { role }
     } = useAuthStore()
@@ -48,12 +52,23 @@ const Dashboard = () => {
                             <DashboardOptions />
                         </>
                     ) : role === "admin" ? (
-                        <NoActiveElectionAdminDashboard />
+                        <NoActiveElectionAdminDashboard
+                            setShowCreateElectionModal={
+                                setShowCreateElectionModal
+                            }
+                        />
                     ) : (
                         <NoActiveElectionCommon />
                     )}
                     <NotificationAndResults />
                 </div>
+            )}
+
+            {showCreateElectionModal && (
+                <CreateElectionModal
+                    isOpen={showCreateElectionModal}
+                    setShowCreateElectionModal={setShowCreateElectionModal}
+                />
             )}
         </div>
     )
