@@ -415,9 +415,10 @@ const UserCandidateApplication = ({
                                     <Button
                                         text='Withdraw Application'
                                         className='w-40 h-9 text-sm bg-red-700 hover:bg-red-800'
-                                        onClick={() =>
+                                        onClick={() => {
                                             setShowConfirmDialog(true)
-                                        }
+                                            setError(null)
+                                        }}
                                     />
                                 </p>
                             </div>
