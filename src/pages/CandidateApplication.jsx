@@ -36,13 +36,12 @@ const CandidateApplication = () => {
     } = useAuthStore()
 
     const { election } = useElectionStore()
-    const { nomination_end } = election
 
     const showSubmitApplicationButton = {
         show:
             !isApplicationSubmitted.submitted &&
-            nomination_end &&
-            Date.now() < new Date(nomination_end),
+            election.status &&
+            election.status === "nominations",
         status: isApplicationSubmitted.status
     }
 

@@ -1,5 +1,5 @@
 import Button from "./Button"
-import { useAuthStore } from "../stores"
+import { useAuthStore, useElectionStore } from "../stores"
 import toast from "react-hot-toast"
 
 const NoCandidateApplication = ({
@@ -7,6 +7,7 @@ const NoCandidateApplication = ({
     showSubmitApplicationButton
 }) => {
     const { user } = useAuthStore()
+    const { election } = useElectionStore()
 
     const handleClick = () => {
         if (user?.backlogs && Number(user?.attendance) < 75) {
@@ -35,7 +36,9 @@ const NoCandidateApplication = ({
                 <h2 className='text-center text-primary-light dark:text-primary-dark text-2xl md:text-3xl lg:text-4xl font-black'>
                     {showSubmitApplicationButton.status === "withdrawn"
                         ? "You Have Withdrawn Your Candidate Application"
-                        : "No Candidate Application Submitted"}
+                        : election.status === "nominations"
+                        ? "No Candidate Application Submitted"
+                        : "Nominations are not currently open. You cannot submit an application at this time"}
                 </h2>
             </div>
             {user?.role === "student" && showSubmitApplicationButton.show && (
