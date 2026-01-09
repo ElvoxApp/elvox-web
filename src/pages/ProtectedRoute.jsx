@@ -105,8 +105,19 @@ const ProtectedRoute = () => {
         if (isAuthenticated) fetchNotificaions()
     }, [setNotifications, isAuthenticated])
 
+    const INACTIVE_ALLOWED_ROUTES = [
+        "/",
+        "/notifications",
+        "/profile",
+        "/results"
+    ]
+
+    const ADMIN_EXTRA_ROUTES = ["/appeals", "/logs"]
+
     const isAllowedWhenInactive = (pathname) =>
-        pathname === "/" || pathname.startsWith("/results")
+        INACTIVE_ALLOWED_ROUTES.includes(pathname) ||
+        (user?.role === "admin" &&
+            ADMIN_EXTRA_ROUTES.some((r) => pathname.startsWith(r)))
 
     // CHECK IF THE USER HAVE AUTHORIZATION TO ACCESS THE PAGE
     const isUserAuthorized =
