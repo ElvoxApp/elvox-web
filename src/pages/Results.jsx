@@ -13,14 +13,18 @@ const Results = () => {
     const [status, setStatus] = useState("all")
     const [results, setResults] = useState([])
 
-    const [isLoading, setIsLoading] = useState(false)
+    const [electionsLoading, setElectionsLoading] = useState(false)
+    const [resultsLoading, setResultsLoading] = useState(false)
 
-    const electionHasAnyResults = results.length > 0
+    const isLoading = electionsLoading || resultsLoading
+
+    const hasFilters = Boolean(status || classValue || year)
+    const hasResults = results.length > 0
 
     useEffect(() => {
         const fetchElections = async () => {
             try {
-                setIsLoading(true)
+                setElectionsLoading(true)
                 const res = await api.get("/elections/all")
                 const electionsData = res.data
 
@@ -39,7 +43,7 @@ const Results = () => {
                         id: "elections-fetch-error"
                     })
             } finally {
-                setIsLoading(false)
+                setElectionsLoading(false)
             }
         }
 
@@ -51,7 +55,7 @@ const Results = () => {
 
         const fetchResults = async () => {
             try {
-                setIsLoading(true)
+                setResultsLoading(true)
                 const res = await api.get(`/results/${electionId}`, {
                     params: {
                         status,
@@ -66,7 +70,7 @@ const Results = () => {
                         id: "results-fetch-error"
                     })
             } finally {
-                setIsLoading(false)
+                setResultsLoading(false)
             }
         }
 
@@ -105,11 +109,13 @@ const Results = () => {
                         {!electionId && "Result not published yet"}
 
                         {electionId &&
-                            !electionHasAnyResults &&
+                            !hasResults &&
+                            !hasFilters &&
                             "No results published for this election"}
 
                         {electionId &&
-                            electionHasAnyResults &&
+                            !hasResults &&
+                            hasFilters &&
                             "No results match the selected filters"}
                     </h2>
                 </div>
