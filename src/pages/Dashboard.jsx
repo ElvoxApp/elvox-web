@@ -34,11 +34,7 @@ const Dashboard = () => {
     const isElectionScheduled = Object.keys(election).length > 0
 
     return (
-        <div
-            className={`flex flex-col px-2 flex-1 ${
-                isElectionScheduled ? "py-5" : "py-5"
-            }`}
-        >
+        <div className={`flex flex-col px-2 flex-1 py-5`}>
             <title>Dashboard</title>
             {!isLoading && (
                 <div
