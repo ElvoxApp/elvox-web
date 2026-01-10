@@ -23,8 +23,16 @@ const DISABLED_MESSAGES = {
 const CreateElectionFormTimeline = ({ disabled }) => {
     const {
         control,
+        watch,
         formState: { errors }
     } = useFormContext()
+
+    const [ns, ne, vs, ve] = watch([
+        "nominationStartDate",
+        "nominationEndDate",
+        "votingStartDate",
+        "votingEndDate"
+    ])
 
     return (
         <div className='flex flex-col gap-2'>
@@ -57,6 +65,7 @@ const CreateElectionFormTimeline = ({ disabled }) => {
                                         value={field.value}
                                         onChange={field.onChange}
                                         disabled={disabled.nominationStart}
+                                        disabledDate={{ before: new Date() }}
                                     />
                                 )}
                             />
@@ -117,6 +126,7 @@ const CreateElectionFormTimeline = ({ disabled }) => {
                                         value={field.value}
                                         onChange={field.onChange}
                                         disabled={disabled.nominationEnd}
+                                        disabledDate={{ before: new Date(ns) }}
                                     />
                                 )}
                             />
@@ -175,6 +185,7 @@ const CreateElectionFormTimeline = ({ disabled }) => {
                                         value={field.value}
                                         onChange={field.onChange}
                                         disabled={disabled.votingStart}
+                                        disabledDate={{ before: new Date(ne) }}
                                     />
                                 )}
                             />
@@ -233,6 +244,7 @@ const CreateElectionFormTimeline = ({ disabled }) => {
                                         value={field.value}
                                         onChange={field.onChange}
                                         disabled={disabled.votingEnd}
+                                        disabledDate={{ before: new Date(vs) }}
                                     />
                                 )}
                             />
@@ -291,6 +303,7 @@ const CreateElectionFormTimeline = ({ disabled }) => {
                                         value={field.value}
                                         onChange={field.onChange}
                                         disabled={disabled.electionEnd}
+                                        disabledDate={{ before: new Date(ve) }}
                                     />
                                 )}
                             />

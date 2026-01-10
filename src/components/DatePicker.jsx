@@ -9,6 +9,7 @@ const DatePicker = ({
     value,
     onChange,
     disabled,
+    disabledDate = {},
     placeholder = "Select date"
 }) => {
     const [open, setOpen] = useState(false)
@@ -66,6 +67,7 @@ const DatePicker = ({
                                 "color-mix(in oklab, var(--color-accent) 15%, transparent)"
                         }}
                         className='[&_.rdp-today]:font-black [&_.rdp-today]:text-base'
+                        disabled={disabledDate}
                     />
                 </Popover.Content>
             </Popover.Root>
