@@ -1,4 +1,4 @@
-import { lazy, Suspense, useEffect } from "react"
+import { lazy, Suspense, useEffect, useState } from "react"
 import { createBrowserRouter, RouterProvider } from "react-router-dom"
 import FullScreenLoader from "./components/FullScreenLoader"
 import useBlockImageAndLinkActions from "./hooks/useBlockImageAndLinkActions"
@@ -119,12 +119,14 @@ const routes = [
 const router = createBrowserRouter(routes)
 
 const App = () => {
+    const [isLoading, setIsLoading] = useState(false)
+
     const { fetchMe } = useAuthStore()
 
     useBlockImageAndLinkActions() // Prevent image drag and link right-click
 
     useEffect(() => {
-        fetchMe()
+        fetchMe(setIsLoading)
     }, [fetchMe])
 
     return (
@@ -143,6 +145,11 @@ const App = () => {
                     }}
                 />
                 <RouterProvider router={router} />
+                {isLoading && (
+                    <div className='flex justify-between items-center'>
+                        <FullScreenLoader />
+                    </div>
+                )}
             </Suspense>
         </ThemeToggle>
     )

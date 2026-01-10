@@ -15,8 +15,9 @@ const useAuthStore = create((set) => ({
     setRole: (newRole) => {
         set((state) => ({ user: { ...state.user, role: newRole } }))
     },
-    fetchMe: async () => {
+    fetchMe: async (setIsLoading) => {
         try {
+            setIsLoading(true)
             const res = await api.get("/auth/me")
             const user = res.data
 
@@ -34,6 +35,8 @@ const useAuthStore = create((set) => ({
             toast.error(err?.response?.data?.error || "Something went wrong!", {
                 id: "user-fetch-error"
             })
+        } finally {
+            setIsLoading(false)
         }
     }
 }))
