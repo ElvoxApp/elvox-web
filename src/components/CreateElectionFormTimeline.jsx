@@ -1,8 +1,26 @@
 import { useFormContext, Controller } from "react-hook-form"
 import DatePicker from "./DatePicker"
 import TimePicker from "./TimePicker"
+import InfoTooltip from "./InfoTooltip"
 
-const CreateElectionFormTimeline = () => {
+const DISABLED_MESSAGES = {
+    nominationStart:
+        "Nomination start date and time can only be edited while the election is in Draft",
+
+    nominationEnd:
+        "Nomination end date and time can only be edited during Draft or Nominations",
+
+    votingStart:
+        "Voting start date and time can only be edited before voting begins",
+
+    votingEnd:
+        "Voting end date and time can only be edited before voting finishes",
+
+    electionEnd:
+        "Election end date and time can only be edited before the election is closed."
+}
+
+const CreateElectionFormTimeline = ({ disabled }) => {
     const {
         control,
         formState: { errors }
@@ -13,14 +31,23 @@ const CreateElectionFormTimeline = () => {
             <h3 className='text-base font-semibold'>Timeline</h3>
             <div className='grid md:grid-cols-2 gap-2 md:gap-4'>
                 <div className='flex flex-col gap-2'>
-                    <p>
-                        Nomination Start <span className='text-red-500'>*</span>
-                    </p>
+                    <div className='flex gap-2 items-center'>
+                        <p>
+                            Nomination Start{" "}
+                            <span className='text-red-500'>*</span>
+                        </p>
+                        {disabled.nominationStart && (
+                            <InfoTooltip
+                                message={DISABLED_MESSAGES["nominationStart"]}
+                            />
+                        )}
+                    </div>
                     <div className='flex gap-2'>
                         <div className='flex flex-col gap-1 flex-1'>
                             <Controller
                                 name='nominationStartDate'
                                 control={control}
+                                disabled={disabled.nominationStart}
                                 rules={{
                                     required:
                                         "Nomination start date is required"
@@ -29,6 +56,7 @@ const CreateElectionFormTimeline = () => {
                                     <DatePicker
                                         value={field.value}
                                         onChange={field.onChange}
+                                        disabled={disabled.nominationStart}
                                     />
                                 )}
                             />
@@ -42,6 +70,7 @@ const CreateElectionFormTimeline = () => {
                             <Controller
                                 name='nominationStartTime'
                                 control={control}
+                                disabled={disabled.nominationStart}
                                 rules={{
                                     required:
                                         "Nomination start time is required"
@@ -50,6 +79,7 @@ const CreateElectionFormTimeline = () => {
                                     <TimePicker
                                         value={field.value}
                                         onChange={field.onChange}
+                                        disabled={disabled.nominationStart}
                                     />
                                 )}
                             />
@@ -62,14 +92,23 @@ const CreateElectionFormTimeline = () => {
                     </div>
                 </div>
                 <div className='flex flex-col gap-2'>
-                    <p>
-                        Nomination End <span className='text-red-500'>*</span>
-                    </p>
+                    <div className='flex gap-2 items-center'>
+                        <p>
+                            Nomination End{" "}
+                            <span className='text-red-500'>*</span>
+                        </p>
+                        {disabled.nominationEnd && (
+                            <InfoTooltip
+                                message={DISABLED_MESSAGES["nominationEnd"]}
+                            />
+                        )}
+                    </div>
                     <div className='flex gap-2'>
                         <div className='flex flex-col gap-1 flex-1'>
                             <Controller
                                 name='nominationEndDate'
                                 control={control}
+                                disabled={disabled.nominationEnd}
                                 rules={{
                                     required: "Nomination end date is required"
                                 }}
@@ -77,6 +116,7 @@ const CreateElectionFormTimeline = () => {
                                     <DatePicker
                                         value={field.value}
                                         onChange={field.onChange}
+                                        disabled={disabled.nominationEnd}
                                     />
                                 )}
                             />
@@ -90,6 +130,7 @@ const CreateElectionFormTimeline = () => {
                             <Controller
                                 name='nominationEndTime'
                                 control={control}
+                                disabled={disabled.nominationEnd}
                                 rules={{
                                     required: "Nomination end time is required"
                                 }}
@@ -97,6 +138,7 @@ const CreateElectionFormTimeline = () => {
                                     <TimePicker
                                         value={field.value}
                                         onChange={field.onChange}
+                                        disabled={disabled.nominationEnd}
                                     />
                                 )}
                             />
@@ -109,14 +151,22 @@ const CreateElectionFormTimeline = () => {
                     </div>
                 </div>
                 <div className='flex flex-col gap-2'>
-                    <p>
-                        Voting Start <span className='text-red-500'>*</span>
-                    </p>
+                    <div className='flex gap-2 items-center'>
+                        <p>
+                            Voting Start <span className='text-red-500'>*</span>
+                        </p>
+                        {disabled.votingStart && (
+                            <InfoTooltip
+                                message={DISABLED_MESSAGES["votingStart"]}
+                            />
+                        )}
+                    </div>
                     <div className='flex gap-2'>
                         <div className='flex flex-col gap-1 flex-1'>
                             <Controller
                                 name='votingStartDate'
                                 control={control}
+                                disabled={disabled.votingStart}
                                 rules={{
                                     required: "Voting start date is required"
                                 }}
@@ -124,6 +174,7 @@ const CreateElectionFormTimeline = () => {
                                     <DatePicker
                                         value={field.value}
                                         onChange={field.onChange}
+                                        disabled={disabled.votingStart}
                                     />
                                 )}
                             />
@@ -137,6 +188,7 @@ const CreateElectionFormTimeline = () => {
                             <Controller
                                 name='votingStartTime'
                                 control={control}
+                                disabled={disabled.votingStart}
                                 rules={{
                                     required: "Voting start time is required"
                                 }}
@@ -144,6 +196,7 @@ const CreateElectionFormTimeline = () => {
                                     <TimePicker
                                         value={field.value}
                                         onChange={field.onChange}
+                                        disabled={disabled.votingStart}
                                     />
                                 )}
                             />
@@ -156,14 +209,22 @@ const CreateElectionFormTimeline = () => {
                     </div>
                 </div>
                 <div className='flex flex-col gap-2'>
-                    <p>
-                        Voting End <span className='text-red-500'>*</span>
-                    </p>
+                    <div className='flex gap-2 items-center'>
+                        <p>
+                            Voting End <span className='text-red-500'>*</span>
+                        </p>
+                        {disabled.votingEnd && (
+                            <InfoTooltip
+                                message={DISABLED_MESSAGES["votingEnd"]}
+                            />
+                        )}
+                    </div>
                     <div className='flex gap-2'>
                         <div className='flex flex-col gap-1 flex-1'>
                             <Controller
                                 name='votingEndDate'
                                 control={control}
+                                disabled={disabled.votingEnd}
                                 rules={{
                                     required: "Voting end date is required"
                                 }}
@@ -171,6 +232,7 @@ const CreateElectionFormTimeline = () => {
                                     <DatePicker
                                         value={field.value}
                                         onChange={field.onChange}
+                                        disabled={disabled.votingEnd}
                                     />
                                 )}
                             />
@@ -184,6 +246,7 @@ const CreateElectionFormTimeline = () => {
                             <Controller
                                 name='votingEndTime'
                                 control={control}
+                                disabled={disabled.votingEnd}
                                 rules={{
                                     required: "Voting end time is required"
                                 }}
@@ -191,6 +254,7 @@ const CreateElectionFormTimeline = () => {
                                     <TimePicker
                                         value={field.value}
                                         onChange={field.onChange}
+                                        disabled={disabled.votingEnd}
                                     />
                                 )}
                             />
@@ -203,14 +267,22 @@ const CreateElectionFormTimeline = () => {
                     </div>
                 </div>
                 <div className='flex flex-col gap-2 md:col-span-2'>
-                    <p>
-                        Election End <span className='text-red-500'>*</span>
-                    </p>
+                    <div className='flex gap-2 items-center'>
+                        <p>
+                            Election End <span className='text-red-500'>*</span>
+                        </p>
+                        {disabled.electionEnd && (
+                            <InfoTooltip
+                                message={DISABLED_MESSAGES["electionEnd"]}
+                            />
+                        )}
+                    </div>
                     <div className='flex gap-2'>
                         <div className='flex flex-col gap-1 flex-1'>
                             <Controller
                                 name='electionEndDate'
                                 control={control}
+                                disabled={disabled.electionEnd}
                                 rules={{
                                     required: "Election end date is required"
                                 }}
@@ -218,6 +290,7 @@ const CreateElectionFormTimeline = () => {
                                     <DatePicker
                                         value={field.value}
                                         onChange={field.onChange}
+                                        disabled={disabled.electionEnd}
                                     />
                                 )}
                             />
@@ -231,6 +304,7 @@ const CreateElectionFormTimeline = () => {
                             <Controller
                                 name='electionEndTime'
                                 control={control}
+                                disabled={disabled.electionEnd}
                                 rules={{
                                     required: "Election end time is required"
                                 }}
@@ -238,6 +312,7 @@ const CreateElectionFormTimeline = () => {
                                     <TimePicker
                                         value={field.value}
                                         onChange={field.onChange}
+                                        disabled={disabled.electionEnd}
                                     />
                                 )}
                             />

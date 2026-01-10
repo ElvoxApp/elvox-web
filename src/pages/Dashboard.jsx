@@ -61,7 +61,7 @@ const Dashboard = () => {
             {showCreateElectionModal && (
                 <CreateElectionModal
                     isOpen={showCreateElectionModal}
-                    setShowCreateElectionModal={setShowCreateElectionModal}
+                    setIsOpen={setShowCreateElectionModal}
                 />
             )}
         </div>

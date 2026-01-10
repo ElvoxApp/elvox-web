@@ -10,15 +10,18 @@ const minutes = Array.from({ length: 60 }, (_, i) =>
 )
 const periods = ["AM", "PM"]
 
-const TimePicker = ({ value, onChange, placeholder = "Select time" }) => {
+const TimePicker = ({
+    value,
+    onChange,
+    disabled,
+    placeholder = "Select time"
+}) => {
     const [open, setOpen] = useState(false)
     const [draftTime, setDraftTime] = useState(DEFAULT_TIME)
-    const [committed, setCommitted] = useState(false)
 
     const commitTime = () => {
         const timeString = `${draftTime.hour}:${draftTime.minute} ${draftTime.period}`
         onChange?.(timeString)
-        setCommitted(true)
         setOpen(false)
     }
 
@@ -44,21 +47,29 @@ const TimePicker = ({ value, onChange, placeholder = "Select time" }) => {
                     setOpen(v)
                 }}
             >
-                <Popover.Trigger asChild>
+                <Popover.Trigger
+                    asChild
+                    disabled={disabled}
+                >
                     <button
                         type='button'
-                        className='w-full rounded-md px-3 py-2 text-left text-sm shadow-sm hover:bg-[#c4c4c9] dark:hover:bg-[#2b303b] focus:outline-none cursor-pointer bg-field-light dark:bg-field-dark'
+                        className={`w-full rounded-md px-3 py-2 text-left text-sm shadow-sm focus:outline-none ${
+                            disabled
+                                ? "cursor-not-allowed bg-[#c0c0c2] dark:bg-[#2a2e34] text-[#454649] dark:text-[#c7cad2]"
+                                : "bg-field-light dark:bg-field-dark hover:bg-[#c4c4c9] dark:hover:bg-[#2b303b] text-primary-light dark:text-primary-dark cursor-pointer"
+                        }`}
+                        disabled={disabled}
                     >
                         <p className='flex items-center gap-2'>
                             <GoClock className='text-secondary-light dark:text-secondary-dark' />
                             <span
                                 className={
-                                    committed
+                                    value
                                         ? "text-primary-light dark:text-primary-dark"
                                         : "text-secondary-light dark:text-secondary-dark"
                                 }
                             >
-                                {committed ? value : placeholder}
+                                {value ? value : placeholder}
                             </span>
                         </p>
                     </button>

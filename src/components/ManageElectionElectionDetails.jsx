@@ -11,7 +11,7 @@ const formatDate = (value) =>
         })
         .replace(/\b(am|pm)\b/, (m) => m.toUpperCase())
 
-const ManageElectionElectionDetails = () => {
+const ManageElectionElectionDetails = ({ setShowEditElectionModal }) => {
     const { election } = useElectionStore()
 
     return (
@@ -73,7 +73,9 @@ const ManageElectionElectionDetails = () => {
                 <Button
                     text='Edit Election Details'
                     className='py-2 px-4 text-sm bg-accent hover:bg-button-hover'
-                    onClick={() => {}}
+                    onClick={() => {
+                        setShowEditElectionModal(true)
+                    }}
                 />
             </div>
         </div>

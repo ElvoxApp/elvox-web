@@ -9,12 +9,14 @@ import toast from "react-hot-toast"
 import api from "../api/api"
 import DeleteElectionDialog from "../components/DeleteElectionDialog"
 import FullScreenLoader from "../components/FullScreenLoader"
+import CreateElectionModal from "../components/CreateElectionModal"
 
 const ManageElection = () => {
     const [isLoading, setIsLoading] = useState(false)
     const [showConfirmDialog, setShowConfirmDialog] = useState(false)
     const [password, setPassword] = useState("")
     const [error, setError] = useState(null)
+    const [showEditElectionModal, setShowEditElectionModal] = useState(false)
 
     const { election, setElection } = useElectionStore()
 
@@ -67,7 +69,9 @@ const ManageElection = () => {
             <div
                 className={`flex flex-col md:px-3 lg:px-7 text-sm justify-evenly flex-1 gap-6 sm:py-3`}
             >
-                <ManageElectionElectionDetails />
+                <ManageElectionElectionDetails
+                    setShowEditElectionModal={setShowEditElectionModal}
+                />
                 <ManageElectionElectionTimeline />
                 <ManageElectionConfiguration />
                 {election?.status === "draft" && (
@@ -94,6 +98,13 @@ const ManageElection = () => {
                 <div className='flex justify-between items-center'>
                     <FullScreenLoader />
                 </div>
+            )}
+            {showEditElectionModal && (
+                <CreateElectionModal
+                    isOpen={showEditElectionModal}
+                    setIsOpen={setShowEditElectionModal}
+                    edit
+                />
             )}
         </div>
     )
