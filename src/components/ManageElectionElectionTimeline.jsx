@@ -105,7 +105,7 @@ const ManageElectionElectionTimeline = () => {
                     <div className='max-w-3xl mx-auto'>
                         <div className='relative'>
                             <div
-                                className='absolute left-[15px] sm:left-[23px] top-3 w-0.5 overflow-hidden bg-gray-500/30 dark:bg-gray-500/50'
+                                className='absolute left-[15px] sm:left-[23px] top-3 w-0.5 overflow-visible bg-gray-500/30 dark:bg-gray-500/50'
                                 style={{
                                     height: `${
                                         ((steps.length - 1) / steps.length) *
@@ -125,7 +125,7 @@ const ManageElectionElectionTimeline = () => {
 
                                 {/* Pulsing Indicator at the current progress tip */}
                                 <div
-                                    className='absolute left-1/2 -translate-x-1/2 flex items-center justify-center transition-all duration-700 ease-out'
+                                    className='absolute bottom-full left-1/2 -translate-x-1/2 flex items-center justify-center transition-all duration-700 ease-out'
                                     style={{
                                         top: `${Math.min(
                                             totalProgressHeight,
@@ -133,7 +133,7 @@ const ManageElectionElectionTimeline = () => {
                                         )}%`
                                     }}
                                 >
-                                    <div className='absolute w-9 h-9 bg-accent/80 rounded-full animate-pulse-ring' />
+                                    <div className='absolute mt-[1px] w-9 h-9 bg-accent/80 rounded-full animate-pulse-ring' />
                                     <div className='w-2.5 h-2.5 bg-accent rounded-full shadow-sm animate-pulse-dot' />
                                 </div>
                             </div>
