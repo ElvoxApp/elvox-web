@@ -15,7 +15,7 @@ const ManageElectionElectionDetails = () => {
     const { election } = useElectionStore()
 
     return (
-        <div className='flex flex-col w-full gap-2 px-4 py-4 rounded-md bg-card-light dark:bg-card-dark shadow-lg transition-all duration-100'>
+        <div className='flex flex-col w-full gap-2 px-4 py-4 rounded-md border border-gray-500 shadow-lg transition-all duration-100'>
             <h2 className='flex items-center gap-3 text-lg font-bold text-left text-primary-light dark:text-primary-dark'>
                 {election?.name}
                 <span className='bg-yellow-400/40 dark:bg-yellow-400/20 text-yellow-600 dark:text-yellow-400 ring-1 ring-yellow-400/30 inline-block px-3 py-1 rounded-xl text-xs font-medium'>
