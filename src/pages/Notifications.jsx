@@ -1,13 +1,18 @@
 import { useNotificationStore } from "../stores"
 import Notification from "../components/Notification"
 import NotificationFilterAndSort from "../components/NotificationFilterAndSort"
-import { useMemo, useState } from "react"
+import { useEffect, useMemo, useState } from "react"
+import api from "../api/api"
+import toast from "react-hot-toast"
+import { useOutletContext } from "react-router-dom"
 
 const Notifications = () => {
     const [filter, setFilter] = useState("all")
     const [sort, setSort] = useState("latest")
 
-    const { notifications, markRead } = useNotificationStore()
+    const { notifications, setNotifications, markRead } = useNotificationStore()
+
+    const { isLoading, setIsLoading } = useOutletContext()
 
     const visibleNotifications = useMemo(() => {
         let list = [...notifications]
@@ -26,6 +31,27 @@ const Notifications = () => {
 
         return list
     }, [notifications, filter, sort])
+
+    useEffect(() => {
+        const fetchNotificaions = async () => {
+            try {
+                setIsLoading(true)
+                const res = await api.get("/notifications")
+                setNotifications(res.data)
+            } catch (err) {
+                toast.error(
+                    err?.response?.data?.error || "Something went wrong!",
+                    { id: "notifications-fetch-error" }
+                )
+            } finally {
+                setIsLoading(false)
+            }
+        }
+
+        fetchNotificaions()
+    }, [setNotifications, setIsLoading])
+
+    if (isLoading) return null
 
     return (
         <div className='flex flex-col items-center px-2 md:px-5 lg:px-9 pb-5 pt-8 flex-1 min-h-0'>
