@@ -172,7 +172,7 @@ const ManageElectionElectionTimeline = () => {
                                             <div
                                                 className={`ml-4 sm:ml-8 flex-1 pb-2 ${
                                                     isFuture
-                                                        ? "opacity-50"
+                                                        ? "opacity-60"
                                                         : "opacity-100"
                                                 }`}
                                             >
