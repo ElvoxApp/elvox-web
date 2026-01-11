@@ -14,7 +14,8 @@ const FilterMenu = ({
     label,
     className,
     onOpenChange,
-    showSelected = true
+    showSelected = true,
+    forLogs = false
 }) => {
     const listRef = useRef(null)
 
@@ -48,7 +49,11 @@ const FilterMenu = ({
                 as='div'
             >
                 <ListboxButton
-                    className={`flex items-center justify-between gap-2 cursor-pointer w-full bg-field-light dark:bg-field-dark rounded-md p-2 flex-1 focus:outline-none text-primary-light dark:text-primary-dark`}
+                    className={`flex items-center justify-between gap-2 cursor-pointer w-full p-2 flex-1 focus:outline-none text-primary-light dark:text-primary-dark ${
+                        !forLogs
+                            ? "bg-field-light dark:bg-field-dark rounded-md"
+                            : "border border-gray-500"
+                    }`}
                 >
                     <span className='text-sm'>
                         {`${
@@ -63,12 +68,18 @@ const FilterMenu = ({
                     </span>
                     <HiChevronDown className='size-5' />
                 </ListboxButton>
-                <ListboxOptions className='flex flex-col border border-gray-500 rounded-xl focus:outline-none text-sm absolute w-full top-10 left-0 z-10 bg-bg-light dark:bg-bg-dark'>
+                <ListboxOptions
+                    className={`flex flex-col border border-gray-500 focus:outline-none text-sm absolute w-full top-10 left-0 z-10 bg-bg-light dark:bg-bg-dark ${
+                        !forLogs ? "rounded-md" : ""
+                    }`}
+                >
                     {options.map((option) => (
                         <ListboxOption
                             key={option?.value}
                             value={option?.value}
-                            className='group flex justify-between items-center gap-2 px-3 py-2 cursor-pointer rounded-sm text-primary-light dark:text-primary-dark hover:text-primary-dark hover:bg-accent truncate'
+                            className={`group flex justify-between items-center gap-2 px-3 py-2 cursor-pointer text-primary-light dark:text-primary-dark hover:text-primary-dark hover:bg-accent truncate ${
+                                !forLogs ? "rounded-sm" : ""
+                            }`}
                         >
                             <span>{option?.label}</span>
                             <HiCheck className='invisible size-4 group-data-selected:visible' />

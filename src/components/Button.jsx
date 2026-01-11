@@ -5,8 +5,9 @@ const Button = ({
     text,
     className,
     onClick,
+    children,
     disabled = false,
-    children
+    animation = true
 }) => {
     className = disabled
         ? className.replace(/\bhover:[^\s]+|focus:[^\s]+|active:[^\s]+/g, "")
@@ -18,7 +19,9 @@ const Button = ({
             className={`text-primary-dark rounded-md ${className} ${
                 disabled
                     ? "opacity-50 cursor-not-allowed"
-                    : "cursor-pointer active:scale-90 transition-all duration-200"
+                    : animation
+                    ? "cursor-pointer active:scale-90 transition-all duration-200"
+                    : "cursor-pointer"
             }`}
             onClick={onClick}
             disabled={disabled}

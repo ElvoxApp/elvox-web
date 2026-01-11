@@ -164,6 +164,8 @@ input:-webkit-autofill {
 .custom-scrollbar::-webkit-scrollbar-track {
     background: transparent;
 }
+
+/* light mode */
 .custom-scrollbar::-webkit-scrollbar-thumb {
     background: #0000004d;
     border-radius: 9999px;
@@ -171,6 +173,16 @@ input:-webkit-autofill {
 
 .custom-scrollbar::-webkit-scrollbar-thumb:hover {
     background: #00000066;
+    border-radius: 9999px;
+}
+
+/* dark mode */
+.dark .custom-scrollbar::-webkit-scrollbar-thumb {
+    background: #5a57574d;
+}
+
+.dark .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+    background: #5a575766;
 }
 
 img {
