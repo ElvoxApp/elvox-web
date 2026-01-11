@@ -205,3 +205,13 @@ img {
 .animate-pulse-dot {
     animation: pulse-dot 2s cubic-bezier(0.455, 0.03, 0.515, 0.955) infinite;
 }
+
+/* REMOVE SCROLLBAR */
+
+.no-scrollbar {
+    scrollbar-width: none; /* Firefox */
+    -ms-overflow-style: none; /* IE/Edge */
+}
+.no-scrollbar::-webkit-scrollbar {
+    display: none; /* Chrome/Safari */
+}

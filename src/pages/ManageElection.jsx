@@ -1,4 +1,5 @@
 import { useNavigate } from "react-router-dom"
+import * as Tooltip from "@radix-ui/react-tooltip"
 import ManageElectionElectionDetails from "../components/ManageElectionElectionDetails"
 import ManageElectionElectionTimeline from "../components/ManageElectionElectionTimeline"
 import ManageElectionConfiguration from "../components/ManageElectionConfiguration"
@@ -66,46 +67,54 @@ const ManageElection = () => {
     return (
         <div className={`flex flex-col px-2 flex-1 py-5`}>
             <title>Manage Election</title>
-            <div
-                className={`flex flex-col md:px-3 lg:px-7 text-sm justify-evenly flex-1 gap-6 sm:py-3`}
+            <Tooltip.Provider
+                delayDuration={300}
+                skipDelayDuration
             >
-                <ManageElectionElectionDetails
-                    setShowEditElectionModal={setShowEditElectionModal}
-                />
-                <ManageElectionElectionTimeline />
-                <ManageElectionConfiguration />
-                {election?.status === "draft" && (
-                    <ManageElectionDeleteElection
-                        handleShowConfirmDialog={() => {
-                            setShowConfirmDialog(true)
-                            setError(null)
-                        }}
+                <div
+                    className={`flex flex-col md:px-3 lg:px-7 text-sm justify-evenly flex-1 gap-6 sm:py-3`}
+                >
+                    <ManageElectionElectionDetails
+                        setShowEditElectionModal={setShowEditElectionModal}
+                    />
+                    <ManageElectionElectionTimeline />
+                    <ManageElectionConfiguration
+                        setIsLoading={setIsLoading}
+                        isLoading={isLoading}
+                    />
+                    {election?.status === "draft" && (
+                        <ManageElectionDeleteElection
+                            handleShowConfirmDialog={() => {
+                                setShowConfirmDialog(true)
+                                setError(null)
+                            }}
+                        />
+                    )}
+                </div>
+                {showConfirmDialog && election?.status === "draft" && (
+                    <DeleteElectionDialog
+                        isOpen={showConfirmDialog}
+                        setIsOpen={setShowConfirmDialog}
+                        handleDelete={handleDelete}
+                        password={password}
+                        setPassword={setPassword}
+                        error={error}
+                        isLoading={isLoading}
                     />
                 )}
-            </div>
-            {showConfirmDialog && election?.status === "draft" && (
-                <DeleteElectionDialog
-                    isOpen={showConfirmDialog}
-                    setIsOpen={setShowConfirmDialog}
-                    handleDelete={handleDelete}
-                    password={password}
-                    setPassword={setPassword}
-                    error={error}
-                    isLoading={isLoading}
-                />
-            )}
-            {isLoading && (
-                <div className='flex justify-between items-center'>
-                    <FullScreenLoader />
-                </div>
-            )}
-            {showEditElectionModal && (
-                <CreateElectionModal
-                    isOpen={showEditElectionModal}
-                    setIsOpen={setShowEditElectionModal}
-                    edit
-                />
-            )}
+                {isLoading && (
+                    <div className='flex justify-between items-center'>
+                        <FullScreenLoader />
+                    </div>
+                )}
+                {showEditElectionModal && (
+                    <CreateElectionModal
+                        isOpen={showEditElectionModal}
+                        setIsOpen={setShowEditElectionModal}
+                        edit
+                    />
+                )}
+            </Tooltip.Provider>
         </div>
     )
 }
