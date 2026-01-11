@@ -16,12 +16,14 @@ const ManageElectionElectionDetails = ({ setShowEditElectionModal }) => {
 
     return (
         <div className='flex flex-col w-full gap-2 px-4 py-4 rounded-md border border-gray-500 shadow-lg transition-all duration-100'>
-            <h2 className='flex items-center gap-3 text-lg font-bold text-left text-primary-light dark:text-primary-dark'>
-                {election?.name}
+            <div className='flex max-sm:flex-col items-start sm:items-center gap-3'>
+                <h2 className='text-lg font-bold text-primary-light dark:text-primary-dark'>
+                    {election?.name}
+                </h2>
                 <span className='bg-yellow-400/40 dark:bg-yellow-400/20 text-yellow-600 dark:text-yellow-400 ring-1 ring-yellow-400/30 inline-block px-3 py-1 rounded-xl text-xs font-medium'>
                     {capitalize(election?.status)}
                 </span>
-            </h2>
+            </div>
             <div className='grid grid-cols-2 lg:grid-cols-5 gap-5 lg:gap-x-10 py-3 text-primary-light dark:text-primary-dark'>
                 <div className='flex flex-col gap-2'>
                     <p>Nomination Start</p>

@@ -202,7 +202,7 @@ const ManageElectionElectionTimeline = () => {
                                                 </p>
 
                                                 {isCurrent && (
-                                                    <div className='mt-3 flex items-center space-x-2'>
+                                                    <div className='mt-3 flex max-sm:flex-col items-start sm:items-center gap-2'>
                                                         <span className='inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-[#ab8cff]/30 dark:bg-[#ab8cff]/20 text-[#ab8cff] uppercase tracking-wide'>
                                                             Active Phase
                                                         </span>
