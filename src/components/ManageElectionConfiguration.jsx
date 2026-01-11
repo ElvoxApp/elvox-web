@@ -52,7 +52,7 @@ const ManageElectionConfiguration = ({ setIsLoading, isLoading }) => {
                 </p>
             </div>
             <div className='flex flex-col divide-y pt-2 gap-3 divide-gray-500 text-primary-light dark:text-primary-dark'>
-                <div className='flex justify-between gap-3 pb-3 items-center'>
+                <div className='grid grid-cols-[1fr_auto] gap-x-3 pb-3 items-center'>
                     <div className='flex gap-2 items-center'>
                         <p>
                             {election?.status === "draft"
@@ -79,7 +79,7 @@ const ManageElectionConfiguration = ({ setIsLoading, isLoading }) => {
                         }}
                     />
                 </div>
-                <div className='flex justify-between gap-3 pb-3 items-center'>
+                <div className='grid grid-cols-[1fr_auto] gap-x-3 pb-3 items-center'>
                     <div className='flex gap-2 items-center'>
                         <p>Automatically publish results after voting ends</p>
                         <InfoTooltip
@@ -105,7 +105,7 @@ const ManageElectionConfiguration = ({ setIsLoading, isLoading }) => {
                 {election?.status === "post-voting" &&
                     election?.result_published === false &&
                     election?.auto_publish_results === false && (
-                        <div className='flex justify-between gap-3 pb-3 items-center'>
+                        <div className='grid grid-cols-[1fr_auto] gap-x-3 pb-3 items-center'>
                             <div className='flex gap-2 items-center'>
                                 <p>Publish election results</p>
                                 <InfoTooltip message='Manually publish the election results. This cannot be undone' />

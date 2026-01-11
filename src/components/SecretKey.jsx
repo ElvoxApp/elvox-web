@@ -47,7 +47,7 @@ const SecretKey = ({ setIsLoading, isLoading }) => {
     return (
         <div className='flex flex-col divide-y pt-4 gap-3 divide-gray-500 text-primary-light dark:text-primary-dark'>
             {!hasSecretKey && (
-                <div className='flex justify-between gap-3 pb-3 items-center'>
+                <div className='grid grid-cols-[1fr_auto] gap-x-3 pb-3 items-center'>
                     <div className='flex gap-2 items-center'>
                         <p>Generate secret key</p>
                         <InfoTooltip message='Generates a secret key for the voting application' />
