@@ -65,38 +65,60 @@ const CreateElectionModal = ({ isOpen, setIsOpen, edit = false }) => {
             electionEndDate: edit ? fromTimestamp.electionEnd.date : "",
             electionEndTime: edit ? fromTimestamp.electionEnd.time : ""
         },
-        resolver: createElectionResolver()
+        resolver: createElectionResolver(election?.status)
     })
 
-    const { handleSubmit } = methods
+    const {
+        handleSubmit,
+        formState: { isDirty }
+    } = methods
 
     const onSubmit = async (values) => {
         try {
             setIsLoading(true)
 
-            const data = {
-                electionName: values.electionName,
-                nominationStart: toTimestamptz(
-                    values.nominationStartDate,
-                    values.nominationStartTime
-                ),
-                nominationEnd: toTimestamptz(
-                    values.nominationEndDate,
-                    values.nominationEndTime
-                ),
-                votingStart: toTimestamptz(
-                    values.votingStartDate,
-                    values.votingStartTime
-                ),
-                votingEnd: toTimestamptz(
-                    values.votingEndDate,
-                    values.votingEndTime
-                ),
-                electionEnd: toTimestamptz(
-                    values.electionEndDate,
-                    values.electionEndTime
-                )
+            const data = {}
+
+            if (!disabled.electionName) {
+                data.electionName = values.electionName
             }
+
+            const setTs = (key, dateKey, timeKey) => {
+                if (!edit || !disabled[key]) {
+                    data[key] = toTimestamptz(values[dateKey], values[timeKey])
+                }
+            }
+
+            setTs(
+                "nominationStart",
+                "nominationStartDate",
+                "nominationStartTime",
+                election.nomination_start
+            )
+            setTs(
+                "nominationEnd",
+                "nominationEndDate",
+                "nominationEndTime",
+                election.nomination_end
+            )
+            setTs(
+                "votingStart",
+                "votingStartDate",
+                "votingStartTime",
+                election.voting_start
+            )
+            setTs(
+                "votingEnd",
+                "votingEndDate",
+                "votingEndTime",
+                election.voting_end
+            )
+            setTs(
+                "electionEnd",
+                "electionEndDate",
+                "electionEndTime",
+                election.election_end
+            )
 
             if (!edit) {
                 const res = await api.post("/elections", data)
@@ -160,6 +182,7 @@ const CreateElectionModal = ({ isOpen, setIsOpen, edit = false }) => {
                             type='submit'
                             disabled={
                                 isLoading ||
+                                !isDirty ||
                                 (disabled.electionName &&
                                     disabled.nominationStart &&
                                     disabled.nominationEnd &&

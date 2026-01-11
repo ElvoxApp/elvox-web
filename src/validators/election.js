@@ -9,9 +9,9 @@ const editableFieldsByStatus = {
         "electionEnd"
     ],
     nominations: ["nominationEnd", "votingStart", "votingEnd", "electionEnd"],
-    pre_voting: ["votingStart", "votingEnd", "electionEnd"],
+    "pre-voting": ["votingStart", "votingEnd", "electionEnd"],
     voting: ["votingEnd", "electionEnd"],
-    post_voting: ["electionEnd"],
+    "post-voting": ["electionEnd"],
     closed: []
 }
 
@@ -93,7 +93,7 @@ export const createElectionResolver = (status) => async (values) => {
     ]
 
     for (const [a, b, message] of rules) {
-        if (!isEditable(status, b)) continue
+        if (!isEditable(status, a) || !isEditable(status, b)) continue
 
         if (
             !errors[`${b}Time`] &&

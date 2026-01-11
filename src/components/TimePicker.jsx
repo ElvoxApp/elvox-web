@@ -65,7 +65,7 @@ const TimePicker = ({
                             <span
                                 className={
                                     value
-                                        ? "text-primary-light dark:text-primary-dark"
+                                        ? ""
                                         : "text-secondary-light dark:text-secondary-dark"
                                 }
                             >
