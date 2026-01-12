@@ -14,7 +14,12 @@ const SecretKey = ({ setIsLoading, isLoading }) => {
     const [showConfirmDialog, setShowConfirmDialog] = useState(false)
 
     const {
-        election: { hasSecretKey, id: electionId, status },
+        election: {
+            hasSecretKey,
+            id: electionId,
+            status,
+            totalActivatedSystems
+        },
         setElection
     } = useElectionStore()
 
@@ -49,7 +54,7 @@ const SecretKey = ({ setIsLoading, isLoading }) => {
             {!hasSecretKey && (
                 <div className='grid grid-cols-[1fr_auto] gap-x-3 pb-3 items-center'>
                     <div className='flex gap-2 items-center'>
-                        <p>Generate secret key</p>
+                        <p>Generate Secret Key</p>
                         <InfoTooltip message='Generates a secret key for the voting application' />
                     </div>
                     <Button
@@ -63,8 +68,12 @@ const SecretKey = ({ setIsLoading, isLoading }) => {
             )}
             {hasSecretKey && (
                 <div className='flex flex-col gap-2'>
+                    <div className='grid grid-cols-[1fr_auto] gap-x-3 pb-3 items-center'>
+                        <p>Total Activated Systems</p>
+                        <p>{totalActivatedSystems}</p>
+                    </div>
                     <div className='flex gap-2 items-center'>
-                        <p>Secret key</p>
+                        <p>Secret Key</p>
                         <InfoTooltip
                             message={
                                 secretKey
