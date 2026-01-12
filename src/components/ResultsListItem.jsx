@@ -45,8 +45,8 @@ const ResultsListItem = ({ result }) => {
                             {parseInt(candidate.lead) !== 0 ? (
                                 <p className='text-center max-sm:hidden'>
                                     {candidate.lead.startsWith("-")
-                                        ? `-${candidate.lead.slice(1)} Behind`
-                                        : `+${candidate.lead} Lead`}
+                                        ? `Lost by ${candidate.lead.slice(1)}`
+                                        : `Won by ${candidate.lead}`}
                                 </p>
                             ) : (
                                 <div className='max-sm:hidden' /> // keeps grid alignment
@@ -64,17 +64,16 @@ const ResultsListItem = ({ result }) => {
                                 votes={candidate?.votes}
                                 className='sm:hidden col-span-2'
                             >
-                                {candidate?.lead?.startsWith("+") ||
-                                candidate?.lead?.startsWith("-") ? (
-                                    <p className='absolute bottom-full right-0 sm:right-0 text-xs text-secondary-light dark:text-secondary-dark sm:hidden'>
-                                        {candidate.lead.startsWith("+")
-                                            ? `${candidate.lead} Lead`
-                                            : `${candidate.lead.slice(
+                                {parseInt(candidate.lead) !== 0 ? (
+                                    <p className='absolute bottom-full right-0 pb-1 text-xs text-secondary-light dark:text-secondary-dark'>
+                                        {candidate.lead.startsWith("-")
+                                            ? `Lost by ${candidate.lead.slice(
                                                   1
-                                              )} Behind`}
+                                              )}`
+                                            : `Won by ${candidate.lead}`}
                                     </p>
                                 ) : (
-                                    <div className='sm:hidden' /> // keeps grid alignment
+                                    <div /> // keeps grid alignment
                                 )}
                             </VoteProgressBar>
                         </div>

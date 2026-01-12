@@ -6,9 +6,9 @@ const VoteProgressBar = ({ totalVotes, votes, className, children }) => {
 
     return (
         <div
-            className={`flex flex-col justify-center relative gap-1 w-full ${className}`}
+            className={`flex flex-col justify-center relative sm:gap-1 w-full ${className}`}
         >
-            <div className='absolute bottom-full left-0 sm:left-auto sm:right-0 text-xs text-secondary-light dark:text-secondary-dark pb-0.5'>
+            <div className='absolute bottom-full left-0 sm:left-auto sm:right-0 text-xs text-secondary-light dark:text-secondary-dark pb-1 sm:pb-0.5'>
                 {votes} votes · {percentage.toFixed(1)}%
             </div>
             {children}
