@@ -15,7 +15,7 @@ const statusConfig = {
     LIVE: { color: "text-green-500", label: "LIVE" },
     DISCONNECTED: { color: "text-red-500", label: "Disconnected" },
     RECONNECTING: { color: "text-yellow-500", label: "Reconnecting…" },
-    PAST: { color: "text-gray-500", label: "Viewing past logs" }
+    PAST: { color: "text-gray-500", label: "PAST" }
 }
 
 const AuditLogsHeader = ({
@@ -36,10 +36,12 @@ const AuditLogsHeader = ({
     useEffect(() => {
         if (electionId !== election.id) {
             setLogMode("past")
+            setStatus("PAST")
         } else {
             setLogMode("live")
+            setStatus("LIVE")
         }
-    }, [electionId, election.id])
+    }, [electionId, election.id, setLogMode])
 
     return (
         <div className='flex flex-col gap-4'>
@@ -72,7 +74,10 @@ const AuditLogsHeader = ({
                                             : "text-primary-light dark:text-primary-dark"
                                     }`}
                                     type='button'
-                                    onClick={() => setLogMode("past")}
+                                    onClick={() => {
+                                        setLogMode("past")
+                                        setStatus("PAST")
+                                    }}
                                     animation={false}
                                 />
                                 <Button
@@ -83,7 +88,10 @@ const AuditLogsHeader = ({
                                             : "text-primary-light dark:text-primary-dark"
                                     }`}
                                     type='button'
-                                    onClick={() => setLogMode("live")}
+                                    onClick={() => {
+                                        setLogMode("live")
+                                        setStatus("LIVE")
+                                    }}
                                     animation={false}
                                     disabled={electionId !== election.id}
                                 />
