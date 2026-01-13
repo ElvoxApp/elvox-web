@@ -2,6 +2,7 @@ import { LuActivity, LuUsers } from "react-icons/lu"
 import { FaRegCalendar } from "react-icons/fa"
 import { useElectionStore } from "../stores"
 import formatDate from "../utils/formatDate"
+import Countdown from "./Countdown"
 
 const ElectionDetails = () => {
     const { election } = useElectionStore()
@@ -19,9 +20,12 @@ const ElectionDetails = () => {
 
     return (
         <div className='flex flex-col w-full gap-2 px-4 py-4 rounded-md dark:bg-card-dark bg-card-light shadow-lg transition-all duration-100'>
-            <h2 className='text-lg font-bold text-left text-primary-light dark:text-primary-dark'>
-                {election?.name}
-            </h2>
+            <div className='flex items-center justify-between gap-2'>
+                <h2 className='text-lg font-bold text-left text-primary-light dark:text-primary-dark'>
+                    {election?.name}
+                </h2>
+                <Countdown className='max-sm:hidden' />
+            </div>
             <p className='flex items-center gap-1 text-secondary-light dark:text-secondary-dark'>
                 <LuActivity className='text-secondary-light dark:text-secondary-dark' />
                 <span>
@@ -31,6 +35,7 @@ const ElectionDetails = () => {
                     </span>
                 </span>
             </p>
+            <Countdown className='sm:hidden' />
             <div className='grid grid-cols-2 lg:grid-cols-4 gap-5 lg:gap-x-10 py-3 text-primary-light dark:text-primary-dark'>
                 <div className='flex flex-col gap-2'>
                     <p>Nomination Start</p>
