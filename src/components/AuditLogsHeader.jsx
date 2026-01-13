@@ -30,20 +30,28 @@ const AuditLogsHeader = ({
     const isNotMobile = useMediaQuery({ minWidth: 640 })
 
     return (
-        <div className='flex flex-col gap-4 min-w-0'>
-            <div className='flex items-center justify-between gap-6 min-w-0 rounded-xl py-3 text-primary-light dark:text-primary-dark'>
-                <div className='flex max-sm:flex-col sm:items-center justify-between flex-1 gap-6 min-w-0'>
-                    <div className='flex relative'>
+        <div className='flex flex-col gap-4'>
+            <div className='flex items-center justify-between gap-6 rounded-xl py-3 text-primary-light dark:text-primary-dark'>
+                <div className='flex max-sm:flex-col sm:items-center justify-between flex-1 gap-6'>
+                    <div className='flex justify-between items-center gap-4 relative'>
                         <FilterMenu
                             options={elections}
                             filter={electionId}
                             setFilter={setElectionId}
                             forLogs={true}
                         />
+                        <p className='flex items-center gap-1 sm:hidden'>
+                            <span className={statusConfig[status].color}>
+                                ●
+                            </span>
+                            <span className='font-semibold text-sm'>
+                                {statusConfig[status].label}
+                            </span>
+                        </p>
                     </div>
-                    <div className='flex gap-3 min-w-0 max-sm:justify-between'>
-                        <div className='flex items-center gap-3 sm:contents min-w-0'>
-                            <div className='flex items-center min-w-0'>
+                    <div className='flex gap-3 max-sm:justify-between'>
+                        <div className='flex items-center justify-between gap-3 flex-1 sm:contents'>
+                            <div className='flex items-center'>
                                 <Button
                                     text='PAST'
                                     className={`text-sm border border-gray-500 rounded-none py-2 px-3 text-primary-dark ${
@@ -67,18 +75,17 @@ const AuditLogsHeader = ({
                                     animation={false}
                                 />
                             </div>
-                            <div className='flex relative sm:w-37 flex-none'>
+                            <div className='flex w-37 relative'>
                                 <FilterMenu
                                     options={timeRanges}
                                     filter={timeRange}
                                     setFilter={setTimeRange}
                                     forLogs={true}
-                                    showSelected={isNotMobile}
-                                    label={isNotMobile ? "" : "Time range"}
+                                    showSelected={true}
                                 />
                             </div>
                         </div>
-                        <p className='flex items-center gap-1'>
+                        <p className='flex items-center gap-1 max-sm:hidden'>
                             <span className={statusConfig[status].color}>
                                 ●
                             </span>
