@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react"
+import { useEffect, useRef, useState } from "react"
 import AuditLogsHeader from "../components/AuditLogsHeader"
 import toast from "react-hot-toast"
 import api from "../api/api"
@@ -162,6 +162,9 @@ const AuditLogs = () => {
     const [logs, setLogs] = useState([])
     const [electionsLoading, setElectionsLoading] = useState(false)
     const [logsLoading, setLogsLoading] = useState(false)
+    const [logMode, setLogMode] = useState("live")
+
+    const logContainer = useRef(null)
 
     const isLoading = electionsLoading || logsLoading
 
@@ -207,6 +210,12 @@ const AuditLogs = () => {
         fetchLogs()
     }, [electionId])
 
+    useEffect(() => {
+        if (logContainer.current) {
+            logContainer.current.scrollTop = logContainer.current.scrollHeight
+        }
+    }, [elections, electionId])
+
     return (
         <div className='flex flex-col px-2 flex-1 py-5'>
             <title>Audit Logs</title>
@@ -220,8 +229,15 @@ const AuditLogs = () => {
                         setElectionId={setElectionId}
                         timeRange={timeRange}
                         setTimeRange={setTimeRange}
+                        logMode={logMode}
+                        setLogMode={setLogMode}
                     />
-                    <div className='flex flex-col flex-[1_1_0px] gap-1.5 border border-gray-500 py-3 px-2 overflow-y-auto custom-scrollbar font-mono tabular-nums'>
+                    <div
+                        className={`flex flex-col flex-[1_1_0px] gap-1.5 border border-gray-500 py-3 px-2 overflow-y-auto custom-scrollbar font-mono tabular-nums ${
+                            electionId === election.id ? "pb-48" : ""
+                        }`}
+                        ref={logContainer}
+                    >
                         {DEMO.map((log) => (
                             <div
                                 key={log.id}

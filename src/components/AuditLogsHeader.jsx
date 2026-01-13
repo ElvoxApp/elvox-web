@@ -1,7 +1,8 @@
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { useMediaQuery } from "react-responsive"
 import FilterMenu from "./FilterMenu"
 import Button from "./Button"
+import { useElectionStore } from "../stores"
 
 const timeRanges = [
     { label: "Last 1 hour", value: "last_1_hour" },
@@ -22,12 +23,23 @@ const AuditLogsHeader = ({
     setElectionId,
     electionId,
     timeRange,
-    setTimeRange
+    setTimeRange,
+    logMode,
+    setLogMode
 }) => {
-    const [logMode, setLogMode] = useState("live")
     const [status, setStatus] = useState("LIVE")
 
     const isNotMobile = useMediaQuery({ minWidth: 640 })
+
+    const { election } = useElectionStore()
+
+    useEffect(() => {
+        if (electionId !== election.id) {
+            setLogMode("past")
+        } else {
+            setLogMode("live")
+        }
+    }, [electionId, election.id])
 
     return (
         <div className='flex flex-col gap-4'>
@@ -73,6 +85,7 @@ const AuditLogsHeader = ({
                                     type='button'
                                     onClick={() => setLogMode("live")}
                                     animation={false}
+                                    disabled={electionId !== election.id}
                                 />
                             </div>
                             <div className='flex w-37 relative'>
