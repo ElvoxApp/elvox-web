@@ -209,9 +209,9 @@ const AuditLogs = () => {
 
     return (
         <div className='flex flex-col px-2 flex-1 py-5'>
-            <title>Manage Election</title>
+            <title>Audit Logs</title>
             {elections.length > 0 && (
-                <div className='flex flex-col md:px-3 lg:px-7 text-sm flex-1 gap-6 sm:py-3 text-primary-light dark:text-primary-dark'>
+                <div className='flex flex-col md:px-3 lg:px-7 text-sm flex-1 gap-2 sm:py-3 text-primary-light dark:text-primary-dark'>
                     <AuditLogsHeader
                         elections={elections.map((el) => {
                             return { value: el.id, label: el.name }
