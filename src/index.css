@@ -178,11 +178,11 @@ input:-webkit-autofill {
 
 /* dark mode */
 .dark .custom-scrollbar::-webkit-scrollbar-thumb {
-    background: #5a57574d;
+    background: #ffffff33;
 }
 
 .dark .custom-scrollbar::-webkit-scrollbar-thumb:hover {
-    background: #5a575766;
+    background: #ffffff4d;
 }
 
 img {
