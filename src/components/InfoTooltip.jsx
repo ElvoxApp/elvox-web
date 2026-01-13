@@ -17,7 +17,7 @@ const InfoTooltip = ({ message }) => {
                 <Tooltip.Content
                     side='top'
                     align='center'
-                    className='z-[9999] max-w-xs rounded-md bg-field-light dark:bg-field-dark text-primary-light dark:text-primary-dark text-xs px-3 py-1 shadow-lg'
+                    className='z-[9999] max-w-xs rounded-md bg-field-light dark:bg-field-dark text-primary-light dark:text-primary-dark text-xs px-3 py-1 shadow-lg text-center'
                 >
                     {message}
                     <Tooltip.Arrow className='dark:fill-field-dark fill-field-light' />
