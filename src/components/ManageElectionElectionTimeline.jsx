@@ -105,7 +105,7 @@ const ManageElectionElectionTimeline = () => {
                     <div className='max-w-3xl mx-auto'>
                         <div className='relative'>
                             <div
-                                className='absolute left-[15px] sm:left-[23px] top-3 w-0.5 overflow-visible bg-gray-500/30 dark:bg-gray-500/50'
+                                className='absolute left-[15px] sm:left-[23px] top-4 w-0.5 overflow-visible bg-gray-500/30 dark:bg-gray-500/50'
                                 style={{
                                     height: `${
                                         ((steps.length - 1) / steps.length) *
