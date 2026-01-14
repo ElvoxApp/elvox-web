@@ -100,9 +100,9 @@ const ResultsHeader = ({
                         }
                     >
                         {showElectionDetails ? (
-                            <HiChevronUp className='size-6 text-primary-light dark:text-primary-dark transition-transform duration-300' />
+                            <HiChevronUp className='size-7 text-primary-light dark:text-primary-dark transition-transform duration-300' />
                         ) : (
-                            <HiChevronDown className='size-6 text-primary-light dark:text-primary-dark transition-transform duration-300' />
+                            <HiChevronDown className='size-7 text-primary-light dark:text-primary-dark transition-transform duration-300' />
                         )}
                     </button>
                 </div>
