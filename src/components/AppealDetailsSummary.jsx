@@ -1,4 +1,3 @@
-import { useElectionStore } from "../stores"
 import capitalize from "../utils/capitalize"
 
 const statusStyles = {
@@ -31,8 +30,6 @@ const getCategory = (category) => {
 }
 
 const AppealDetailsSummary = ({ appeal }) => {
-    const { election } = useElectionStore()
-
     const rows = [
         ["Appeal Subject", appeal.subject],
         ["Submitted By", appeal.user_name],
@@ -42,7 +39,7 @@ const AppealDetailsSummary = ({ appeal }) => {
                 : "Employee Code",
             appeal.user_role === "student" ? appeal.admno : appeal.empcode
         ],
-        ["Election", election.name],
+        ["Election", appeal.election_name],
         ["Appeal Category", getCategory(appeal.category)],
         ["Submitted On", formatDate(appeal.created_at)]
     ]

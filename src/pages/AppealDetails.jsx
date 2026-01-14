@@ -3,7 +3,7 @@ import { useNavigate, useParams } from "react-router-dom"
 import toast from "react-hot-toast"
 import api from "../api/api"
 import AppealDetailsSummary from "../components/AppealDetailsSummary"
-import { useAuthStore } from "../stores"
+import { useAuthStore, useElectionStore } from "../stores"
 import AppealDetailsDescription from "../components/AppealDetailsDescription"
 import AppealDetailsAttachments from "../components/AppealDetailsAttachments"
 import AppealAdminNote from "../components/AppealAdminNote"
@@ -20,6 +20,7 @@ const AppealDetails = () => {
     const navigate = useNavigate()
 
     const { user } = useAuthStore()
+    const { election } = useElectionStore()
 
     const handleAction = async (action) => {
         if (noteValue.length === 0) {
@@ -102,10 +103,12 @@ const AppealDetails = () => {
                             noteValue={noteValue}
                             setNoteValue={setNoteValue}
                             error={error}
+                            electionId={appeal.election_id}
                         />
 
                         {appeal.status === "pending" &&
-                            user.role === "admin" && (
+                            user.role === "admin" &&
+                            election?.id === appeal.election_id && (
                                 <div className='flex justify-center gap-3 w-full'>
                                     <Button
                                         text='Reject'

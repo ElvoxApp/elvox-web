@@ -1,9 +1,16 @@
-import { useAuthStore } from "../stores"
+import { useAuthStore, useElectionStore } from "../stores"
 
-const AppealAdminNote = ({ note, noteValue, setNoteValue, error }) => {
+const AppealAdminNote = ({
+    note,
+    noteValue,
+    setNoteValue,
+    error,
+    electionId
+}) => {
     const {
         user: { role }
     } = useAuthStore()
+    const { election } = useElectionStore()
 
     return (
         <div className='flex flex-col gap-1'>
@@ -15,7 +22,7 @@ const AppealAdminNote = ({ note, noteValue, setNoteValue, error }) => {
                     </p>
                 </>
             )}
-            {!note && role === "admin" && (
+            {!note && role === "admin" && election?.id === electionId && (
                 <>
                     <p className='font-semibold col-span-2 mb-2'>Admin Note</p>
                     <div className='space-y-1'>

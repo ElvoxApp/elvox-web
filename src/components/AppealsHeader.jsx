@@ -1,18 +1,29 @@
+import { useState } from "react"
 import { useAuthStore } from "../stores"
 import Button from "./Button"
 import FilterMenu from "./FilterMenu"
 import SortByTime from "./SortByTime"
+import { useMediaQuery } from "react-responsive"
 
 const AppealsHeader = ({
     setShowAppealForm,
     sort,
     setSort,
-    filter,
-    setFilter
+    category,
+    setCategory,
+    elections,
+    electionId,
+    setElectionId
 }) => {
+    const [electionOpen, setElectionOpen] = useState(false)
+    const [categoryOpen, setCategoryOpen] = useState(false)
+    const [sortOpen, setSortOpen] = useState(false)
+
     const {
         user: { role }
     } = useAuthStore()
+
+    const isMedium = useMediaQuery({ minWidth: 793 })
 
     return (
         <div className='flex items-center justify-between flex-1'>
@@ -29,33 +40,69 @@ const AppealsHeader = ({
                 </>
             )}
             {role === "admin" && (
-                <div className='flex h-10 gap-3 w-full'>
-                    <FilterMenu
-                        filter={filter}
-                        setFilter={setFilter}
-                        label='Category'
-                        options={[
-                            { value: "all", label: "All" },
-                            {
-                                value: "candidate_application",
-                                label: "Candidate Application"
-                            },
-                            {
-                                value: "election_result",
-                                label: "Election Result"
-                            },
-                            { value: "voting_issue", label: "Voting Issue" },
-                            {
-                                value: "account_access",
-                                label: "Account / Access"
-                            },
-                            { value: "other", label: "Other" }
-                        ]}
-                    />
-                    <SortByTime
-                        sort={sort}
-                        setSort={setSort}
-                    />
+                <div className='flex gap-3 w-full transition-all duration-200 ease-out'>
+                    <div
+                        className={`flex relative transition-all duration-200 ease-out flex-1 ${
+                            electionOpen ? "max-sm:flex-2" : "max-sm:flex-[0.6]"
+                        }`}
+                    >
+                        <FilterMenu
+                            options={elections}
+                            filter={electionId}
+                            setFilter={setElectionId}
+                            label={isMedium ? "" : "Election"}
+                            showSelected={isMedium}
+                            onOpenChange={setElectionOpen}
+                        />
+                    </div>
+                    <div
+                        className={`flex relative transition-all duration-200 ease-out flex-1 ${
+                            categoryOpen ? "max-sm:flex-2" : "max-sm:flex-[0.6]"
+                        }`}
+                    >
+                        <FilterMenu
+                            filter={category}
+                            setFilter={setCategory}
+                            label={
+                                category === "all" || !isMedium
+                                    ? "Category"
+                                    : ""
+                            }
+                            options={[
+                                { value: "all", label: "All" },
+                                {
+                                    value: "candidate_application",
+                                    label: "Candidate Application"
+                                },
+                                {
+                                    value: "election_result",
+                                    label: "Election Result"
+                                },
+                                {
+                                    value: "voting_issue",
+                                    label: "Voting Issue"
+                                },
+                                {
+                                    value: "account_access",
+                                    label: "Account / Access"
+                                },
+                                { value: "other", label: "Other" }
+                            ]}
+                            showSelected={isMedium}
+                            onOpenChange={setCategoryOpen}
+                        />
+                    </div>
+                    <div
+                        className={`flex relative transition-all duration-200 ease-out ${
+                            isMedium ? "flex-1" : "flex-[0.8]"
+                        } ${sortOpen ? "max-sm:flex-2" : "max-sm:flex-[0.6]"}`}
+                    >
+                        <SortByTime
+                            sort={sort}
+                            setSort={setSort}
+                            onOpenChange={setSortOpen}
+                        />
+                    </div>
                 </div>
             )}
         </div>
