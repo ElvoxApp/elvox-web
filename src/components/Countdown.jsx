@@ -52,9 +52,11 @@ const Countdown = ({ className }) => {
                     <span>
                         {days} {days === 1 ? "day" : "days"}
                     </span>
-                    <span>
-                        {hours} {hours === 1 ? "hour" : "hours"}
-                    </span>
+                    {hours > 0 && (
+                        <span>
+                            {hours} {hours === 1 ? "hour" : "hours"}
+                        </span>
+                    )}
                 </p>
             ) : (
                 <p className='flex itemss-center gap-1'>
