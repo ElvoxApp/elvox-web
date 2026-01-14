@@ -77,7 +77,7 @@ const ElectionDetails = ({ electionId, pastElection = false }) => {
                 </div>
             )}
             {!isLoading && hasElection && (
-                <div>
+                <>
                     <div className='flex items-center justify-between gap-2'>
                         <h2 className='text-lg font-bold text-left text-primary-light dark:text-primary-dark'>
                             {election?.name}
@@ -98,7 +98,16 @@ const ElectionDetails = ({ electionId, pastElection = false }) => {
                     {election?.status !== "closed" && (
                         <Countdown className='sm:hidden' />
                     )}
-                    <div className='grid grid-cols-2 lg:grid-cols-4 gap-5 lg:gap-x-10 py-3 text-primary-light dark:text-primary-dark'>
+                    <div className='grid grid-cols-2 md:grid-cols-3 gap-5 md:gap-x-10 py-3 text-primary-light dark:text-primary-dark'>
+                        <div className='flex flex-col gap-2'>
+                            <p>Election Start</p>
+                            <p className='flex items-center flex-1 gap-2'>
+                                <FaRegCalendar className='text-accent' />
+                                <span className='font-semibold'>
+                                    {formatDate(election?.election_start)}
+                                </span>
+                            </p>
+                        </div>
                         <div className='flex flex-col gap-2'>
                             <p>Nomination Start</p>
                             <p className='flex items-center flex-1 gap-2'>
@@ -127,6 +136,15 @@ const ElectionDetails = ({ electionId, pastElection = false }) => {
                             </p>
                         </div>
                         <div className='flex flex-col gap-2'>
+                            <p>Election End</p>
+                            <p className='flex items-center flex-1 gap-2'>
+                                <FaRegCalendar className='text-accent' />
+                                <span className='font-semibold'>
+                                    {formatDate(election?.election_end)}
+                                </span>
+                            </p>
+                        </div>
+                        <div className='flex flex-col gap-2'>
                             <p>Total Candidates</p>
                             <p className='flex items-center flex-1 gap-2'>
                                 <LuUsers className='text-accent text-base' />
@@ -136,7 +154,7 @@ const ElectionDetails = ({ electionId, pastElection = false }) => {
                             </p>
                         </div>
                     </div>
-                </div>
+                </>
             )}
         </div>
     )
