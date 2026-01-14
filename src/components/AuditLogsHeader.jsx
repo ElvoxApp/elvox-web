@@ -44,17 +44,17 @@ const AuditLogsHeader = ({
     }, [electionId, election.id, setLogMode])
 
     return (
-        <div className='flex flex-col gap-4'>
-            <div className='flex items-center justify-between gap-6 rounded-xl py-3 text-primary-light dark:text-primary-dark'>
-                <div className='flex max-sm:flex-col sm:items-center justify-between flex-1 gap-6'>
-                    <div className='flex justify-between items-center gap-4 relative'>
+        <div className='flex flex-col pt-3'>
+            <div className='flex items-center justify-between gap-6 rounded-xl text-primary-light dark:text-primary-dark'>
+                <div className='flex max-sm:flex-col sm:items-center justify-between flex-1 gap-3'>
+                    <div className='grid grid-cols-[auto_1fr] items-center gap-x-4 relative'>
                         <FilterMenu
                             options={elections}
                             filter={electionId}
                             setFilter={setElectionId}
                             forLogs={true}
                         />
-                        <p className='flex items-center gap-1 sm:hidden'>
+                        <p className='flex items-center justify-self-end gap-1 sm:hidden'>
                             <span className={statusConfig[status].color}>
                                 ●
                             </span>
