@@ -4,6 +4,7 @@ import SortCandidates from "./SortCandidates"
 import FilterCandidatesByClass from "./FilterCandidatesByClass"
 import FilterMenu from "./FilterMenu"
 import { useState } from "react"
+import { useAuthStore } from "../stores"
 
 const ViewCandidatesHeader = ({
     nameInput,
@@ -13,12 +14,19 @@ const ViewCandidatesHeader = ({
     className, // not jsx className, but name of the class
     setClassName,
     year,
-    setYear
+    setYear,
+    status,
+    setStatus
 }) => {
     const [yearOpen, setYearOpen] = useState(false)
     const [classOpen, setClassOpen] = useState(false)
+    const [statusOpen, setStatusOpen] = useState(false)
 
     const isNotMobile = useMediaQuery({ minWidth: 640 })
+
+    const {
+        user: { role }
+    } = useAuthStore()
 
     return (
         <div className='flex flex-col gap-3'>
@@ -47,7 +55,7 @@ const ViewCandidatesHeader = ({
                 <div
                     className={`flex flex-col w-full relative transition-all duration-200 ease-out ${
                         yearOpen ? "max-sm:flex-2 flex-1" : "flex-1"
-                    } ${classOpen ? "flex-1" : "flex-1"}`}
+                    }`}
                 >
                     <FilterMenu
                         options={[
@@ -59,7 +67,7 @@ const ViewCandidatesHeader = ({
                         ]}
                         filter={year}
                         setFilter={setYear}
-                        label='Year'
+                        label={year === "all" || !isNotMobile ? "Year" : ""}
                         onOpenChange={setYearOpen}
                         showSelected={isNotMobile}
                     />
@@ -67,15 +75,40 @@ const ViewCandidatesHeader = ({
                 <div
                     className={`flex flex-col w-full relative transition-all duration-200 ease-out ${
                         classOpen ? "max-sm:flex-2 flex-1" : "flex-1"
-                    } ${yearOpen ? "flex-1" : "flex-1"}`}
+                    }`}
                 >
                     <FilterCandidatesByClass
                         className={className}
                         setClassName={setClassName}
                         onOpenChange={setClassOpen}
                         showSelected={isNotMobile}
+                        showLabel={className === "all" || !isNotMobile}
                     />
                 </div>
+                {role === "admin" && (
+                    <div
+                        className={`flex flex-col w-full relative transition-all duration-200 ease-out ${
+                            statusOpen ? "max-sm:flex-2 flex-1" : "flex-1"
+                        }`}
+                    >
+                        <FilterMenu
+                            options={[
+                                { value: "all", label: "All" },
+                                { value: "approved", label: "Approved" },
+                                { value: "rejected", label: "Rejected" },
+                                { value: "pending", label: "Pending" },
+                                { value: "withdrawn", label: "Withdrawn" }
+                            ]}
+                            filter={status}
+                            setFilter={setStatus}
+                            label={
+                                status === "all" || !isNotMobile ? "Status" : ""
+                            }
+                            onOpenChange={setStatusOpen}
+                            showSelected={isNotMobile}
+                        />
+                    </div>
+                )}
             </div>
         </div>
     )

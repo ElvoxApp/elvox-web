@@ -4,6 +4,7 @@ import Candidate from "../components/Candidate"
 import { toast } from "react-hot-toast"
 import { useOutletContext } from "react-router-dom"
 import api from "../api/api"
+import { useAuthStore } from "../stores"
 
 const ViewCandidates = () => {
     const [candidates, setCandidates] = useState([])
@@ -11,8 +12,11 @@ const ViewCandidates = () => {
     const [sort, setSort] = useState("name")
     const [year, setYear] = useState("all")
     const [className, setClassName] = useState("all")
+    const [status, setStatus] = useState("all")
 
     const { isLoading, setIsLoading } = useOutletContext()
+
+    const { user } = useAuthStore()
 
     const visibleCandidates = useMemo(() => {
         let list = [...candidates]
@@ -56,7 +60,11 @@ const ViewCandidates = () => {
         const fetchCandidates = async () => {
             try {
                 setIsLoading(true)
-                const res = await api.get("/candidates?status=approved")
+                const res = await api.get(
+                    `/candidates?status=${
+                        user?.role === "admin" ? status : "approved"
+                    }`
+                )
                 if (res.status === 200) setCandidates(res.data)
             } catch (err) {
                 toast.error(
@@ -70,40 +78,40 @@ const ViewCandidates = () => {
         }
 
         fetchCandidates()
-    }, [setIsLoading])
+    }, [setIsLoading, status, user?.role])
 
     if (isLoading) return null
 
     return (
         <div className='flex flex-col items-center px-2 md:px-5 lg:px-9 py-5 flex-1 min-h-0'>
             <title>Candidates</title>
-            {candidates?.length > 0 && (
-                <div className='flex flex-col flex-1 w-full gap-8 max-w-5xl min-h-0'>
-                    <ViewCandidatesHeader
-                        nameInput={nameInput}
-                        setNameInput={setNameInput}
-                        sort={sort}
-                        setSort={setSort}
-                        year={year}
-                        setYear={setYear}
-                        className={className}
-                        setClassName={setClassName}
-                    />
-                    {visibleCandidates.length > 0 && (
-                        <div className='flex flex-col flex-[1_1_0px] gap-3 overflow-y-auto custom-scrollbar rounded-md bg-card-light dark:bg-card-dark px-2 py-4'>
-                            {visibleCandidates.map((candidate) => (
-                                <Candidate
-                                    candidate={candidate}
-                                    key={candidate.id}
-                                />
-                            ))}
-                        </div>
-                    )}
-                </div>
-            )}
+            <div className='flex flex-col flex-1 w-full gap-8 max-w-5xl min-h-0'>
+                <ViewCandidatesHeader
+                    nameInput={nameInput}
+                    setNameInput={setNameInput}
+                    sort={sort}
+                    setSort={setSort}
+                    year={year}
+                    setYear={setYear}
+                    className={className}
+                    setClassName={setClassName}
+                    status={status}
+                    setStatus={setStatus}
+                />
+                {visibleCandidates.length > 0 && (
+                    <div className='flex flex-col flex-[1_1_0px] gap-3 overflow-y-auto custom-scrollbar rounded-md bg-card-light dark:bg-card-dark px-2 py-4'>
+                        {visibleCandidates.map((candidate) => (
+                            <Candidate
+                                candidate={candidate}
+                                key={candidate.id}
+                            />
+                        ))}
+                    </div>
+                )}
+            </div>
 
             {!visibleCandidates.length && (
-                <div className='flex px-3 py-4 gap-8 flex-1 items-center justify-center'>
+                <div className='flex px-3 py-4 gap-8 flex-1 justify-center'>
                     <h2 className='text-center text-primary-light dark:text-primary-dark text-2xl md:text-3xl lg:text-4xl font-black'>
                         No Candidate Applications To Show
                     </h2>

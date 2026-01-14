@@ -6,7 +6,8 @@ const FilterCandidatesByClass = ({
     className,
     setClassName,
     onOpenChange,
-    showSelected = true
+    showSelected = true,
+    showLabel = true
 }) => {
     const [classes, setClasses] = useState([])
 
@@ -39,7 +40,7 @@ const FilterCandidatesByClass = ({
             options={[{ id: 0, value: "all", label: "All" }, ...classes]}
             filter={className}
             setFilter={setClassName}
-            label='Class'
+            label={showLabel ? "Class" : ""}
             showSelected={showSelected}
             onOpenChange={onOpenChange}
         />
