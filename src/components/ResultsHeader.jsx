@@ -2,6 +2,8 @@ import Button from "./Button"
 import { useState } from "react"
 import ResultsFiltersMobile from "./ResultsFiltersMobile"
 import ResultsFiltersNonMobilecreen from "./ResultsFiltersNonMobilecreen"
+import ElectionDetails from "./ElectionDetails"
+import { HiChevronDown, HiChevronUp } from "react-icons/hi"
 
 const ResultsHeader = ({
     electionId,
@@ -19,6 +21,7 @@ const ResultsHeader = ({
     const [classOpen, setClassOpen] = useState(false)
     const [statusOpen, setStatusOpen] = useState(false)
     const [showMobileFilters, setShowMobileFilters] = useState(false)
+    const [showElectionDetails, setShowElectionDetails] = useState(false)
 
     return (
         <div className='flex flex-col gap-4'>
@@ -83,11 +86,32 @@ const ResultsHeader = ({
                     />
                 </div>
             </div>
-            <div>
-                <h2 className='text-base sm:text-lg lg:text-xl font-semibold text-primary-light dark:text-primary-dark'>
-                    {elections.find((el) => el.value === electionId)?.label ||
-                        ""}
-                </h2>
+            <div className='flex flex-col justify-between gap-3'>
+                <div className='flex items-center justify-between gap-3'>
+                    <h2 className='text-base sm:text-lg lg:text-xl font-semibold text-primary-light dark:text-primary-dark'>
+                        {elections.find((el) => el.value === electionId)
+                            ?.label || ""}
+                    </h2>
+
+                    <button
+                        className='p-0 m-0 bg-transparent border-0 text-inherit font-inherit focus:outline-none cursor-pointer justify-self-end'
+                        onClick={() =>
+                            setShowElectionDetails((state) => !state)
+                        }
+                    >
+                        {showElectionDetails ? (
+                            <HiChevronUp className='size-6 text-primary-light dark:text-primary-dark transition-transform duration-300' />
+                        ) : (
+                            <HiChevronDown className='size-6 text-primary-light dark:text-primary-dark transition-transform duration-300' />
+                        )}
+                    </button>
+                </div>
+                {showElectionDetails && (
+                    <ElectionDetails
+                        pastElection={true}
+                        electionId={electionId}
+                    />
+                )}
             </div>
         </div>
     )
