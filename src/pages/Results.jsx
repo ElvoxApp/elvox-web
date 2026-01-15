@@ -4,6 +4,7 @@ import toast from "react-hot-toast"
 import api from "../api/api"
 import ResultsList from "../components/ResultsList"
 import FullScreenLoader from "../components/FullScreenLoader"
+import { useElectionStore } from "../stores"
 
 const Results = () => {
     const [electionId, setElectionId] = useState("")
@@ -15,6 +16,8 @@ const Results = () => {
 
     const [electionsLoading, setElectionsLoading] = useState(false)
     const [resultsLoading, setResultsLoading] = useState(false)
+
+    const { election } = useElectionStore()
 
     const isLoading = electionsLoading || resultsLoading
 
@@ -29,14 +32,7 @@ const Results = () => {
                 const electionsData = res.data
 
                 setElections(electionsData)
-
-                const firstElectionWithResults = electionsData.find(
-                    (el) => el.results?.length > 0
-                )
-
-                setElectionId(
-                    firstElectionWithResults?.id ?? electionsData[0]?.id
-                )
+                setElectionId(election?.id ?? electionsData[0]?.id)
             } catch (err) {
                 if (err.response)
                     toast.error(err.response?.data?.error, {
@@ -48,7 +44,7 @@ const Results = () => {
         }
 
         fetchElections()
-    }, [])
+    }, [election?.id])
 
     useEffect(() => {
         if (!electionId) return
@@ -80,7 +76,7 @@ const Results = () => {
     return (
         <div className='flex flex-col justify-center min-h-0 items-center px-2 md:px-5 lg:px-9 py-2 flex-1'>
             <title>Results</title>
-            {electionId && (
+            {elections.length > 0 && (
                 <div className='flex flex-col w-full flex-1 gap-4 max-w-5xl min-h-0 text-sm'>
                     <ResultsHeader
                         classValue={classValue}
@@ -106,7 +102,7 @@ const Results = () => {
                     }`}
                 >
                     <h2 className='text-center text-primary-light dark:text-primary-dark text-2xl md:text-3xl lg:text-4xl font-black'>
-                        {!electionId && "Result not published yet"}
+                        {elections.length === 0 && "No elections found"}
 
                         {electionId &&
                             !hasResults &&
