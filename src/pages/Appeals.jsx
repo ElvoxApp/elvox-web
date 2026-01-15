@@ -62,13 +62,7 @@ const Appeals = () => {
 
                 setElections(electionsData)
 
-                const firstElectionWithResults = electionsData.find(
-                    (el) => el.results?.length > 0
-                )
-
-                setElectionId(
-                    firstElectionWithResults?.id ?? electionsData[0]?.id
-                )
+                setElectionId(election?.id ?? electionsData[0]?.id)
             } catch (err) {
                 if (err.response)
                     toast.error(err.response?.data?.error, {
@@ -80,7 +74,7 @@ const Appeals = () => {
         }
 
         if (role === "admin") fetchElections()
-    }, [role])
+    }, [role, election?.id])
 
     useEffect(() => {
         const fetchAppeals = async () => {
@@ -132,7 +126,7 @@ const Appeals = () => {
     return (
         <div className='flex flex-col items-center px-2 md:px-5 lg:px-9 py-5 flex-1'>
             <title>Appeals</title>
-            {!isLoading && (
+            {!isLoading && electionId && (
                 <div className='flex flex-col w-full gap-5 max-w-5xl py-2'>
                     <AppealsHeader
                         setShowAppealForm={setShowAppealForm}
