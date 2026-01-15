@@ -37,7 +37,7 @@ const NoActiveElectionAdminDashboard = ({ setShowCreateElectionModal }) => {
                             <span className=''>Election Results</span>
                         </Button>
                     </Link>
-                    <Link to='#'>
+                    <Link to='/logs'>
                         <Button className='flex flex-col justify-center items-center py-5 lg:py-7 gap-1 bg-accent hover:bg-button-hover w-full h-full'>
                             <LuClipboardList className='text-primary-dark text-base lg:text-lg' />
                             <span className=''>Audit Logs</span>
