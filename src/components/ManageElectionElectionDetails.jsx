@@ -32,7 +32,16 @@ const ManageElectionElectionDetails = ({ setShowEditElectionModal }) => {
                 </div>
                 <Countdown className='max-sm:hidden' />
             </div>
-            <div className='grid grid-cols-2 lg:grid-cols-5 gap-5 lg:gap-x-10 py-3 text-primary-light dark:text-primary-dark'>
+            <div className='grid grid-cols-2 md:grid-cols-3 gap-5 md:gap-x-10 py-3 text-primary-light dark:text-primary-dark'>
+                <div className='flex flex-col gap-2'>
+                    <p>Election Start</p>
+                    <p className='flex items-center flex-1 gap-2'>
+                        <FaRegCalendar className='text-accent' />
+                        <span className='font-semibold'>
+                            {formatDate(election?.election_start)}
+                        </span>
+                    </p>
+                </div>
                 <div className='flex flex-col gap-2'>
                     <p>Nomination Start</p>
                     <p className='flex items-center flex-1 gap-2'>
