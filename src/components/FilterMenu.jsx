@@ -15,7 +15,8 @@ const FilterMenu = ({
     className,
     onOpenChange,
     showSelected = true,
-    forLogs = false
+    forLogs = false,
+    disabled = false
 }) => {
     const listRef = useRef(null)
 
@@ -47,12 +48,19 @@ const FilterMenu = ({
                 onChange={setFilter}
                 ref={listRef}
                 as='div'
+                disabled={disabled}
             >
                 <ListboxButton
-                    className={`flex items-center justify-between gap-2 cursor-pointer w-full p-2 flex-1 focus:outline-none text-primary-light dark:text-primary-dark ${
+                    className={`flex items-center justify-between gap-2 w-full p-2 flex-1 focus:outline-none ${
                         !forLogs
                             ? "bg-field-light dark:bg-field-dark rounded-md"
+                            : disabled
+                            ? "border border-[#b7bdc1] dark:border-[#38383a]"
                             : "border border-gray-500"
+                    } ${
+                        disabled
+                            ? "cursor-not-allowed text-[#797979]"
+                            : "cursor-pointer text-primary-light dark:text-primary-dark"
                     }`}
                 >
                     <span className='text-sm'>
