@@ -17,156 +17,20 @@ const formatDate = (value) => {
     })
 }
 
-const DEMO = [
-    {
-        id: 1,
-        timestamp: "2026-01-11T10:00:02Z",
-        level: "INFO",
-        message: "Election 'Student Council 2026' started"
-    },
-    {
-        id: 2,
-        timestamp: "2026-01-11T10:03:18Z",
-        level: "INFO",
-        message: "Supervisor verified voter (student_id masked)"
-    },
-    {
-        id: 3,
-        timestamp: "2026-01-11T10:05:41Z",
-        level: "ERROR",
-        message:
-            "Vote recording failed due to database timeout while attempting to persist ballot data to the primary database"
-    },
-    {
-        id: 4,
-        timestamp: "2026-01-11T10:06:12Z",
-        level: "INFO",
-        message: "Vote recorded successfully"
-    },
-    {
-        id: 5,
-        timestamp: "2026-01-11T10:12:47Z",
-        level: "INFO",
-        message: "Supervisor verified voter (student_id masked)"
-    },
-    {
-        id: 6,
-        timestamp: "2026-01-11T10:15:09Z",
-        level: "INFO",
-        message: "Supervisor verified voter (student_id masked)"
-    },
-    {
-        id: 7,
-        timestamp: "2026-01-11T10:21:33Z",
-        level: "ERROR",
-        message:
-            "Failed to record vote after multiple retry attempts due to temporary loss of database connectivity"
-    },
-    {
-        id: 8,
-        timestamp: "2026-01-11T10:22:01Z",
-        level: "INFO",
-        message: "Database connection re-established and vote recording resumed"
-    },
-    {
-        id: 9,
-        timestamp: "2026-01-11T10:30:44Z",
-        level: "INFO",
-        message: "Supervisor verified voter (student_id masked)"
-    },
-    {
-        id: 10,
-        timestamp: "2026-01-11T10:45:12Z",
-        level: "INFO",
-        message: "Supervisor verified voter (student_id masked)"
-    },
-    {
-        id: 11,
-        timestamp: "2026-01-11T11:00:00Z",
-        level: "INFO",
-        message:
-            "Mid-election checkpoint reached; voting process operating within expected parameters"
-    },
-    {
-        id: 12,
-        timestamp: "2026-01-11T11:18:29Z",
-        level: "ERROR",
-        message:
-            "Cron job failed to advance election state due to lock timeout while waiting for ongoing vote transaction to complete"
-    },
-    {
-        id: 13,
-        timestamp: "2026-01-11T11:18:45Z",
-        level: "INFO",
-        message:
-            "Cron job retry succeeded and election state was advanced successfully"
-    },
-    {
-        id: 14,
-        timestamp: "2026-01-11T11:35:10Z",
-        level: "INFO",
-        message: "Supervisor verified voter (student_id masked)"
-    },
-    {
-        id: 15,
-        timestamp: "2026-01-11T11:59:58Z",
-        level: "INFO",
-        message: "Final minutes before scheduled election close"
-    },
-    {
-        id: 16,
-        timestamp: "2026-01-11T12:00:00Z",
-        level: "INFO",
-        message: "Election 'Student Council 2026' closed"
-    },
-    {
-        id: 17,
-        timestamp: "2026-01-11T12:01:22Z",
-        level: "INFO",
-        message: "Vote counting process started"
-    },
-    {
-        id: 18,
-        timestamp: "2026-01-11T12:02:41Z",
-        level: "ERROR",
-        message:
-            "Vote counting encountered an unexpected error while aggregating results; operation aborted and scheduled for retry"
-    },
-    {
-        id: 19,
-        timestamp: "2026-01-11T12:03:10Z",
-        level: "INFO",
-        message: "Vote counting retry initiated after previous failure"
-    },
-    {
-        id: 20,
-        timestamp: "2026-01-11T12:05:34Z",
-        level: "INFO",
-        message:
-            "Vote counting completed successfully and results were persisted"
-    },
-    {
-        id: 21,
-        timestamp: "2026-01-11T12:06:00Z",
-        level: "INFO",
-        message: "Election results published"
-    }
-]
-
 const AuditLogs = () => {
     const { election } = useElectionStore()
 
     const [electionId, setElectionId] = useState(election?.id)
-    const [timeRange, setTimeRange] = useState("last_7_days")
+    const [timeRange, setTimeRange] = useState("7_days")
     const [elections, setElections] = useState([])
     const [logs, setLogs] = useState([])
     const [electionsLoading, setElectionsLoading] = useState(false)
     const [logsLoading, setLogsLoading] = useState(false)
     const [logMode, setLogMode] = useState("live")
+    const [status, setStatus] = useState("disconnected")
 
     const logContainer = useRef(null)
-
-    const isLoading = electionsLoading || logsLoading
+    const sseRef = useRef(null)
 
     useEffect(() => {
         const fetchElections = async () => {
@@ -176,6 +40,7 @@ const AuditLogs = () => {
                 const electionsData = res.data
 
                 setElections(electionsData)
+                setElectionId(election?.id ?? electionsData[0]?.id)
             } catch (err) {
                 if (err.response)
                     toast.error(err.response?.data?.error, {
@@ -187,7 +52,7 @@ const AuditLogs = () => {
         }
 
         fetchElections()
-    }, [])
+    }, [election.id])
 
     useEffect(() => {
         if (!electionId) return
@@ -195,7 +60,9 @@ const AuditLogs = () => {
         const fetchLogs = async () => {
             try {
                 setLogsLoading(true)
-                const res = await api.get(`/logs/${electionId}`)
+                const res = await api.get(
+                    `/elections/${electionId}/logs?range=${timeRange}`
+                )
                 setLogs(res.data)
             } catch (err) {
                 if (err.response)
@@ -208,19 +75,76 @@ const AuditLogs = () => {
         }
 
         fetchLogs()
-    }, [electionId])
+    }, [electionId, logMode, timeRange])
 
     useEffect(() => {
-        if (logContainer.current) {
+        if (!electionId || logsLoading || logMode !== "live") {
+            setStatus("disconnected")
+            return
+        }
+
+        // close existing before creating new one
+        if (sseRef.current) {
+            sseRef.current.close()
+            sseRef.current = null
+        }
+
+        setStatus("connecting")
+
+        const es = new EventSource(
+            `${
+                import.meta.env.VITE_API_URL
+            }/elections/${electionId}/logs/stream`,
+            {
+                withCredentials: true
+            }
+        )
+
+        sseRef.current = es
+
+        es.onopen = () => {
+            setStatus("connected")
+        }
+
+        es.onmessage = (e) => {
+            const log = JSON.parse(e.data)
+            setLogs((prev) => [...prev, log])
+        }
+
+        es.onerror = () => {
+            setStatus("disconnected")
+            es.close()
+            sseRef.current = null
+        }
+
+        return () => {
+            setStatus("disconnected")
+            es.close()
+            sseRef.current = null
+        }
+    }, [electionId, logMode, logsLoading])
+
+    useEffect(() => {
+        if (electionId !== election.id) {
+            setLogMode("past")
+            setTimeRange("election_period")
+        } else {
+            setLogMode("live")
+            setTimeRange("7_days")
+        }
+    }, [electionId, election.id, setLogMode, setTimeRange])
+
+    useEffect(() => {
+        if (logContainer.current && logs.length > 0) {
             logContainer.current.scrollTop = logContainer.current.scrollHeight
         }
-    }, [elections, electionId])
+    }, [elections, electionId, logs])
 
     return (
         <div className='flex flex-col px-2 flex-1 py-5'>
             <title>Audit Logs</title>
-            {elections.length > 0 && (
-                <div className='flex flex-col md:px-3 lg:px-7 text-sm flex-1 gap-3 sm:py-3 text-primary-light dark:text-primary-dark'>
+            <div className='flex flex-col md:px-3 lg:px-7 text-sm flex-1 gap-3 sm:py-3 text-primary-light dark:text-primary-dark'>
+                {elections.length > 0 && (
                     <AuditLogsHeader
                         elections={elections.map((el) => {
                             return { value: el.id, label: el.name }
@@ -231,47 +155,70 @@ const AuditLogs = () => {
                         setTimeRange={setTimeRange}
                         logMode={logMode}
                         setLogMode={setLogMode}
+                        sseRef={sseRef}
+                        status={status}
                     />
-                    <div
-                        className={`flex flex-col flex-[1_1_0px] gap-1.5 border border-gray-500 py-3 px-2 overflow-y-auto custom-scrollbar font-mono tabular-nums ${
-                            electionId === election.id ? "pb-48" : ""
-                        }`}
-                        ref={logContainer}
-                    >
-                        {DEMO.map((log) => (
+                )}
+                <div
+                    className={`flex flex-col flex-[1_1_0px] gap-1.5 border border-gray-500 py-3 px-2 overflow-y-auto custom-scrollbar font-mono tabular-nums ${
+                        electionId === election.id &&
+                        !logsLoading &&
+                        logs.length > 0
+                            ? "pb-48"
+                            : ""
+                    }`}
+                    ref={logContainer}
+                >
+                    {!logsLoading &&
+                        logs.length > 0 &&
+                        logs.map((log) => (
                             <div
-                                key={log.id}
+                                key={log?.id}
                                 className='flex flex-col max-sm:gap-1 sm:grid sm:grid-cols-[auto_5ch_1fr] gap-x-2'
                             >
                                 <p className='text-secondary-light dark:text-secondary-dark pr-3'>
-                                    [{formatDate(log.timestamp, true)}]
+                                    [{formatDate(log?.created_at, true)}]
                                 </p>
                                 <div className='grid grid-cols-[5ch_1fr] gap-x-2 max-sm:pl-8 sm:contents'>
                                     <p
                                         className={
-                                            log.level === "ERROR"
+                                            log?.level === "error"
                                                 ? "text-[#df0000] dark:text-red-500"
                                                 : ""
                                         }
                                     >
-                                        {log.level}
+                                        {log?.level?.toUpperCase()}
                                     </p>
                                     <p
                                         className={
-                                            log.level === "ERROR"
+                                            log?.level === "error"
                                                 ? "text-[#df0000] dark:text-red-500"
                                                 : ""
                                         }
                                     >
-                                        {log.message}
+                                        {log?.message}
                                     </p>
                                 </div>
                             </div>
                         ))}
-                    </div>
+                    {logsLoading && !electionsLoading && (
+                        <div className='flex items-center justify-center flex-1'>
+                            <div className='w-5.5 h-5.5 border border-b-transparent dark:border-b-transparent border-accent dark:border-[#ab8cff] rounded-full inline-block loader' />
+                        </div>
+                    )}
+                    {logs.length === 0 && !logsLoading && !electionsLoading && (
+                        <div className='flex justify-center items-center flex-1'>
+                            <p className='text-base text-primary-light dark:text-primary-dark'>
+                                {elections.length === 0
+                                    ? "No elections found"
+                                    : "There are no logs available for this election"}
+                            </p>
+                        </div>
+                    )}
                 </div>
-            )}
-            {isLoading && (
+            </div>
+
+            {electionsLoading && (
                 <div className='flex justify-between items-center'>
                     <FullScreenLoader />
                 </div>
