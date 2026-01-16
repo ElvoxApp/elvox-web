@@ -1,11 +1,18 @@
-import { LuActivity, LuUsers } from "react-icons/lu"
+import { LuActivity } from "react-icons/lu"
 import { FaRegCalendar } from "react-icons/fa"
 import { useElectionStore } from "../stores"
-import formatDate from "../utils/formatDate"
 import Countdown from "./Countdown"
 import { useEffect, useState } from "react"
 import toast from "react-hot-toast"
 import api from "../api/api"
+
+const formatDate = (value) =>
+    new Date(value)
+        .toLocaleString("en-IN", {
+            dateStyle: "medium",
+            timeStyle: "short"
+        })
+        .replace(/\b(am|pm)\b/, (m) => m.toUpperCase())
 
 const ElectionDetails = ({ electionId, pastElection = false }) => {
     const [isLoading, setIsLoading] = useState(pastElection)
@@ -127,11 +134,20 @@ const ElectionDetails = ({ electionId, pastElection = false }) => {
                             </p>
                         </div>
                         <div className='flex flex-col gap-2'>
-                            <p>Voting Day</p>
+                            <p>Voting Start</p>
                             <p className='flex items-center flex-1 gap-2'>
                                 <FaRegCalendar className='text-accent' />
                                 <span className='font-semibold'>
                                     {formatDate(election?.voting_start)}
+                                </span>
+                            </p>
+                        </div>
+                        <div className='flex flex-col gap-2'>
+                            <p>Voting End</p>
+                            <p className='flex items-center flex-1 gap-2'>
+                                <FaRegCalendar className='text-accent' />
+                                <span className='font-semibold'>
+                                    {formatDate(election?.voting_end)}
                                 </span>
                             </p>
                         </div>
@@ -141,15 +157,6 @@ const ElectionDetails = ({ electionId, pastElection = false }) => {
                                 <FaRegCalendar className='text-accent' />
                                 <span className='font-semibold'>
                                     {formatDate(election?.election_end)}
-                                </span>
-                            </p>
-                        </div>
-                        <div className='flex flex-col gap-2'>
-                            <p>Total Candidates</p>
-                            <p className='flex items-center flex-1 gap-2'>
-                                <LuUsers className='text-accent text-base' />
-                                <span className='font-semibold'>
-                                    {election?.total_candidates}
                                 </span>
                             </p>
                         </div>
