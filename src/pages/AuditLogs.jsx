@@ -162,6 +162,7 @@ const AuditLogs = () => {
                 <div
                     className={`flex flex-col flex-[1_1_0px] gap-1.5 border border-gray-500 py-3 px-2 overflow-y-auto custom-scrollbar font-mono tabular-nums ${
                         electionId === election.id &&
+                        logMode === "live" &&
                         !logsLoading &&
                         logs.length > 0
                             ? "pb-48"
