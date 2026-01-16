@@ -23,7 +23,7 @@ const ManageElectionElectionDetails = ({ setShowEditElectionModal }) => {
                         {election?.name}
                     </h2>
 
-                    <div className='flex items-center justify-between gap-2 w-full sm:contents'>
+                    <div className='flex flex-col gap-2 items-start sm:contents'>
                         <p className='bg-yellow-400/40 dark:bg-yellow-400/20 text-yellow-600 dark:text-yellow-400 ring-1 ring-yellow-400/30 inline-block px-3 py-1 rounded-xl text-xs font-medium'>
                             {capitalize(election?.status)}
                         </p>
