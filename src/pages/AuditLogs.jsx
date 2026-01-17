@@ -17,6 +17,10 @@ const formatDate = (value) => {
     })
 }
 
+const LIVE_SEPARATOR = {
+    _type: "seperator"
+}
+
 const AuditLogs = () => {
     const { election } = useElectionStore()
 
@@ -104,6 +108,13 @@ const AuditLogs = () => {
 
         es.onopen = () => {
             setStatus("connected")
+
+            setLogs((prev) => {
+                // don't add twice
+                if (prev.some((l) => l._type === "separator")) return prev
+
+                return [...prev, LIVE_SEPARATOR]
+            })
         }
 
         es.onmessage = (e) => {
@@ -172,36 +183,57 @@ const AuditLogs = () => {
                 >
                     {!logsLoading &&
                         logs.length > 0 &&
-                        logs.map((log) => (
-                            <div
-                                key={log?.id}
-                                className='flex flex-col max-sm:gap-1 sm:grid sm:grid-cols-[auto_5ch_1fr] gap-x-2'
-                            >
-                                <p className='text-secondary-light dark:text-secondary-dark pr-1'>
-                                    [{formatDate(log?.created_at, true)}]
-                                </p>
-                                <div className='grid grid-cols-[5ch_1fr] gap-x-2 max-sm:pl-8 sm:contents'>
-                                    <p
-                                        className={
-                                            log?.level === "error"
-                                                ? "text-[#df0000] dark:text-red-500"
-                                                : ""
-                                        }
+                        logs.map((log, index) => {
+                            if (log?._type === "seperator") {
+                                return (
+                                    <div
+                                        key='live-separator'
+                                        className='my-1 flex items-center gap-3 text-xs'
                                     >
-                                        {log?.level?.toUpperCase()}
+                                        <div className='flex-1 h-[0.5px] bg-gray-500/70' />
+                                        <span>
+                                            {status === "connected"
+                                                ? "Connected — showing live logs"
+                                                : status === "connecting"
+                                                ? "Connecting to live logs…"
+                                                : "Disconnected — live updates paused"}
+                                        </span>
+                                        <div className='flex-1 h-[0.5px] bg-gray-500/70' />
+                                    </div>
+                                )
+                            }
+
+                            return (
+                                <div
+                                    key={log?.id ?? `log-${index}`}
+                                    className='flex flex-col max-sm:gap-1 sm:grid sm:grid-cols-[auto_5ch_1fr] gap-x-2'
+                                >
+                                    <p className='text-secondary-light dark:text-secondary-dark pr-1'>
+                                        [{formatDate(log?.created_at, true)}]
                                     </p>
-                                    <p
-                                        className={
-                                            log?.level === "error"
-                                                ? "text-[#df0000] dark:text-red-500"
-                                                : ""
-                                        }
-                                    >
-                                        {log?.message}
-                                    </p>
+                                    <div className='grid grid-cols-[5ch_1fr] gap-x-2 max-sm:pl-8 sm:contents'>
+                                        <p
+                                            className={
+                                                log?.level === "error"
+                                                    ? "text-[#df0000] dark:text-red-500"
+                                                    : ""
+                                            }
+                                        >
+                                            {log?.level?.toUpperCase()}
+                                        </p>
+                                        <p
+                                            className={
+                                                log?.level === "error"
+                                                    ? "text-[#df0000] dark:text-red-500"
+                                                    : ""
+                                            }
+                                        >
+                                            {log?.message}
+                                        </p>
+                                    </div>
                                 </div>
-                            </div>
-                        ))}
+                            )
+                        })}
                     {logsLoading && !electionsLoading && (
                         <div className='flex items-center justify-center flex-1'>
                             <div className='w-5.5 h-5.5 border border-b-transparent dark:border-b-transparent border-accent dark:border-[#ab8cff] rounded-full inline-block loader' />
