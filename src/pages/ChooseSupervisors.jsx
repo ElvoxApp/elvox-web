@@ -6,6 +6,7 @@ import EditSupervisors from "../components/EditSupervisors"
 import api from "../api/api"
 import toast from "react-hot-toast"
 import { useCallback } from "react"
+import { useElectionStore } from "../stores"
 
 const DEMO = [
     {
@@ -22,6 +23,8 @@ const ChooseSupervisors = () => {
     const [showEditModal, setShowEditModal] = useState(false)
 
     const { isLoading, setIsLoading } = useOutletContext()
+
+    const { election } = useElectionStore()
 
     const fetchSupervisors = useCallback(async () => {
         try {
@@ -52,11 +55,15 @@ const ChooseSupervisors = () => {
                 <div className='flex flex-col flex-1 w-full gap-8 max-w-5xl min-h-0'>
                     <div className='flex items-center justify-between gap-1'>
                         <p>Total supervisors: {supervisors.length}</p>
-                        <Button
-                            text='Edit Supervisors'
-                            className='px-4 py-2.5 text-sm font-medium bg-accent hover:bg-button-hover'
-                            onClick={() => setShowEditModal(true)}
-                        />
+                        {!["post-voting", "closed"].includes(
+                            election?.status
+                        ) && (
+                            <Button
+                                text='Edit Supervisors'
+                                className='px-4 py-2.5 text-sm font-medium bg-accent hover:bg-button-hover'
+                                onClick={() => setShowEditModal(true)}
+                            />
+                        )}
                     </div>
                     {supervisors.length > 0 && (
                         <div className='flex flex-col flex-[1_1_0px] gap-3 overflow-y-auto custom-scrollbar rounded-md bg-card-light dark:bg-card-dark px-2 py-4'>
@@ -70,25 +77,34 @@ const ChooseSupervisors = () => {
                     )}
                 </div>
             )}
-            {showEditModal && (
-                <EditSupervisors
-                    isOpen={showEditModal}
-                    setShowEditModal={setShowEditModal}
-                    supervisors={supervisors}
-                    fetchSupervisors={fetchSupervisors}
-                />
-            )}
+            {showEditModal &&
+                !["post-voting", "closed"].includes(election?.status) && (
+                    <EditSupervisors
+                        isOpen={showEditModal}
+                        setShowEditModal={setShowEditModal}
+                        supervisors={supervisors}
+                        fetchSupervisors={fetchSupervisors}
+                    />
+                )}
 
             {!supervisors.length && (
                 <div className='flex flex-col px-3 py-4 gap-6 flex-1 items-center justify-center'>
-                    <h2 className='text-center text-primary-light dark:text-primary-dark text-2xl md:text-3xl lg:text-4xl font-black'>
-                        No Supervisors Assigned
-                    </h2>
-                    <Button
-                        text='Assign Supervisors'
-                        className='px-3 py-3 text-sm font-medium bg-accent hover:bg-button-hover'
-                        onClick={() => setShowEditModal(true)}
-                    />
+                    {!["post-voting", "closed"].includes(election?.status) ? (
+                        <>
+                            <h2 className='text-center text-primary-light dark:text-primary-dark text-2xl md:text-3xl lg:text-4xl font-black'>
+                                No Supervisors Assigned
+                            </h2>
+                            <Button
+                                text='Assign Supervisors'
+                                className='px-3 py-3 text-sm font-medium bg-accent hover:bg-button-hover'
+                                onClick={() => setShowEditModal(true)}
+                            />
+                        </>
+                    ) : (
+                        <h2 className='text-center text-primary-light dark:text-primary-dark text-2xl md:text-3xl lg:text-4xl font-black'>
+                            Cannot assign supervisors at this stage
+                        </h2>
+                    )}
                 </div>
             )}
         </div>
