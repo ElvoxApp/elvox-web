@@ -206,9 +206,9 @@ const AuditLogs = () => {
                             return (
                                 <div
                                     key={log?.id ?? `log-${index}`}
-                                    className='flex flex-col max-sm:gap-1 sm:grid sm:grid-cols-[auto_5ch_1fr] gap-x-2'
+                                    className='flex flex-col max-sm:gap-1 sm:grid sm:grid-cols-[auto_8ch_1fr]'
                                 >
-                                    <p className='text-secondary-light dark:text-secondary-dark pr-1'>
+                                    <p className='text-secondary-light dark:text-secondary-dark pr-3'>
                                         [{formatDate(log?.created_at, true)}]
                                     </p>
                                     <div className='grid grid-cols-[5ch_1fr] gap-x-2 max-sm:pl-8 sm:contents'>
@@ -216,6 +216,8 @@ const AuditLogs = () => {
                                             className={
                                                 log?.level === "error"
                                                     ? "text-[#df0000] dark:text-red-500"
+                                                    : log?.level === "warning"
+                                                    ? "text-[#cb9100] dark:text-yellow-500"
                                                     : ""
                                             }
                                         >
@@ -225,6 +227,8 @@ const AuditLogs = () => {
                                             className={
                                                 log?.level === "error"
                                                     ? "text-[#df0000] dark:text-red-500"
+                                                    : log?.level === "warning"
+                                                    ? "text-[#cb9100] dark:text-yellow-500"
                                                     : ""
                                             }
                                         >
