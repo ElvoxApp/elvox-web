@@ -32,6 +32,12 @@ const AuditLogsHeader = ({
         <div className='flex flex-col pt-3'>
             <div className='flex items-center justify-between gap-6 rounded-xl text-primary-light dark:text-primary-dark'>
                 <div className='flex max-sm:flex-col sm:items-center justify-between flex-1 gap-1.5'>
+                    <p className='flex items-center gap-1 justify-end sm:hidden'>
+                        <span className={statusConfig[status]?.color}>●</span>
+                        <span className='font-semibold text-sm'>
+                            {statusConfig[status]?.label}
+                        </span>
+                    </p>
                     <div className='flex relative'>
                         <FilterMenu
                             options={elections}
@@ -83,14 +89,6 @@ const AuditLogsHeader = ({
                                     disabled={electionId !== election.id}
                                 />
                             </div>
-                            <p className='flex items-center gap-1 justify-end sm:hidden'>
-                                <span className={statusConfig[status]?.color}>
-                                    ●
-                                </span>
-                                <span className='font-semibold text-sm'>
-                                    {statusConfig[status]?.label}
-                                </span>
-                            </p>
                         </div>
                         <p className='flex items-center gap-1 justify-end max-sm:hidden'>
                             <span className={statusConfig[status]?.color}>
