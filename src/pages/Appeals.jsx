@@ -32,8 +32,12 @@ const Appeals = () => {
     const navigate = useNavigate()
     const location = useLocation()
 
+    // Block navigation when the appeal form is open.
+    // If a navigation attempt happens while `showAppealForm` is true,
+    // Restore the current URL once (to avoid history corruption),
+    // then open a confirmation dialog asking the user whether to cancel.
+    // If the form is closed, reset the blocker and allow navigation normally.
     const blocker = useBlocker(showAppealForm)
-
     const hasRestoredRef = useRef(false)
 
     useEffect(() => {
