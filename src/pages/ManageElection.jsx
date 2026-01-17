@@ -11,6 +11,7 @@ import api from "../api/api"
 import DeleteElectionDialog from "../components/DeleteElectionDialog"
 import FullScreenLoader from "../components/FullScreenLoader"
 import CreateElectionModal from "../components/CreateElectionModal"
+import ConfirmPublishResults from "../components/ConfirmPublishResults"
 
 const ManageElection = () => {
     const [isLoading, setIsLoading] = useState(false)
@@ -49,7 +50,6 @@ const ManageElection = () => {
             toast.success("Election successfully deleted", {
                 id: "election-delete-success"
             })
-            setShowConfirmDialog(false)
             setElection({})
             navigate("/")
         } catch (err) {
@@ -57,6 +57,26 @@ const ManageElection = () => {
                 err.response?.data?.error ||
                     "Failed to delete election. Please try again.",
                 { id: "delete-election-error" }
+            )
+        } finally {
+            setIsLoading(false)
+            setShowConfirmDialog(false)
+        }
+    }
+
+    const handlePublishResults = async () => {
+        try {
+            setIsLoading(true)
+            await api.patch(`/elections/${election?.id}/publish-result`)
+
+            toast.success("Results successfully published", {
+                id: "publish-results-success"
+            })
+        } catch (err) {
+            toast.error(
+                err.response?.data?.error ||
+                    "Failed to publish results. Please try again.",
+                { id: "publish-results-error" }
             )
         } finally {
             setIsLoading(false)
@@ -81,6 +101,7 @@ const ManageElection = () => {
                     <ManageElectionConfiguration
                         setIsLoading={setIsLoading}
                         isLoading={isLoading}
+                        setShowConfirmDialog={setShowConfirmDialog}
                     />
                     {election?.status === "draft" && (
                         <ManageElectionDeleteElection
@@ -99,6 +120,14 @@ const ManageElection = () => {
                         password={password}
                         setPassword={setPassword}
                         error={error}
+                        isLoading={isLoading}
+                    />
+                )}
+                {showConfirmDialog && election?.status === "post-voting" && (
+                    <ConfirmPublishResults
+                        isOpen={showConfirmDialog}
+                        setIsOpen={setShowConfirmDialog}
+                        handlePublish={handlePublishResults}
                         isLoading={isLoading}
                     />
                 )}

@@ -8,7 +8,11 @@ import EditReservedClass from "./EditReservedClass"
 import api from "../api/api"
 import SecretKey from "./SecretKey"
 
-const ManageElectionConfiguration = ({ setIsLoading, isLoading }) => {
+const ManageElectionConfiguration = ({
+    setIsLoading,
+    isLoading,
+    setShowConfirmDialog
+}) => {
     const [showReservedEdit, setShowReservedEdit] = useState(false)
     const [isAutoPublishLoading, setIsAutoPublishLoading] = useState(false)
 
@@ -34,10 +38,6 @@ const ManageElectionConfiguration = ({ setIsLoading, isLoading }) => {
         } finally {
             setIsAutoPublishLoading(false)
         }
-    }
-
-    const handlePublishResults = async () => {
-        // LOGIC TO CALL THE API TO PUBLISH RESULTS MANUALLY
     }
 
     return (
@@ -114,7 +114,7 @@ const ManageElectionConfiguration = ({ setIsLoading, isLoading }) => {
                                 text='Publish Results'
                                 className='text-sm text-primary-light dark:text-primary-dark bg-accent px-3 py-2 hover:bg-button-hover'
                                 type='button'
-                                onClick={handlePublishResults}
+                                onClick={() => setShowConfirmDialog(true)}
                             />
                         </div>
                     )}
