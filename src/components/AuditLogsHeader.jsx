@@ -3,10 +3,10 @@ import Button from "./Button"
 import { useElectionStore } from "../stores"
 
 const timeRanges = [
-    { label: "Last 1 hour", value: "1_hour" },
-    { label: "Last 24 hours", value: "24_hours" },
-    { label: "Last 7 days", value: "7_days" },
-    { label: "Election period", value: "election_period" }
+    { label: "Last 1 hour", value: "1h" },
+    { label: "Last 24 hours", value: "24h" },
+    { label: "Last 7 days", value: "7d" },
+    { label: "Election period", value: "all" }
 ]
 
 const statusConfig = {

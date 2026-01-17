@@ -21,7 +21,7 @@ const AuditLogs = () => {
     const { election } = useElectionStore()
 
     const [electionId, setElectionId] = useState(election?.id)
-    const [timeRange, setTimeRange] = useState("7_days")
+    const [timeRange, setTimeRange] = useState("7d")
     const [elections, setElections] = useState([])
     const [logs, setLogs] = useState([])
     const [electionsLoading, setElectionsLoading] = useState(false)
@@ -127,10 +127,10 @@ const AuditLogs = () => {
     useEffect(() => {
         if (electionId !== election.id) {
             setLogMode("past")
-            setTimeRange("election_period")
+            setTimeRange("all")
         } else {
             setLogMode("live")
-            setTimeRange("7_days")
+            setTimeRange("7d")
         }
     }, [electionId, election.id, setLogMode, setTimeRange])
 
@@ -209,10 +209,10 @@ const AuditLogs = () => {
                     )}
                     {logs.length === 0 && !logsLoading && !electionsLoading && (
                         <div className='flex justify-center items-center flex-1'>
-                            <p className='text-base text-primary-light dark:text-primary-dark'>
+                            <p className='text-base text-center text-primary-light dark:text-primary-dark'>
                                 {elections.length === 0
                                     ? "No elections found"
-                                    : "There are no logs available for this election"}
+                                    : "There are no logs available for this election during this period"}
                             </p>
                         </div>
                     )}
