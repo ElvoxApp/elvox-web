@@ -11,7 +11,7 @@ const formatDate = (value) => {
         month: "short",
         day: "2-digit",
         year: "numeric",
-        hour: "numeric",
+        hour: "2-digit",
         minute: "2-digit",
         hour12: true
     })
@@ -177,7 +177,7 @@ const AuditLogs = () => {
                                 key={log?.id}
                                 className='flex flex-col max-sm:gap-1 sm:grid sm:grid-cols-[auto_5ch_1fr] gap-x-2'
                             >
-                                <p className='text-secondary-light dark:text-secondary-dark pr-3'>
+                                <p className='text-secondary-light dark:text-secondary-dark pr-1'>
                                     [{formatDate(log?.created_at, true)}]
                                 </p>
                                 <div className='grid grid-cols-[5ch_1fr] gap-x-2 max-sm:pl-8 sm:contents'>
