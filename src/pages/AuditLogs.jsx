@@ -211,7 +211,7 @@ const AuditLogs = () => {
                                     <p className='text-secondary-light dark:text-secondary-dark pr-3'>
                                         [{formatDate(log?.created_at, true)}]
                                     </p>
-                                    <div className='grid grid-cols-[5ch_1fr] gap-x-2 max-sm:pl-8 sm:contents'>
+                                    <div className='grid grid-cols-[8ch_1fr] max-sm:pl-8 sm:contents'>
                                         <p
                                             className={
                                                 log?.level === "error"
