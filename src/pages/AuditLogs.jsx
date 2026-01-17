@@ -18,7 +18,7 @@ const formatDate = (value) => {
 }
 
 const LIVE_SEPARATOR = {
-    _type: "seperator"
+    _type: "separator"
 }
 
 const AuditLogs = () => {
@@ -184,7 +184,7 @@ const AuditLogs = () => {
                     {!logsLoading &&
                         logs.length > 0 &&
                         logs.map((log, index) => {
-                            if (log?._type === "seperator") {
+                            if (log?._type === "separator") {
                                 return (
                                     <div
                                         key='live-separator'
@@ -243,15 +243,18 @@ const AuditLogs = () => {
                             <div className='w-5.5 h-5.5 border border-b-transparent dark:border-b-transparent border-accent dark:border-[#ab8cff] rounded-full inline-block loader' />
                         </div>
                     )}
-                    {logs.length === 0 && !logsLoading && !electionsLoading && (
-                        <div className='flex justify-center items-center flex-1'>
-                            <p className='text-base text-center text-primary-light dark:text-primary-dark'>
-                                {elections.length === 0
-                                    ? "No elections found"
-                                    : "There are no logs available for this election during this period"}
-                            </p>
-                        </div>
-                    )}
+                    {logs.length === 0 &&
+                        !logsLoading &&
+                        !electionsLoading &&
+                        status !== "connecting" && (
+                            <div className='flex justify-center items-center flex-1'>
+                                <p className='text-base text-center text-primary-light dark:text-primary-dark'>
+                                    {elections.length === 0
+                                        ? "No elections found"
+                                        : "There are no logs available for this election during this period"}
+                                </p>
+                            </div>
+                        )}
                 </div>
             </div>
 
