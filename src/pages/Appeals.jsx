@@ -74,6 +74,7 @@ const Appeals = () => {
         }
 
         if (role === "admin") fetchElections()
+        else setElectionId(election?.id)
     }, [role, election?.id])
 
     useEffect(() => {
