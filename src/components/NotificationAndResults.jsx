@@ -71,7 +71,7 @@ const NotificationAndResults = () => {
                     </div>
                 )
             )}
-            {activeTab === "results" && results?.results.length > 0 ? (
+            {activeTab === "results" && results?.results?.length > 0 ? (
                 <div className='flex flex-col gap-2'>
                     {results?.results.map((result) => (
                         <Result
