@@ -1,6 +1,8 @@
 import { Dialog, DialogPanel } from "@headlessui/react"
 import Button from "./Button"
 import FullScreenLoader from "./FullScreenLoader"
+import { useModalStore } from "../stores"
+import { useEffect, useRef } from "react"
 
 const DeleteElectionDialog = ({
     isOpen,
@@ -8,6 +10,27 @@ const DeleteElectionDialog = ({
     handleRegenerate,
     isLoading
 }) => {
+    const { openModal, removeModal } = useModalStore()
+    const onCloseRef = useRef(setIsOpen)
+
+    useEffect(() => {
+        onCloseRef.current = setIsOpen
+    })
+
+    useEffect(() => {
+        if (!isOpen) return
+
+        const modalId = "Regenerate Key"
+
+        openModal(modalId, () => {
+            onCloseRef.current(false)
+        })
+
+        return () => {
+            removeModal(modalId)
+        }
+    }, [isOpen, openModal, removeModal])
+
     return (
         <Dialog
             open={isOpen}
@@ -40,7 +63,9 @@ const DeleteElectionDialog = ({
                         text='Cancel'
                         className='w-1/2 h-11 text-sm bg-secondary-button hover:bg-secondary-button-hover-light dark:hover:bg-secondary-button-hover'
                         type='button'
-                        onClick={() => setIsOpen(false)}
+                        onClick={() => {
+                            setIsOpen(false)
+                        }}
                     />
                     <Button
                         text='Regenerate'

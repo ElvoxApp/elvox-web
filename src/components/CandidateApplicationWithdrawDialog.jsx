@@ -1,7 +1,8 @@
 import { Dialog, DialogPanel } from "@headlessui/react"
 import Button from "./Button"
 import FullScreenLoader from "./FullScreenLoader"
-import { useEffect } from "react"
+import { useEffect, useRef } from "react"
+import { useModalStore } from "../stores"
 
 const CandidateApplicationWithdrawDialog = ({
     isOpen,
@@ -12,6 +13,27 @@ const CandidateApplicationWithdrawDialog = ({
     error,
     isLoading
 }) => {
+    const { openModal, removeModal } = useModalStore()
+    const onCloseRef = useRef(setIsOpen)
+
+    useEffect(() => {
+        onCloseRef.current = setIsOpen
+    })
+
+    useEffect(() => {
+        if (!isOpen) return
+
+        const modalId = "Withdraw Application"
+
+        openModal(modalId, () => {
+            onCloseRef.current(false)
+        })
+
+        return () => {
+            removeModal(modalId)
+        }
+    }, [isOpen, openModal, removeModal])
+
     useEffect(() => {
         setPassword("")
     }, [setPassword])
@@ -72,7 +94,9 @@ const CandidateApplicationWithdrawDialog = ({
                         text='Cancel'
                         className='w-1/2 h-11 text-sm bg-secondary-button hover:bg-secondary-button-hover-light dark:hover:bg-secondary-button-hover'
                         type='button'
-                        onClick={() => setIsOpen(false)}
+                        onClick={() => {
+                            setIsOpen(false)
+                        }}
                     />
                     <Button
                         text='Withdraw'

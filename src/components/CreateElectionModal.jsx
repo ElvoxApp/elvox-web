@@ -153,7 +153,9 @@ const CreateElectionModal = ({ isOpen, setIsOpen, edit = false }) => {
     return (
         <Modal
             open={isOpen}
-            onClose={() => setIsOpen(false)}
+            onClose={() => {
+                setIsOpen(false)
+            }}
             title={edit ? "Edit Election Details" : "Create Election"}
         >
             <title>{edit ? "Edit Election" : "Create Election"}</title>
@@ -174,7 +176,9 @@ const CreateElectionModal = ({ isOpen, setIsOpen, edit = false }) => {
                             text='Cancel'
                             className='w-1/2 h-11 text-sm bg-secondary-button hover:bg-secondary-button-hover-light dark:hover:bg-secondary-button-hover'
                             type='button'
-                            onClick={() => setIsOpen(false)}
+                            onClick={() => {
+                                setIsOpen(false)
+                            }}
                         />
                         <Button
                             text={edit ? "Update Election" : "Create Election"}

@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useState } from "react"
-import { useElectionStore } from "../stores"
+import { useElectionStore, useModalStore } from "../stores"
 import api from "../api/api"
 import toast from "react-hot-toast"
 import FullScreenLoader from "./FullScreenLoader"
@@ -198,7 +198,9 @@ const EditSupervisors = ({
                                 text='Cancel'
                                 className='w-1/2 h-11 text-sm bg-secondary-button hover:bg-secondary-button-hover-light dark:hover:bg-secondary-button-hover'
                                 type='button'
-                                onClick={() => setShowEditModal(false)}
+                                onClick={() => {
+                                    setShowEditModal(false)
+                                }}
                             />
                             <Button
                                 text='Submit'

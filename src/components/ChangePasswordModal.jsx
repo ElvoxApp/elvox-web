@@ -4,13 +4,17 @@ import toast from "react-hot-toast"
 import Button from "./Button"
 import ChangePassword from "./ChangePassword"
 import FullScreenLoader from "./FullScreenLoader"
-import { useEffect, useState } from "react"
+import { useEffect, useRef, useState } from "react"
 import api from "../api/api"
 import { IoMdClose } from "react-icons/io"
+import { useModalStore } from "../stores"
 
 const ChangePasswordModal = ({ isOpen, setIsOpen }) => {
     const [isLoading, setIsLoading] = useState(false)
     const methods = useForm()
+
+    const { openModal, removeModal } = useModalStore()
+    const onCloseRef = useRef(setIsOpen)
 
     const onSubmit = async () => {
         try {
@@ -35,6 +39,24 @@ const ChangePasswordModal = ({ isOpen, setIsOpen }) => {
     }
 
     useEffect(() => {
+        onCloseRef.current = setIsOpen
+    })
+
+    useEffect(() => {
+        if (!isOpen) return
+
+        const modalId = "Change Password"
+
+        openModal(modalId, () => {
+            onCloseRef.current(false)
+        })
+
+        return () => {
+            removeModal(modalId)
+        }
+    }, [isOpen, openModal, removeModal])
+
+    useEffect(() => {
         if (!isOpen) {
             methods.reset()
         }
@@ -43,7 +65,9 @@ const ChangePasswordModal = ({ isOpen, setIsOpen }) => {
     return (
         <Dialog
             open={isOpen}
-            onClose={() => setIsOpen(false)}
+            onClose={() => {
+                setIsOpen(false)
+            }}
             className='fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm'
         >
             <title>Change Password</title>
@@ -61,7 +85,9 @@ const ChangePasswordModal = ({ isOpen, setIsOpen }) => {
                     </div>
                     <IoMdClose
                         className='absolute -right-1.5 -top-2.5 text-2xl cursor-pointer active:scale-50 transition-all duration-300'
-                        onClick={() => setIsOpen(false)}
+                        onClick={() => {
+                            setIsOpen(false)
+                        }}
                     />
                 </div>
                 <FormProvider {...methods}>
@@ -75,7 +101,9 @@ const ChangePasswordModal = ({ isOpen, setIsOpen }) => {
                                 text='Cancel'
                                 className='w-1/2 h-11 text-sm bg-secondary-button hover:bg-secondary-button-hover-light dark:hover:bg-secondary-button-hover'
                                 type='button'
-                                onClick={() => setIsOpen(false)}
+                                onClick={() => {
+                                    setIsOpen(false)
+                                }}
                             />
                             <Button
                                 text='Change'

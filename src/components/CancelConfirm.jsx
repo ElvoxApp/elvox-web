@@ -1,12 +1,37 @@
 import { Dialog, DialogPanel } from "@headlessui/react"
 import Button from "./Button"
 import toast from "react-hot-toast"
+import { useModalStore } from "../stores"
+import { useEffect, useRef } from "react"
 
 const CancelConfirm = ({ isOpen, setIsOpen, setIsFormOpen }) => {
+    const { openModal, removeModal } = useModalStore()
+    const onCloseRef = useRef(setIsOpen)
+
+    useEffect(() => {
+        onCloseRef.current = setIsOpen
+    })
+
+    useEffect(() => {
+        if (!isOpen) return
+
+        const modalId = "Cancel Confirm"
+
+        openModal(modalId, () => {
+            onCloseRef.current(false)
+        })
+
+        return () => {
+            removeModal(modalId)
+        }
+    }, [isOpen, openModal, removeModal])
+
     return (
         <Dialog
             open={isOpen}
-            onClose={() => setIsOpen(false)}
+            onClose={() => {
+                setIsOpen(false)
+            }}
             className='fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm'
         >
             <DialogPanel
@@ -31,7 +56,9 @@ const CancelConfirm = ({ isOpen, setIsOpen, setIsFormOpen }) => {
                         text='Cancel'
                         className='w-1/2 h-11 text-sm bg-secondary-button hover:bg-secondary-button-hover-light dark:hover:bg-secondary-button-hover'
                         type='button'
-                        onClick={() => setIsOpen(false)}
+                        onClick={() => {
+                            setIsOpen(false)
+                        }}
                     />
                     <Button
                         text='Discard'

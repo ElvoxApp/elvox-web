@@ -2,6 +2,8 @@ import { Dialog, DialogPanel } from "@headlessui/react"
 import { IoMdClose } from "react-icons/io"
 import FilterMenu from "./FilterMenu"
 import FilterCandidatesByClass from "./FilterCandidatesByClass"
+import { useModalStore } from "../stores"
+import { useEffect, useRef } from "react"
 
 const ResultsFiltersMobile = ({
     showMobileFilters,
@@ -16,10 +18,33 @@ const ResultsFiltersMobile = ({
     status,
     setStatus
 }) => {
+    const { openModal, removeModal } = useModalStore()
+    const onCloseRef = useRef(setShowMobileFilters)
+
+    useEffect(() => {
+        onCloseRef.current = setShowMobileFilters
+    })
+
+    useEffect(() => {
+        if (!showMobileFilters) return
+
+        const modalId = "Result Filters"
+
+        openModal(modalId, () => {
+            onCloseRef.current(false)
+        })
+
+        return () => {
+            removeModal(modalId)
+        }
+    }, [showMobileFilters, openModal, removeModal])
+
     return (
         <Dialog
             open={showMobileFilters}
-            onClose={setShowMobileFilters}
+            onClose={() => {
+                setShowMobileFilters(false)
+            }}
             className='fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-xs sm:hidden'
         >
             <DialogPanel className='fixed inset-y-0 left-0 w-72 bg-card-light dark:bg-card-dark dark:text-primary-dark text-primary-light shadow-xl p-6 flex flex-col'>
@@ -29,7 +54,9 @@ const ResultsFiltersMobile = ({
                     </div>
                     <IoMdClose
                         className='absolute -right-1.5 -top-2.5 text-2xl cursor-pointer active:scale-50 transition-all duration-300'
-                        onClick={() => setShowMobileFilters(false)}
+                        onClick={() => {
+                            setShowMobileFilters(false)
+                        }}
                     />
                 </div>
                 <div className='flex flex-col gap-4 py-8'>

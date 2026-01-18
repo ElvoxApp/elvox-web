@@ -1,6 +1,7 @@
 import { Dialog, DialogPanel } from "@headlessui/react"
 import Button from "./Button"
-import { useEffect } from "react"
+import { useEffect, useRef } from "react"
+import { useModalStore } from "../stores"
 
 const ApproveApplicationRejectionDialog = ({
     isOpen,
@@ -10,6 +11,27 @@ const ApproveApplicationRejectionDialog = ({
     setRejectionNote,
     error
 }) => {
+    const { openModal, removeModal } = useModalStore()
+    const onCloseRef = useRef(setIsOpen)
+
+    useEffect(() => {
+        onCloseRef.current = setIsOpen
+    })
+
+    useEffect(() => {
+        if (!isOpen) return
+
+        const modalId = "Reject Application"
+
+        openModal(modalId, () => {
+            onCloseRef.current(false)
+        })
+
+        return () => {
+            removeModal(modalId)
+        }
+    }, [isOpen, openModal, removeModal])
+
     useEffect(() => {
         setRejectionNote("")
     }, [setRejectionNote])
@@ -85,7 +107,9 @@ const ApproveApplicationRejectionDialog = ({
                         text='Cancel'
                         className='w-1/2 h-11 text-sm bg-secondary-button hover:bg-secondary-button-hover-light dark:hover:bg-secondary-button-hover'
                         type='button'
-                        onClick={() => setIsOpen(false)}
+                        onClick={() => {
+                            setIsOpen({ show: false, id: null })
+                        }}
                     />
                     <Button
                         text='Reject'

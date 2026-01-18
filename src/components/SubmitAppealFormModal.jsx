@@ -79,7 +79,9 @@ const SubmitAppealFormModal = ({
     return (
         <Modal
             open={isOpen}
-            onClose={() => setIsCancelConfirmOpen(true)}
+            onClose={() => {
+                setIsCancelConfirmOpen(true)
+            }}
             title='Submit Appeal'
         >
             <title>Submit Appeal</title>
@@ -111,7 +113,9 @@ const SubmitAppealFormModal = ({
                             text='Cancel'
                             className='w-1/2 h-11 text-sm bg-secondary-button hover:bg-secondary-button-hover-light dark:hover:bg-secondary-button-hover'
                             type='button'
-                            onClick={() => setIsCancelConfirmOpen(true)}
+                            onClick={() => {
+                                setIsCancelConfirmOpen(true)
+                            }}
                         />
                         <Button
                             text='Submit Appeal'

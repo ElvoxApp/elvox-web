@@ -1,8 +1,19 @@
-import { Navigate, Outlet, useLocation, useMatches } from "react-router-dom"
-import { useAuthStore, useElectionStore, useNotificationStore } from "../stores"
+import {
+    Navigate,
+    Outlet,
+    useBlocker,
+    useLocation,
+    useMatches
+} from "react-router-dom"
+import {
+    useAuthStore,
+    useElectionStore,
+    useModalStore,
+    useNotificationStore
+} from "../stores"
 import Header from "../components/Header"
 import ChangePasswordModal from "../components/ChangePasswordModal"
-import { useEffect, useState } from "react"
+import { useEffect, useRef, useState } from "react"
 import FullScreenLoader from "../components/FullScreenLoader"
 import toast from "react-hot-toast"
 import api from "../api/api"
@@ -106,6 +117,41 @@ const ProtectedRoute = () => {
 
         if (isAuthenticated) fetchNotificaions()
     }, [setNotifications, isAuthenticated])
+
+    // Block browser navigation when modals are open - close top modal on back press instead of navigating
+    const stack = useModalStore((s) => s.stack)
+    const requestCloseTopModal = useModalStore((s) => s.requestCloseTopModal)
+    const blocker = useBlocker(stack.length > 0)
+    const handledRef = useRef(false)
+
+    useEffect(() => {
+        // Clear blocker when all modals are closed
+        if (stack.length === 0) {
+            handledRef.current = false
+            if (blocker.state === "blocked") {
+                blocker.reset()
+            }
+            return
+        }
+
+        // Reset flag when navigation is not blocked
+        if (blocker.state !== "blocked") {
+            handledRef.current = false
+            return
+        }
+
+        // Intercept back button: close top modal instead of navigating
+        if (!handledRef.current) {
+            handledRef.current = true
+            requestCloseTopModal()
+
+            // Reset blocker to allow next back press to be handled
+            requestAnimationFrame(() => {
+                blocker.reset()
+            })
+        }
+    }, [blocker, stack.length, requestCloseTopModal])
+    // -------------------------------------------------------------
 
     const INACTIVE_ALLOWED_ROUTES = [
         "/",
