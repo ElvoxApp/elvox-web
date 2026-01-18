@@ -1,5 +1,4 @@
-import { useEffect, useMemo, useRef, useState } from "react"
-import { useBlocker, useLocation, useNavigate } from "react-router-dom"
+import { useEffect, useMemo, useState } from "react"
 import NoAppealsSubmitted from "../components/NoAppealsSubmitted"
 import SubmitAppealFormModal from "../components/SubmitAppealFormModal"
 import CancelConfirm from "../components/CancelConfirm"
@@ -28,34 +27,6 @@ const Appeals = () => {
     const {
         user: { role }
     } = useAuthStore()
-
-    const navigate = useNavigate()
-    const location = useLocation()
-
-    // Block navigation when the appeal form is open.
-    // If a navigation attempt happens while `showAppealForm` is true,
-    // Restore the current URL once (to avoid history corruption),
-    // then open a confirmation dialog asking the user whether to cancel.
-    // If the form is closed, reset the blocker and allow navigation normally.
-    const blocker = useBlocker(showAppealForm)
-    const hasRestoredRef = useRef(false)
-
-    useEffect(() => {
-        if (blocker.state !== "blocked") return
-
-        if (!showAppealForm) {
-            hasRestoredRef.current = false
-            blocker.reset()
-            return
-        }
-
-        if (!hasRestoredRef.current) {
-            hasRestoredRef.current = true
-            navigate(location.pathname, { replace: true })
-        }
-
-        setIsCancelConfirmOpen(true)
-    }, [blocker.state, showAppealForm, navigate, location.pathname, blocker])
 
     useEffect(() => {
         const fetchElections = async () => {

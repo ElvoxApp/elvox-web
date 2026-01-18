@@ -1,8 +1,7 @@
 import capitalize from "../utils/capitalize"
 import { useAuthStore } from "../stores"
-import { useBlocker } from "react-router-dom"
 import Button from "./Button"
-import { useEffect, useRef, useState } from "react"
+import { useState } from "react"
 import { toast } from "react-hot-toast"
 import CandidateApplicationWithdrawDialog from "./CandidateApplicationWithdrawDialog"
 import api from "../api/api"
@@ -169,24 +168,6 @@ const UserCandidateApplication = ({
             setShowConfirmDialog(false)
         }
     }
-
-    const blocker = useBlocker(showConfirmDialog)
-    const hasHandledBlockRef = useRef(false)
-
-    useEffect(() => {
-        if (blocker.state !== "blocked") return
-
-        if (!showConfirmDialog) {
-            hasHandledBlockRef.current = false
-            blocker.reset()
-            return
-        }
-
-        if (!hasHandledBlockRef.current) {
-            hasHandledBlockRef.current = true
-            setShowConfirmDialog(false)
-        }
-    }, [blocker.state, showConfirmDialog, blocker])
 
     return (
         <>

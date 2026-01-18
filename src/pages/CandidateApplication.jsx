@@ -1,13 +1,8 @@
-import { useEffect, useRef, useState } from "react"
+import { useEffect, useState } from "react"
 import CancelConfirm from "../components/CancelConfirm"
 import NoCandidateApplication from "../components/NoCandidateApplication"
 import CandidateApplicationForm from "../components/CandidateApplicationForm"
-import {
-    useBlocker,
-    useLocation,
-    useNavigate,
-    useOutletContext
-} from "react-router-dom"
+import { useOutletContext } from "react-router-dom"
 import api from "../api/api"
 import UserCandidateApplication from "../components/UserCandidateApplication"
 import toast from "react-hot-toast"
@@ -24,11 +19,6 @@ const CandidateApplication = () => {
         status: null
     })
 
-    const blocker = useBlocker(isCandidateApplicationOpen)
-
-    const navigate = useNavigate()
-    const location = useLocation()
-
     const { isLoading, setIsLoading } = useOutletContext()
 
     const {
@@ -44,31 +34,6 @@ const CandidateApplication = () => {
             election.status === "nominations",
         status: isApplicationSubmitted.status
     }
-
-    const hasRestoredRef = useRef(false)
-
-    useEffect(() => {
-        if (blocker.state !== "blocked") return
-
-        if (!isCandidateApplicationOpen) {
-            hasRestoredRef.current = false
-            blocker.reset()
-            return
-        }
-
-        if (!hasRestoredRef.current) {
-            hasRestoredRef.current = true
-            navigate(location.pathname, { replace: true })
-        }
-
-        setIsCancelConfirmOpen(true)
-    }, [
-        blocker.state,
-        isCandidateApplicationOpen,
-        navigate,
-        location.pathname,
-        blocker
-    ])
 
     useEffect(() => {
         const fetchMyCandidateApplication = async () => {
