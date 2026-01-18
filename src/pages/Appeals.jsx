@@ -102,25 +102,26 @@ const Appeals = () => {
     return (
         <div className='flex flex-col items-center px-2 md:px-5 lg:px-9 py-5 flex-1'>
             <title>Appeals</title>
-            {!isLoading && electionId && (
-                <div className='flex flex-col w-full gap-5 max-w-5xl py-2'>
-                    <AppealsHeader
-                        setShowAppealForm={setShowAppealForm}
-                        sort={sort}
-                        setSort={setSort}
-                        setCategory={setCategory}
-                        category={category}
-                        electionId={electionId}
-                        setElectionId={setElectionId}
-                        elections={elections.map((el) => {
-                            return { value: el.id, label: el.name }
-                        })}
-                    />
-                    {visibleAppeals.length > 0 && (
-                        <AppealsList appeals={visibleAppeals} />
-                    )}
-                </div>
-            )}
+            {!isLoading &&
+                (role !== "admin" ? appeals.length > 0 : electionId) && (
+                    <div className='flex flex-col w-full gap-5 max-w-5xl py-2'>
+                        <AppealsHeader
+                            setShowAppealForm={setShowAppealForm}
+                            sort={sort}
+                            setSort={setSort}
+                            setCategory={setCategory}
+                            category={category}
+                            electionId={electionId}
+                            setElectionId={setElectionId}
+                            elections={elections.map((el) => {
+                                return { value: el.id, label: el.name }
+                            })}
+                        />
+                        {visibleAppeals.length > 0 && (
+                            <AppealsList appeals={visibleAppeals} />
+                        )}
+                    </div>
+                )}
 
             {visibleAppeals.length === 0 && !isLoading && (
                 <>
