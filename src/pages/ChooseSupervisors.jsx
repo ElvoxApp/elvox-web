@@ -8,16 +8,6 @@ import toast from "react-hot-toast"
 import { useCallback } from "react"
 import { useElectionStore } from "../stores"
 
-const DEMO = [
-    {
-        name: "Alex John",
-        empcode: "33333",
-        department: "Computer Science",
-        profile_pic:
-            "https://cdn.jsdelivr.net/gh/faker-js/assets-person-portrait/male/512/26.jpg"
-    }
-]
-
 const ChooseSupervisors = () => {
     const [supervisors, setSupervisors] = useState([])
     const [showEditModal, setShowEditModal] = useState(false)
