@@ -2,7 +2,7 @@ import { Dialog, DialogPanel } from "@headlessui/react"
 import Button from "./Button"
 import { useEffect } from "react"
 
-const CandidateApplicationDeleteDialog = ({
+const ApproveApplicationRejectionDialog = ({
     isOpen,
     setIsOpen,
     handleAction,
@@ -99,4 +99,4 @@ const CandidateApplicationDeleteDialog = ({
     )
 }
 
-export default CandidateApplicationDeleteDialog
+export default ApproveApplicationRejectionDialog
