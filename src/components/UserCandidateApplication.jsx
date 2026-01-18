@@ -1,9 +1,10 @@
 import capitalize from "../utils/capitalize"
 import { useAuthStore } from "../stores"
+import { useBlocker } from "react-router-dom"
 import Button from "./Button"
-import { useState } from "react"
+import { useEffect, useRef, useState } from "react"
 import { toast } from "react-hot-toast"
-import CandidateApplicationDeleteDialog from "./CandidateApplicationDeleteDialog"
+import CandidateApplicationWithdrawDialog from "./CandidateApplicationWithdrawDialog"
 import api from "../api/api"
 
 const nomineeFields = ["nominee1_name", "nominee2_name"]
@@ -168,6 +169,24 @@ const UserCandidateApplication = ({
             setShowConfirmDialog(false)
         }
     }
+
+    const blocker = useBlocker(showConfirmDialog)
+    const hasHandledBlockRef = useRef(false)
+
+    useEffect(() => {
+        if (blocker.state !== "blocked") return
+
+        if (!showConfirmDialog) {
+            hasHandledBlockRef.current = false
+            blocker.reset()
+            return
+        }
+
+        if (!hasHandledBlockRef.current) {
+            hasHandledBlockRef.current = true
+            setShowConfirmDialog(false)
+        }
+    }, [blocker.state, showConfirmDialog, blocker])
 
     return (
         <>
@@ -427,7 +446,7 @@ const UserCandidateApplication = ({
                 </div>
             </div>
             {showConfirmDialog && (
-                <CandidateApplicationDeleteDialog
+                <CandidateApplicationWithdrawDialog
                     isOpen={showConfirmDialog}
                     setIsOpen={setShowConfirmDialog}
                     handleWithdraw={handleWithdraw}
