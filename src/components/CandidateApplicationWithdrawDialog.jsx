@@ -3,7 +3,7 @@ import Button from "./Button"
 import FullScreenLoader from "./FullScreenLoader"
 import { useEffect } from "react"
 
-const CandidateApplicationDeleteDialog = ({
+const CandidateApplicationWithdrawDialog = ({
     isOpen,
     setIsOpen,
     handleWithdraw,
@@ -91,4 +91,4 @@ const CandidateApplicationDeleteDialog = ({
     )
 }
 
-export default CandidateApplicationDeleteDialog
+export default CandidateApplicationWithdrawDialog
